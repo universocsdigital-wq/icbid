@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Revenue Blueprint — ICBID Pós-Graduação Turma 2</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0f0e0b;color:#e8e0cc;min-height:100vh;}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:#0d0c09;border-bottom:1px solid #c9a84c33;display:flex;gap:0;padding:0 20px;overflow-x:auto;scrollbar-width:none;}
+.nav::-webkit-scrollbar{display:none;}
+.nb{padding:11px 13px;font-size:10px;font-weight:700;letter-spacing:.07em;color:#3a3020;background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:color .15s;}
+.nb:hover{color:#c9a84c88;}
+.nb.on{color:#c9a84c;border-bottom-color:#c9a84c;}
+
+/* SECTIONS */
+.sec{display:none;padding:24px 24px 32px;}
+.sec.on{display:block;}
+
+/* TOP BAR */
+.topbar{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px;}
+.ttl{font-size:17px;font-weight:800;color:#c9a84c;letter-spacing:.01em;}
+.sub{font-size:11px;color:#4a3f2f;margin-top:3px;}
+.pill{background:#c9a84c14;border:1px solid #c9a84c44;color:#c9a84c;font-size:10px;font-weight:700;padding:4px 11px;border-radius:20px;letter-spacing:.07em;white-space:nowrap;}
+
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;}
+
+/* CARD */
+.card{background:#161410;border:1px solid #252219;border-radius:8px;padding:16px;margin-bottom:14px;}
+.card:last-child{margin-bottom:0;}
+.ct{font-size:10px;font-weight:700;color:#c9a84c;letter-spacing:.09em;text-transform:uppercase;margin-bottom:12px;}
+
+/* STAT */
+.sbox{background:#161410;border:1px solid #252219;border-radius:8px;padding:14px;}
+.sn{font-size:26px;font-weight:800;color:#c9a84c;line-height:1;}
+.sn small{font-size:13px;font-weight:500;}
+.sl{font-size:10px;color:#5a5040;margin-top:5px;line-height:1.35;}
+
+/* TAGS */
+.tag{display:inline-block;padding:2px 7px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:.03em;}
+.tg{background:#c9a84c1a;color:#c9a84c;border:1px solid #c9a84c44;}
+.tgr{background:#e74c3c1a;color:#e74c3c;border:1px solid #e74c3c44;}
+.tgg{background:#4caf881a;color:#4caf88;border:1px solid #4caf8844;}
+.tgb{background:#4c7fc91a;color:#4c7fc9;border:1px solid #4c7fc944;}
+.tgo{background:#f39c121a;color:#f39c12;border:1px solid #f39c1244;}
+.tgx{background:#1e1c14;color:#5a5040;border:1px solid #2a2618;}
+
+/* LIST */
+.ul{list-style:none;}
+.ul li{display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid #1c1a10;font-size:12px;color:#c0b89a;line-height:1.5;}
+.ul li:last-child{border-bottom:none;}
+.dot{color:#c9a84c;flex-shrink:0;font-weight:700;}
+.num{color:#c9a84c;font-size:10px;font-weight:800;width:18px;flex-shrink:0;padding-top:1px;}
+
+/* ICP */
+.icp{background:#161410;border:1px solid #252219;border-radius:8px;padding:15px;margin-bottom:12px;}
+.icp.p1{border-left:3px solid #c9a84c;}
+.icp.p2{border-left:3px solid #4caf88;}
+.ih{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:11px;}
+.in{font-size:14px;font-weight:700;color:#e8e0cc;}
+.is{font-size:10px;color:#5a5040;margin-top:2px;}
+.ig{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
+.ii{background:#0f0e0b;border-radius:4px;padding:7px 9px;}
+.ik{font-size:9px;color:#4a3f2f;margin-bottom:2px;}
+.iv{font-size:11px;color:#c8c0b0;font-weight:600;}
+.iarg{font-size:11px;color:#7a7060;line-height:1.6;margin-top:10px;padding-top:10px;border-top:1px solid #1c1a10;}
+.iarg strong{color:#c9a84c;}
+
+/* SEG MATRIX */
+.seg-row{display:flex;align-items:stretch;gap:0;border-bottom:1px solid #1c1a10;}
+.seg-row:last-child{border-bottom:none;}
+.seg-label{width:90px;flex-shrink:0;font-size:10px;font-weight:700;color:#5a5040;display:flex;align-items:center;padding:10px 10px 10px 0;}
+.seg-items{flex:1;display:flex;flex-wrap:wrap;gap:5px;align-items:center;padding:10px 0;}
+
+/* JOURNEY */
+.jrn{display:flex;align-items:flex-start;gap:0;padding:8px 0 16px;overflow-x:auto;}
+.js{flex:1;display:flex;flex-direction:column;align-items:center;min-width:90px;}
+.jc{width:42px;height:42px;border-radius:50%;background:#161410;border:2px solid #c9a84c33;display:flex;align-items:center;justify-content:center;font-size:17px;position:relative;z-index:1;}
+.jc.on{border-color:#c9a84c;background:#c9a84c14;}
+.jl{font-size:9px;font-weight:700;color:#c9a84c;text-align:center;margin-top:7px;line-height:1.3;}
+.jd{font-size:8px;color:#4a3f2f;text-align:center;margin-top:3px;line-height:1.35;}
+.jln{flex:none;width:28px;height:2px;background:#252219;margin-top:20px;}
+.jln.on{background:#c9a84c44;}
+
+/* FUNNEL */
+.frow{display:flex;align-items:center;gap:10px;margin-bottom:7px;}
+.fbar{flex:1;height:36px;border-radius:5px;display:flex;align-items:center;padding:0 12px;position:relative;}
+.fbl{font-size:11px;font-weight:700;color:#e8e0cc;}
+.fbs{font-size:9px;color:#c9a84c88;margin-left:7px;}
+.fnum{width:64px;flex-shrink:0;text-align:right;}
+.fn{font-size:19px;font-weight:800;color:#c9a84c;line-height:1;}
+.fs2{font-size:9px;color:#5a5040;}
+
+/* CRM PIPELINE */
+.crm{display:flex;gap:7px;overflow-x:auto;padding-bottom:8px;}
+.crm::-webkit-scrollbar{height:3px;}
+.crm::-webkit-scrollbar-track{background:#1c1a10;}
+.crm::-webkit-scrollbar-thumb{background:#c9a84c44;border-radius:2px;}
+.cc{min-width:128px;flex:1;}
+.cch{border-radius:5px 5px 0 0;padding:8px 9px;margin-bottom:4px;}
+.ccn{font-size:10px;font-weight:700;color:#c9a84c;}
+.ccs{font-size:9px;color:#5a5040;margin-top:2px;}
+.ci{background:#161410;border:1px solid #252219;border-radius:4px;padding:8px;margin-bottom:4px;font-size:10px;color:#c0b89a;line-height:1.4;}
+.ci b{color:#e8e0cc;display:block;margin-bottom:3px;font-size:10px;}
+.sla{font-size:9px;font-weight:700;color:#f39c12;margin-top:3px;}
+
+/* MATH */
+.mblock{background:#0f0e0b;border:1px solid #c9a84c22;border-radius:8px;padding:16px;margin-bottom:12px;}
+.meq{font-size:13px;color:#e8e0cc;font-weight:600;margin-bottom:6px;line-height:1.7;}
+.meq span{color:#c9a84c;}
+.mnote{font-size:10px;color:#5a5040;line-height:1.55;}
+
+/* WEEKLY FORECAST */
+.wk{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #1a1810;}
+.wk:last-child{border-bottom:none;}
+.wn{font-size:10px;font-weight:700;color:#5a5040;width:32px;flex-shrink:0;text-align:center;}
+.wdate{font-size:9px;color:#3a3020;width:88px;flex-shrink:0;}
+.wbar{flex:1;height:20px;background:#1a1810;border-radius:3px;overflow:hidden;position:relative;}
+.wfill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:6px;transition:width .3s;}
+.wfill span{font-size:9px;font-weight:700;color:#0f0e0b;white-space:nowrap;}
+.wmat{width:36px;flex-shrink:0;text-align:right;}
+.wm{font-size:13px;font-weight:800;color:#c9a84c;}
+.wz{font-size:13px;font-weight:800;color:#3a3020;}
+.wcum{width:44px;flex-shrink:0;text-align:right;}
+.wc{font-size:11px;font-weight:700;color:#4caf88;}
+.wevent{font-size:8px;color:#c9a84c88;width:110px;flex-shrink:0;line-height:1.3;}
+.wmilestone{background:#c9a84c14;border-left:2px solid #c9a84c;}
+
+/* KPI TABLE */
+.kt{width:100%;border-collapse:collapse;font-size:11px;}
+.kt th{text-align:left;color:#4a3f2f;padding:6px 8px;border-bottom:1px solid #252219;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+.kt td{padding:9px 8px;border-bottom:1px solid #161410;color:#c0b89a;vertical-align:middle;}
+.kt tr:last-child td{border-bottom:none;}
+.ktn{color:#e8e0cc;font-weight:600;}
+.ktv{color:#c9a84c;font-weight:700;}
+.ktb{color:#5a5040;}
+.kcat{background:#0f0e0b;}
+.kcat td{color:#4a3f2f;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 8px;}
+
+/* RISK */
+.rrow{display:flex;align-items:flex-start;gap:11px;padding:11px 0;border-bottom:1px solid #1c1a10;}
+.rrow:last-child{border-bottom:none;}
+.rbadge{width:30px;height:30px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;}
+.rc{background:#e74c3c1a;color:#e74c3c;border:1px solid #e74c3c44;}
+.rm2{background:#f39c121a;color:#f39c12;border:1px solid #f39c1244;}
+.rb2{background:#4caf881a;color:#4caf88;border:1px solid #4caf8844;}
+.rtl{font-size:12px;font-weight:700;color:#e8e0cc;margin-bottom:4px;}
+.rds{font-size:11px;color:#5a5040;line-height:1.5;}
+.rmit{font-size:10px;color:#4caf88;margin-top:5px;}
+
+/* ROADMAP */
+.rmp{border-left:2px solid #c9a84c44;padding-left:16px;margin-bottom:22px;position:relative;}
+.rmp::before{content:'';position:absolute;left:-5px;top:6px;width:8px;height:8px;border-radius:50%;background:#c9a84c;border:2px solid #0f0e0b;}
+.rmp.done::before{background:#4caf88;}
+.rmp.hot::before{background:#c9a84c;box-shadow:0 0 0 3px #c9a84c22;}
+.rper{font-size:10px;color:#c9a84c;font-weight:700;letter-spacing:.08em;margin-bottom:4px;}
+.rtitle{font-size:13px;font-weight:700;color:#e8e0cc;margin-bottom:8px;}
+.rtasks{list-style:none;}
+.rtasks li{font-size:11px;color:#c0b89a;padding:3px 0;display:flex;gap:7px;align-items:flex-start;line-height:1.5;}
+.rtasks li::before{content:'→';color:#c9a84c44;flex-shrink:0;}
+.own{font-size:9px;color:#4c7fc9;font-weight:700;margin-left:4px;}
+
+/* FOOTER */
+.ft{padding:14px 24px;border-top:1px solid #c9a84c1a;display:flex;justify-content:space-between;align-items:center;margin-top:8px;}
+.ft p{font-size:9px;color:#2a2010;}
+</style>
+</head>
+<body>
+
+<div class="nav" id="nav">
+  <button class="nb on" onclick="show(0)">01 · ICPs</button>
+  <button class="nb" onclick="show(1)">02 · SEGMENTAÇÃO</button>
+  <button class="nb" onclick="show(2)">03 · JORNADA</button>
+  <button class="nb" onclick="show(3)">04 · FUNIL</button>
+  <button class="nb" onclick="show(4)">05 · CRM</button>
+  <button class="nb" onclick="show(5)">06 · ENG. REVERSA</button>
+  <button class="nb" onclick="show(6)">07 · FORECAST SEMANAL</button>
+  <button class="nb" onclick="show(7)">08 · INDICADORES</button>
+  <button class="nb" onclick="show(8)">09 · RISCOS</button>
+  <button class="nb" onclick="show(9)">10 · ROADMAP</button>
+</div>
+
+<!-- ====== 01 ICPs ====== -->
+<div class="sec on" id="s0">
+  <div class="topbar">
+    <div><div class="ttl">ICPs Prioritários</div><div class="sub">4 perfis · ordenados por potencial de conversão e urgência de compra</div></div>
+    <div class="pill">TURMA 2 · META 50</div>
+  </div>
+
+  <div class="icp p1">
+    <div class="ih">
+      <div><div class="in">🔬 ICP-1 — Biomédico / Ciências Biológicas</div><div class="is">Saúde · Biomedicina · Biologia · Farmácia · Fonoaudiologia · Nutrição</div></div>
+      <span class="tag tg">P1 · MÁXIMA</span>
+    </div>
+    <div class="ig">
+      <div class="ii"><div class="ik">Faixa etária</div><div class="iv">28–44 anos</div></div>
+      <div class="ii"><div class="ik">Renda estimada</div><div class="iv">R$ 3k–8k/mês</div></div>
+      <div class="ii"><div class="ik">Capacidade de ticket</div><div class="iv">Alta com parcelamento</div></div>
+      <div class="ii"><div class="ik">Canal principal</div><div class="iv">LinkedIn + grupos</div></div>
+      <div class="ii"><div class="ik">Parceria chave</div><div class="iv">CFBM + CFO</div></div>
+      <div class="ii"><div class="ik">Volume estimado T2</div><div class="iv">20–25 matrículas</div></div>
+    </div>
+    <div class="iarg"><strong>Gatilho principal:</strong> Salário de perito 2–8x acima da média da formação. Biomédico generalista: R$2,9k. Perito Polícia Federal: R$23k+. A pós é o menor investimento para o maior salto de carreira disponível na área.</div>
+  </div>
+
+  <div class="icp p1">
+    <div class="ih">
+      <div><div class="in">🦷 ICP-2 — Odontologista Forense</div><div class="is">Odontologia Legal · Identificação Humana por Arcada · Perícia Dental</div></div>
+      <span class="tag tg">P1 · MÁXIMA</span>
+    </div>
+    <div class="ig">
+      <div class="ii"><div class="ik">Faixa etária</div><div class="iv">32–52 anos</div></div>
+      <div class="ii"><div class="ik">Renda estimada</div><div class="iv">R$ 8k–25k/mês</div></div>
+      <div class="ii"><div class="ik">Capacidade de ticket</div><div class="iv">Muito alta</div></div>
+      <div class="ii"><div class="ik">Canal principal</div><div class="iv">CFO + congressos</div></div>
+      <div class="ii"><div class="ik">Parceria chave</div><div class="iv">CFO regional</div></div>
+      <div class="ii"><div class="ik">Volume estimado T2</div><div class="iv">8–12 matrículas</div></div>
+    </div>
+    <div class="iarg"><strong>Gatilho principal:</strong> Diferenciação de mercado. Dentista que faz perícia cobra 3–10x por hora do que dentista clínico. A biometria dental é um nicho com alta demanda judicial e baixíssima oferta de especialistas.</div>
+  </div>
+
+  <div class="icp p2">
+    <div class="ih">
+      <div><div class="in">⚖️ ICP-3 — Profissional Jurídico</div><div class="is">Direito · Defensoria · MP · Delegados · Investigadores</div></div>
+      <span class="tag tgg">P2 · ALTA</span>
+    </div>
+    <div class="ig">
+      <div class="ii"><div class="ik">Faixa etária</div><div class="iv">30–50 anos</div></div>
+      <div class="ii"><div class="ik">Renda estimada</div><div class="iv">R$ 6k–20k/mês</div></div>
+      <div class="ii"><div class="ik">Capacidade de ticket</div><div class="iv">Alta</div></div>
+      <div class="ii"><div class="ik">Canal principal</div><div class="iv">OAB + LinkedIn</div></div>
+      <div class="ii"><div class="ik">Parceria chave</div><div class="iv">OAB Subseções</div></div>
+      <div class="ii"><div class="ik">Volume estimado T2</div><div class="iv">8–10 matrículas</div></div>
+    </div>
+    <div class="iarg"><strong>Gatilho principal:</strong> LGPD + fraudes biométricas crescendo 28% ao ano. Advogados, delegados e promotores precisam entender biometria para atuar em casos de identidade digital, deepfake e fraude bancária.</div>
+  </div>
+
+  <div class="icp p2">
+    <div class="ih">
+      <div><div class="in">🔒 ICP-4 — Segurança Pública / Concurso</div><div class="is">Polícia Civil · Federal · IML · Perícia Oficial · Carreira Pública</div></div>
+      <span class="tag tgg">P2 · ALTA</span>
+    </div>
+    <div class="ig">
+      <div class="ii"><div class="ik">Faixa etária</div><div class="iv">25–42 anos</div></div>
+      <div class="ii"><div class="ik">Renda estimada</div><div class="iv">R$ 3k–10k/mês</div></div>
+      <div class="ii"><div class="ik">Capacidade de ticket</div><div class="iv">Média — quer parcelar</div></div>
+      <div class="ii"><div class="ik">Canal principal</div><div class="iv">YouTube + grupos</div></div>
+      <div class="ii"><div class="ik">Parceria chave</div><div class="iv">Cursinhos concurso</div></div>
+      <div class="ii"><div class="ik">Volume estimado T2</div><div class="iv">6–8 matrículas</div></div>
+    </div>
+    <div class="iarg"><strong>Gatilho principal:</strong> Progressão de carreira. Pós-graduação pontua em concursos e promoções na carreira pública. Candidatos a perito oficial buscam diferenciação curricular antes da prova.</div>
+  </div>
+</div>
+
+<!-- ====== 02 SEGMENTAÇÃO ====== -->
+<div class="sec" id="s1">
+  <div class="topbar">
+    <div><div class="ttl">Segmentação de Leads</div><div class="sub">Modelo de qualificação e priorização para Lorena · comercial</div></div>
+    <div class="pill">LORENA · COMERCIAL</div>
+  </div>
+
+  <div class="g2">
+    <div>
+      <div class="card">
+        <div class="ct">Por Temperatura — SLA de Abordagem</div>
+        <div class="rrow" style="padding-top:0">
+          <div class="rbadge" style="background:#e74c3c1a;color:#e74c3c;border-color:#e74c3c44;font-size:14px;">🔥</div>
+          <div><div class="rtl">HOT — Abordar em até 2h</div><div class="rds">Participou de curso livre ou webinário pago · Clicou em "quero minha vaga" · Respondeu mensagem comercial · Indicação de aluno T1</div></div>
+        </div>
+        <div class="rrow">
+          <div class="rbadge" style="background:#f39c121a;color:#f39c12;border-color:#f39c1244;font-size:14px;">🌡</div>
+          <div><div class="rtl">WARM — Abordar em até 24h</div><div class="rds">Cadastrou na LP · Abre e-mails com frequência · Seguiu o ICBID no Instagram · Assistiu live como ouvinte</div></div>
+        </div>
+        <div class="rrow" style="padding-bottom:0">
+          <div class="rbadge" style="background:#4c7fc91a;color:#4c7fc9;border-color:#4c7fc944;font-size:14px;">❄</div>
+          <div><div class="rtl">COLD — Nutrição automatizada</div><div class="rds">Lead de tráfego sem engajamento · Baixou material mas não abriu e-mails · Nunca participou de evento</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ct">Score BANT — Qualificação de 5 min</div>
+        <ul class="ul">
+          <li><span class="dot">B</span><div><strong>Budget:</strong> Tem R$8.500 disponíveis ou consegue parcelar 10–12x? Empresa pode bancar?</div></li>
+          <li><span class="dot">A</span><div><strong>Authority:</strong> Decide sozinho ou precisa de cônjuge / chefia?</div></li>
+          <li><span class="dot">N</span><div><strong>Need:</strong> Tem motivação clara? (carreira, salário, concurso, autoridade) — ou é interesse vago?</div></li>
+          <li><span class="dot">T</span><div><strong>Timeline:</strong> Quer começar em nov/26? Ou "está pesquisando para o futuro"?</div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <div class="ct">Por ICP — Tag obrigatória no CRM</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #1c1a10;">
+            <span class="tag tg">#saude</span><span style="font-size:11px;color:#c0b89a;">Biomédico, Bio, Farmácia, Fonoaudiologia, Nutrição, Odontologia</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #1c1a10;">
+            <span class="tag tgb">#juridico</span><span style="font-size:11px;color:#c0b89a;">Direito, Delegado, MP, Defensoria, Investigação</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #1c1a10;">
+            <span class="tag tgo">#segpublica</span><span style="font-size:11px;color:#c0b89a;">Concurso público, Polícia, IML, Perícia oficial</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:8px 0;">
+            <span class="tag tgx">#gestao</span><span style="font-size:11px;color:#5a5040;">Adm, Marketing, Jornalismo, TI, Compliance — menor prioridade</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ct">Por Canal de Origem — Rastreabilidade</div>
+        <ul class="ul">
+          <li><span class="dot">·</span><div><span class="tag tg">#curso-livre</span> Participante de módulo avulso — HOT automático</div></li>
+          <li><span class="dot">·</span><div><span class="tag tg">#webinario</span> Participou de webinário pago — HOT automático</div></li>
+          <li><span class="dot">·</span><div><span class="tag tgg">#indicacao-t1</span> Aluno T1 indicou — HOT, maior taxa de fechamento</div></li>
+          <li><span class="dot">·</span><div><span class="tag tgb">#meta-ads</span> Instagram / Facebook Ads</div></li>
+          <li><span class="dot">·</span><div><span class="tag tgb">#linkedin-ads</span> LinkedIn Ads segmentado</div></li>
+          <li><span class="dot">·</span><div><span class="tag tgx">#organico</span> LinkedIn / Instagram orgânico</div></li>
+          <li><span class="dot">·</span><div><span class="tag tgx">#parceria</span> Conselho profissional, evento, associação</div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 03 JORNADA ====== -->
+<div class="sec" id="s2">
+  <div class="topbar">
+    <div><div class="ttl">Jornada Completa</div><div class="sub">Do primeiro contato ao fim do curso — 18 semanas de captação + 12 meses de entrega</div></div>
+    <div class="pill">JUN → NOV 2026</div>
+  </div>
+
+  <div class="card">
+    <div class="jrn">
+      <div class="js"><div class="jc on">👋</div><div class="jl">DESCOBERTA</div><div class="jd">Anúncio, LinkedIn, parceria, indicação</div></div>
+      <div class="jln on"></div>
+      <div class="js"><div class="jc on">🎓</div><div class="jl">PRODUTO ENTRADA</div><div class="jd">Curso livre ou webinário pago</div></div>
+      <div class="jln on"></div>
+      <div class="js"><div class="jc on">🔥</div><div class="jl">ENGAJAMENTO</div><div class="jd">E-mails, WhatsApp, conteúdo autoridade</div></div>
+      <div class="jln"></div>
+      <div class="js"><div class="jc">📞</div><div class="jl">ABORDAGEM</div><div class="jd">Call comercial Lorena — BANT</div></div>
+      <div class="jln"></div>
+      <div class="js"><div class="jc">💬</div><div class="jl">NEGOCIAÇÃO</div><div class="jd">Proposta, parcelamento, objeções</div></div>
+      <div class="jln"></div>
+      <div class="js"><div class="jc">✅</div><div class="jl">MATRÍCULA</div><div class="jd">Contrato + pagamento + docs</div></div>
+      <div class="jln"></div>
+      <div class="js"><div class="jc">🚀</div><div class="jl">ONBOARDING</div><div class="jd">Acesso + grupo + boas-vindas</div></div>
+      <div class="jln"></div>
+      <div class="js"><div class="jc">📚</div><div class="jl">ENTREGA</div><div class="jd">12 meses · aulas ao vivo fins de semana</div></div>
+      <div class="jln"></div>
+      <div class="js"><div class="jc">💚</div><div class="jl">RETENÇÃO</div><div class="jd">Health Score · CS proativo · NPS mês 3 e 6</div></div>
+      <div class="jln"></div>
+      <div class="js"><div class="jc">🔁</div><div class="jl">EXPANSÃO / T3</div><div class="jd">Indicação · upgrade · nova turma</div></div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="ct">Trilha HOT — Touchpoints Semana a Semana</div>
+      <ul class="ul">
+        <li><span class="num">S1</span><div><strong>Descoberta:</strong> Anúncio ou parceria → LP → Cadastro imediato</div></li>
+        <li><span class="num">S2</span><div><strong>Ativação:</strong> E-mail boas-vindas automático + WhatsApp convidando para curso livre</div></li>
+        <li><span class="num">S3–4</span><div><strong>Produto entrada:</strong> Participa de módulo avulso (CL1, CL2 ou webinário)</div></li>
+        <li><span class="num">S5</span><div><strong>Pós-evento:</strong> Lorena aborda em até 48h + envia sequência de 3 e-mails de autoridade</div></li>
+        <li><span class="num">S6–10</span><div><strong>Nutrição:</strong> Conteúdo semanal LinkedIn + e-mail + cases de alunos T1</div></li>
+        <li><span class="num">S11</span><div><strong>Pré-abertura:</strong> Lista de espera exclusiva — 7 dias antes de abertura oficial</div></li>
+        <li><span class="num">S12</span><div><strong>Proposta:</strong> Abertura + call comercial Lorena em janela de 72h</div></li>
+        <li><span class="num">S13–18</span><div><strong>Sprint:</strong> Follow-up D+1, D+3, D+7 + urgência de vagas restantes</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="ct">Objeções Mapeadas × Respostas</div>
+      <ul class="ul">
+        <li><span class="dot">→</span><div><strong>"É caro"</strong> — "Um laudo pericial custa R$3k–15k. Quantos laudos paga a pós?"</div></li>
+        <li><span class="dot">→</span><div><strong>"Não tenho tempo"</strong> — "Online ao vivo, fins de semana. 50 alunos na turma — você não vai sumir no meio."</div></li>
+        <li><span class="dot">→</span><div><strong>"Vou pesquisar mais"</strong> — "Perfeito. Posso reservar sua vaga por 48h enquanto pesquisa?"</div></li>
+        <li><span class="dot">→</span><div><strong>"Espero a T3"</strong> — "A T2 começa em nov/26. T3 não tem data — pode ser 2027 ou mais."</div></li>
+        <li><span class="dot">→</span><div><strong>"É reconhecida?"</strong> — "MEC reconhecida. Mesmo nível de qualquer grande universidade — com conteúdo que nenhuma tem."</div></li>
+        <li><span class="dot">→</span><div><strong>"Preciso pensar"</strong> — "Claro. Qual a sua maior dúvida agora? Vamos resolver ela antes da sua decisão."</div></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 04 FUNIL ====== -->
+<div class="sec" id="s3">
+  <div class="topbar">
+    <div><div class="ttl">Funil Comercial</div><div class="sub">Esteira completa de aquisição e conversão da Turma 2</div></div>
+    <div class="pill">IGOR + LORENA</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Funil Principal — 800 leads → 50 matrículas</div>
+    <div class="frow"><div class="fbar" style="background:#c9a84c14;border:1px solid #c9a84c2a;width:100%;"><span class="fbl">LEADS GERADOS</span><span class="fbs">Tráfego + orgânico + parcerias + indicações T1</span></div><div class="fnum"><div class="fn">800</div><div class="fs2">total</div></div></div>
+    <div style="text-align:right;font-size:9px;color:#4caf88;margin:-2px 0 5px;">↓ qualificação BANT · 50%</div>
+    <div class="frow"><div class="fbar" style="background:#c9a84c1e;border:1px solid #c9a84c33;width:76%;"><span class="fbl">QUALIFICADOS</span><span class="fbs">Respondeu qualificação ou participou de evento</span></div><div class="fnum"><div class="fn">400</div><div class="fs2">50%</div></div></div>
+    <div style="text-align:right;font-size:9px;color:#4caf88;margin:-2px 0 5px;">↓ produto de entrada · 45%</div>
+    <div class="frow"><div class="fbar" style="background:#c9a84c28;border:1px solid #c9a84c44;width:52%;"><span class="fbl">ENGAJADOS</span><span class="fbs">Participou de curso livre ou webinário</span></div><div class="fnum"><div class="fn">180</div><div class="fs2">23%</div></div></div>
+    <div style="text-align:right;font-size:9px;color:#4caf88;margin:-2px 0 5px;">↓ abordagem Lorena · 56%</div>
+    <div class="frow"><div class="fbar" style="background:#c9a84c35;border:1px solid #c9a84c55;width:36%;"><span class="fbl">EM ABORDAGEM</span><span class="fbs">Call marcada ou proposta enviada</span></div><div class="fnum"><div class="fn">100</div><div class="fs2">13%</div></div></div>
+    <div style="text-align:right;font-size:9px;color:#4caf88;margin:-2px 0 5px;">↓ fechamento · 50%</div>
+    <div class="frow"><div class="fbar" style="background:#c9a84c;width:20%;"><span class="fbl" style="color:#0f0e0b;font-size:12px;font-weight:800;">MATRÍCULAS</span></div><div class="fnum"><div class="fn">50</div><div class="fs2">6,25%</div></div></div>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="ct">Topo — Aquisição (Igor)</div>
+      <ul class="ul">
+        <li><span class="dot">·</span><div><strong>Meta Ads</strong> — Instagram + Facebook segmentado: biomedicina, odontologia, direito, segurança</div></li>
+        <li><span class="dot">·</span><div><strong>LinkedIn Ads</strong> — por cargo + formação. CPL maior, qualidade muito superior</div></li>
+        <li><span class="dot">·</span><div><strong>Conteúdo orgânico</strong> — Brasílio Brant + professores no LinkedIn com autoridade real</div></li>
+        <li><span class="dot">·</span><div><strong>Parcerias institucionais</strong> — CFBM, CFO, OAB, associações profissionais de saúde</div></li>
+        <li><span class="dot">·</span><div><strong>Indicação T1</strong> — 16 alunos em 10 estados = canal gratuito de altíssima conversão</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="ct">Fundo — Conversão (Lorena)</div>
+      <ul class="ul">
+        <li><span class="dot">·</span><div><strong>SLA 2h</strong> para HOT — cada hora sem contato reduz conversão em ~15%</div></li>
+        <li><span class="dot">·</span><div><strong>Script WhatsApp</strong> — 5 perguntas BANT antes da call. Não ligar "no escuro"</div></li>
+        <li><span class="dot">·</span><div><strong>Call de 30 min</strong> — Diagnóstico + apresentação + proposta personalizada por ICP</div></li>
+        <li><span class="dot">·</span><div><strong>Follow-up</strong> — D+1 WhatsApp, D+3 e-mail, D+7 última tentativa</div></li>
+        <li><span class="dot">·</span><div><strong>Urgência real</strong> — vagas limitadas a 50. Comunicar ocupação semanalmente</div></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 05 CRM ====== -->
+<div class="sec" id="s4">
+  <div class="topbar">
+    <div><div class="ttl">CRM EVO — 3 Pipelines</div><div class="sub">P1 Captação · P2 Produto de Entrada · P3 Aluno Pós-Grad (12 meses) · o que a T1 não tinha e a T2 precisa ter no dia 1</div></div>
+    <div class="pill">CRÍTICO · SEM ISSO NÃO ESCALA</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Pipeline 1 — Captação / Leads · 7 Estágios com SLA · Igor + Lorena</div>
+    <div class="crm">
+      <div class="cc">
+        <div class="cch" style="background:#1a1810;"><div class="ccn">01 · NOVO LEAD</div><div class="ccs">Entrou na base</div></div>
+        <div class="ci"><b>Ação: Igor</b>Taggear ICP + canal. E-mail boas-vindas automático.</div>
+        <div class="ci"><b>SLA: 4h</b>Classificar HOT / WARM / COLD</div>
+      </div>
+      <div class="cc">
+        <div class="cch" style="background:#1a1810;"><div class="ccn">02 · QUALIFICANDO</div><div class="ccs">Primeiro contato</div></div>
+        <div class="ci"><b>Ação: Lorena</b>WhatsApp BANT em 5 perguntas. Não abrir com pitch.</div>
+        <div class="ci"><div class="sla">SLA HOT: 2h · WARM: 24h</div></div>
+      </div>
+      <div class="cc">
+        <div class="cch" style="background:#1a1810;"><div class="ccn">03 · ENGAJADO</div><div class="ccs">Participou de evento</div></div>
+        <div class="ci"><b>Ação: Lorena</b>Abordagem 48h pós-evento. Proposta personalizada por ICP.</div>
+        <div class="ci"><div class="sla">SLA: 48h após evento</div></div>
+      </div>
+      <div class="cc">
+        <div class="cch" style="background:#1a1810;"><div class="ccn">04 · PROPOSTA</div><div class="ccs">Oferta enviada</div></div>
+        <div class="ci"><b>Ação: Lorena</b>Call 30min + proposta + parcelamento. Registrar objeções.</div>
+        <div class="ci"><div class="sla">Follow-up: D+1, D+3, D+7</div></div>
+      </div>
+      <div class="cc">
+        <div class="cch" style="background:#1a1810;"><div class="ccn">05 · NEGOCIANDO</div><div class="ccs">Objeção ativa</div></div>
+        <div class="ci"><b>Ação: Lorena</b>Quebrar objeção específica. Máximo 3 tentativas.</div>
+        <div class="ci"><div class="sla">SLA: 5 dias. Depois → perdido</div></div>
+      </div>
+      <div class="cc">
+        <div class="cch" style="background:#4caf881a;"><div class="ccn" style="color:#4caf88;">06 · MATRICULADO ✓</div><div class="ccs">Contrato + pagamento</div></div>
+        <div class="ci"><b>Ação: Julia</b>Contrato + cobrança automática + docs + acesso plataforma</div>
+        <div class="ci"><div class="sla">SLA: 24h para onboarding</div></div>
+      </div>
+      <div class="cc">
+        <div class="cch" style="background:#e74c3c0e;"><div class="ccn" style="color:#e74c3c;">07 · PERDIDO</div><div class="ccs">Recusou ou sumiu</div></div>
+        <div class="ci"><b>Ação: Igor</b>Registrar motivo. Entrar em nutrição de longo prazo (T3).</div>
+        <div class="ci"><b>Motivo obrigatório</b>Preço / Tempo / Timing / Concorrente / Sem resposta</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:8px;">
+    <div class="ct">Pipeline 2 — Produto de Entrada (CL / Webinar / Aula Paga) · Julia + Lorena · Sazonal</div>
+    <div class="crm">
+      <div class="cc">
+        <div class="cch" style="background:#7c3f0020;"><div class="ccn" style="color:#c9a84c;">01 · INSCRITO</div><div class="ccs">Pagamento confirmado</div></div>
+        <div class="ci"><b>Ação: Julia</b>Liberar acesso ao evento + boas-vindas em até 2h</div>
+        <div class="ci"><div class="sla">SLA: acesso em 2h</div></div>
+      </div>
+      <div class="cc">
+        <div class="cch" style="background:#7c3f0020;"><div class="ccn" style="color:#c9a84c;">02 · PARTICIPOU</div><div class="ccs">Compareceu ao evento</div></div>
+        <div class="ci"><b>Ação: Julia</b>Registrar presença. No-show → volta ao P1 como lead ativo</div>
+        <div class="ci"><div class="sla">Marcar no dia do evento</div></div>
+      </div>
+      <div class="cc">
+        <div class="cch" style="background:#7c3f0020;"><div class="ccn" style="color:#c9a84c;">03 · OFERTA FEITA</div><div class="ccs">Pitch de Pós-Grad</div></div>
+        <div class="ci"><b>Ação: Lorena</b>Abordagem até 24h pós-evento. Proposta personalizada por ICP.</div>
+        <div class="ci"><div class="sla">SLA: 24h pós-evento</div></div>
+      </div>
+      <div class="cc">
+        <div class="cch" style="background:#4caf881a;"><div class="ccn" style="color:#4caf88;">04A · CONVERTEU ✓</div><div class="ccs">Comprou Pós-Grad</div></div>
+        <div class="ci"><b>Ação: Julia</b>Mover para Pipeline 3. Encerrar no P2.</div>
+        <div class="ci"><b>Meta:</b>≥ 25% dos participantes por edição</div>
+      </div>
+      <div class="cc">
+        <div class="cch" style="background:#e74c3c0e;"><div class="ccn" style="color:#e74c3c;">04B · NÃO CONVERTEU</div><div class="ccs">Seguiu para nurture</div></div>
+        <div class="ci"><b>Ação: Lorena</b>Follow-up D+3 e D+7. Entra em nurture para T3.</div>
+        <div class="ci"><b>Motivo obrigatório</b>Preço / Timing / Sem interesse / Pensando</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:8px;">
+    <div class="ct">Pipeline 3 — Aluno Pós-Grad · Julia · 12 meses · nov/2026 → nov/2027</div>
+    <div class="crm">
+      <div class="cc">
+        <div class="cch" style="background:#1a3a1a;"><div class="ccn" style="color:#4caf88;">01 · ONBOARDING</div><div class="ccs">0–7 dias</div></div>
+        <div class="ci"><b>Ação: Julia</b>Contrato + acesso + grupo WhatsApp + check-in semana 2</div>
+        <div class="ci"><div class="sla">SLA: acesso em 24h</div></div>
+      </div>
+      <div class="cc">
+        <div class="cch" style="background:#1a3a1a;"><div class="ccn" style="color:#4caf88;">02 · EM CURSO</div><div class="ccs">Consumindo conteúdo</div></div>
+        <div class="ci"><b>Ação: Julia</b>Health Score quinzenal. NPS mês 3 e mês 6.</div>
+        <div class="ci"><div class="sla">Health Score: quinzenal</div></div>
+      </div>
+      <div class="cc">
+        <div class="cch" style="background:#e74c3c1a;"><div class="ccn" style="color:#e74c3c;">03 · EM RISCO</div><div class="ccs">+14 dias sem acesso</div></div>
+        <div class="ci"><b>Ação: Julia</b>Contato proativo em até 24h. Salvar antes de perder.</div>
+        <div class="ci"><div class="sla">SLA: reação em 24h</div></div>
+      </div>
+      <div class="cc">
+        <div class="cch" style="background:#1a3a1a;"><div class="ccn" style="color:#4caf88;">04 · CONCLUIU ✓</div><div class="ccs">12 meses completos</div></div>
+        <div class="ci"><b>Ação: Julia</b>NPS final + coleta de depoimento em vídeo</div>
+        <div class="ci"><div class="sla">NPS em até 7 dias</div></div>
+      </div>
+      <div class="cc">
+        <div class="cch" style="background:#1a3a1a;"><div class="ccn" style="color:#c9a84c;">05 · EXPANSÃO</div><div class="ccs">Indicação / T3 / upgrade</div></div>
+        <div class="ci"><b>Ação: Lorena</b>Oferta de indicação + upgrade dentro de 30d da conclusão</div>
+        <div class="ci"><div class="sla">Oferta: até 30d pós-conclusão</div></div>
+      </div>
+      <div class="cc">
+        <div class="cch" style="background:#e74c3c0e;"><div class="ccn" style="color:#e74c3c;">06 · CANCELOU</div><div class="ccs">Saída antecipada</div></div>
+        <div class="ci"><b>Ação: automação</b>Pesquisa de saída 3 perguntas via Asaas. Motivo obrigatório.</div>
+        <div class="ci"><b>Meta retenção:</b>≥ 80% concluem os 12 meses</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="ct">Campos Obrigatórios por Lead</div>
+      <ul class="ul">
+        <li><span class="dot">·</span>Nome + WhatsApp + e-mail</li>
+        <li><span class="dot">·</span>Formação e área de atuação atual</li>
+        <li><span class="dot">·</span>Tag de ICP (#saude / #juridico / #segpublica / #gestao)</li>
+        <li><span class="dot">·</span>Canal de origem (tag obrigatória)</li>
+        <li><span class="dot">·</span>Temperatura atual (HOT / WARM / COLD)</li>
+        <li><span class="dot">·</span>Data do primeiro contato</li>
+        <li><span class="dot">·</span>Próxima ação + data agendada</li>
+        <li><span class="dot">·</span>Motivo de perda quando perdido</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="ct">Stack Recomendado</div>
+      <ul class="ul">
+        <li><span class="dot">·</span><div><strong>CRM:</strong> EVO CRM — já em uso pela equipe. Configurar pipeline de 7 estágios</div></li>
+        <li><span class="dot">·</span><div><strong>WhatsApp:</strong> WhatsApp Business com etiquetas manuais por estágio</div></li>
+        <li><span class="dot">·</span><div><strong>E-mail:</strong> ActiveCampaign ou Brevo para automações de nutrição</div></li>
+        <li><span class="dot">·</span><div><strong>LP → CRM:</strong> Webhook via Zapier ou n8n (elimina entrada manual)</div></li>
+        <li><span class="dot">·</span><div><strong>Financeiro:</strong> Asaas ou Iugu — sai de 100% manual para cobranças automáticas</div></li>
+        <li><span class="dot">·</span><div><strong>Dashboard:</strong> Planilha semanal compartilhada Igor + Lorena + Julia</div></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 06 ENG REVERSA ====== -->
+<div class="sec" id="s5">
+  <div class="topbar">
+    <div><div class="ttl">Engenharia Reversa da Meta</div><div class="sub">De 50 matrículas para o número exato de leads que a operação precisa gerar</div></div>
+    <div class="pill">R$ 425.000 ALVO</div>
+  </div>
+
+  <div class="g4" style="margin-bottom:14px;">
+    <div class="sbox"><div class="sn">50</div><div class="sl">Matrículas necessárias</div></div>
+    <div class="sbox"><div class="sn">R$8,5<small>k</small></div><div class="sl">Ticket médio</div></div>
+    <div class="sbox"><div class="sn">R$425<small>k</small></div><div class="sl">Receita bruta alvo</div></div>
+    <div class="sbox"><div class="sn">18<small>sem</small></div><div class="sl">Janela operacional Jun→Nov</div></div>
+  </div>
+
+  <div class="mblock">
+    <div class="meq">50 matrículas ÷ taxa de conversão alvo <span>6,25%</span> = <span>800 leads</span> necessários no funil</div>
+    <div class="mnote">T1 converteu 5% sem CRM, sem processo, sem qualificação. Com estrutura montada, 6,25% é conservador. Se mantiver 5% → precisaria de 1.000 leads. O CRM é o que faz a diferença entre os dois cenários.</div>
+  </div>
+  <div class="mblock">
+    <div class="meq">800 leads × CPL estimado <span>R$ 10–12</span> = <span>R$ 8.000–9.600</span> em mídia paga</div>
+    <div class="mnote">T1 gerou 320 leads a R$5,26 CPL. Para T2 com LinkedIn Ads + segmentação mais precisa, o CPL sobe mas a qualidade melhora. Projeção: R$8–12 CPL. O que importa não é o CPL — é o CAC final.</div>
+  </div>
+  <div class="mblock">
+    <div class="meq">CAC estimado: <span>R$ 9.600</span> (mídia) ÷ <span>50</span> = <span>R$ 192 por matrícula</span> em mídia paga</div>
+    <div class="mnote">R$192 sobre ticket R$8.500 = 2,3% do ticket em custo de aquisição por mídia. Excelente para educação. Adicionando custo operacional (Igor + Lorena), o CAC total fica abaixo de R$1.500 — margem bruta de &gt;82%.</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Decomposição por Canal — Como chegar a 50</div>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #1c1a10;">
+        <div style="width:130px;font-size:11px;color:#c0b89a;flex-shrink:0;">Cursos Livres (3 edições)</div>
+        <div style="flex:1;height:22px;background:#1a1810;border-radius:3px;overflow:hidden;"><div style="width:40%;height:100%;background:#c9a84c;border-radius:3px;display:flex;align-items:center;padding:0 8px;"><span style="font-size:9px;font-weight:700;color:#0f0e0b;">conv. 25% · ~80 participantes</span></div></div>
+        <div style="width:80px;text-align:right;font-size:13px;font-weight:800;color:#c9a84c;">20 mat.</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #1c1a10;">
+        <div style="width:130px;font-size:11px;color:#c0b89a;flex-shrink:0;">Webinários Pagos (2–3)</div>
+        <div style="flex:1;height:22px;background:#1a1810;border-radius:3px;overflow:hidden;"><div style="width:20%;height:100%;background:#c9a84c99;border-radius:3px;display:flex;align-items:center;padding:0 8px;"><span style="font-size:9px;font-weight:700;color:#0f0e0b;">conv. 15% · ~65 part.</span></div></div>
+        <div style="width:80px;text-align:right;font-size:13px;font-weight:800;color:#c9a84c;">10 mat.</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #1c1a10;">
+        <div style="width:130px;font-size:11px;color:#c0b89a;flex-shrink:0;">Tráfego direto</div>
+        <div style="flex:1;height:22px;background:#1a1810;border-radius:3px;overflow:hidden;"><div style="width:24%;height:100%;background:#c9a84c66;border-radius:3px;display:flex;align-items:center;padding:0 8px;"><span style="font-size:9px;font-weight:700;color:#0f0e0b;">conv. 5% · ~240 leads</span></div></div>
+        <div style="width:80px;text-align:right;font-size:13px;font-weight:800;color:#c9a84c;">12 mat.</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:8px 0;">
+        <div style="width:130px;font-size:11px;color:#c0b89a;flex-shrink:0;">Indicação Alunos T1</div>
+        <div style="flex:1;height:22px;background:#1a1810;border-radius:3px;overflow:hidden;"><div style="width:16%;height:100%;background:#4caf88;border-radius:3px;display:flex;align-items:center;padding:0 8px;"><span style="font-size:9px;font-weight:700;color:#0f0e0b;">conv. 40% · ~20 ind.</span></div></div>
+        <div style="width:80px;text-align:right;font-size:13px;font-weight:800;color:#4caf88;">8 mat.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 07 FORECAST SEMANAL ====== -->
+<div class="sec" id="s6">
+  <div class="topbar">
+    <div><div class="ttl">Forecast Semanal</div><div class="sub">18 semanas · Jun 26 → Nov 1 · com eventos âncora e acumulado</div></div>
+    <div class="pill">SEMANA A SEMANA</div>
+  </div>
+
+  <div class="g3" style="margin-bottom:14px;">
+    <div class="sbox"><div class="sn" style="color:#e74c3c;">32</div><div class="sl">Cenário pessimista — sem CRM, sem processo</div></div>
+    <div class="sbox"><div class="sn">50</div><div class="sl">Cenário base — operação estruturada</div></div>
+    <div class="sbox"><div class="sn" style="color:#4caf88;">65</div><div class="sl">Cenário otimista — parcerias + T1 embaixadores</div></div>
+  </div>
+
+  <div class="card">
+    <div style="display:flex;gap:8px;align-items:center;padding:0 0 8px;border-bottom:1px solid #252219;margin-bottom:4px;">
+      <div style="width:32px;font-size:9px;font-weight:700;color:#4a3f2f;text-align:center;">SEM</div>
+      <div style="width:88px;font-size:9px;color:#4a3f2f;">PERÍODO</div>
+      <div style="flex:1;font-size:9px;color:#4a3f2f;">MATRÍCULAS PREVISTAS</div>
+      <div style="width:110px;font-size:9px;color:#4a3f2f;">EVENTO / AÇÃO</div>
+      <div style="width:36px;font-size:9px;color:#4a3f2f;text-align:right;">MAT.</div>
+      <div style="width:44px;font-size:9px;color:#4a3f2f;text-align:right;">ACUM.</div>
+    </div>
+
+    <div class="wk"><div class="wn">W1</div><div class="wdate">26/jun–2/jul</div><div class="wbar"><div class="wfill" style="width:0%;background:#c9a84c;"></div></div><div class="wevent">🔧 Estruturação CRM + scripts</div><div class="wmat"><span class="wz">0</span></div><div class="wcum"><span class="wc">0</span></div></div>
+    <div class="wk wmilestone"><div class="wn">W2</div><div class="wdate">3–9/jul</div><div class="wbar"><div class="wfill" style="width:4%;background:#c9a84c;"><span>1</span></div></div><div class="wevent">🎓 CL1 aftermath (20–21jun)</div><div class="wmat"><span class="wm">1</span></div><div class="wcum"><span class="wc">1</span></div></div>
+    <div class="wk wmilestone"><div class="wn">W3</div><div class="wdate">10–16/jul</div><div class="wbar"><div class="wfill" style="width:8%;background:#c9a84c;"><span>2</span></div></div><div class="wevent">🎓 Curso Livre 11–12/jul</div><div class="wmat"><span class="wm">2</span></div><div class="wcum"><span class="wc">3</span></div></div>
+    <div class="wk"><div class="wn">W4</div><div class="wdate">17–23/jul</div><div class="wbar"><div class="wfill" style="width:8%;background:#c9a84c;"><span>2</span></div></div><div class="wevent">📧 Nutrição + follow-up</div><div class="wmat"><span class="wm">2</span></div><div class="wcum"><span class="wc">5</span></div></div>
+    <div class="wk"><div class="wn">W5</div><div class="wdate">24–30/jul</div><div class="wbar"><div class="wfill" style="width:4%;background:#c9a84c;"><span>1</span></div></div><div class="wevent">📧 Nutrição + indicação T1</div><div class="wmat"><span class="wm">1</span></div><div class="wcum"><span class="wc">6</span></div></div>
+    <div class="wk wmilestone"><div class="wn">W6</div><div class="wdate">31/jul–6/ago</div><div class="wbar"><div class="wfill" style="width:12%;background:#c9a84c;"><span>3</span></div></div><div class="wevent">🎓 Curso Livre 2–3/ago</div><div class="wmat"><span class="wm">3</span></div><div class="wcum"><span class="wc">9</span></div></div>
+    <div class="wk wmilestone"><div class="wn">W7</div><div class="wdate">7–13/ago</div><div class="wbar"><div class="wfill" style="width:12%;background:#c9a84c;"><span>3</span></div></div><div class="wevent">🎙 Webinário Pago 1</div><div class="wmat"><span class="wm">3</span></div><div class="wcum"><span class="wc">12</span></div></div>
+    <div class="wk wmilestone"><div class="wn">W8</div><div class="wdate">14–20/ago</div><div class="wbar"><div class="wfill" style="width:12%;background:#c9a84c;"><span>3</span></div></div><div class="wevent">🎙 Webinário Pago 2</div><div class="wmat"><span class="wm">3</span></div><div class="wcum"><span class="wc">15</span></div></div>
+    <div class="wk"><div class="wn">W9</div><div class="wdate">21–27/ago</div><div class="wbar"><div class="wfill" style="width:8%;background:#c9a84c;"><span>2</span></div></div><div class="wevent">📋 Lista de espera T2</div><div class="wmat"><span class="wm">2</span></div><div class="wcum"><span class="wc">17</span></div></div>
+    <div class="wk"><div class="wn">W10</div><div class="wdate">28/ago–3/set</div><div class="wbar"><div class="wfill" style="width:8%;background:#c9a84c;"><span>2</span></div></div><div class="wevent">📋 Pré-abertura intensiva</div><div class="wmat"><span class="wm">2</span></div><div class="wcum"><span class="wc">19</span></div></div>
+    <div class="wk wmilestone"><div class="wn">W11</div><div class="wdate">4–10/set</div><div class="wbar"><div class="wfill" style="width:20%;background:#c9a84c;"><span>5 — ABERTURA</span></div></div><div class="wevent">🚀 Matrículas abertas!</div><div class="wmat"><span class="wm">5</span></div><div class="wcum"><span class="wc">24</span></div></div>
+    <div class="wk"><div class="wn">W12</div><div class="wdate">11–17/set</div><div class="wbar"><div class="wfill" style="width:20%;background:#c9a84c;"><span>5 — sprint</span></div></div><div class="wevent">📞 Calls intensivas Lorena</div><div class="wmat"><span class="wm">5</span></div><div class="wcum"><span class="wc">29</span></div></div>
+    <div class="wk"><div class="wn">W13</div><div class="wdate">18–24/set</div><div class="wbar"><div class="wfill" style="width:20%;background:#c9a84c;"><span>5 — sprint</span></div></div><div class="wevent">📞 Vagas restantes: 21</div><div class="wmat"><span class="wm">5</span></div><div class="wcum"><span class="wc">34</span></div></div>
+    <div class="wk"><div class="wn">W14</div><div class="wdate">25/set–1/out</div><div class="wbar"><div class="wfill" style="width:16%;background:#c9a84c;"><span>4</span></div></div><div class="wevent">⏰ Meta: 36 antes eleições</div><div class="wmat"><span class="wm">4</span></div><div class="wcum"><span class="wc">38</span></div></div>
+    <div class="wk"><div class="wn">W15</div><div class="wdate">2–8/out</div><div class="wbar"><div class="wfill" style="width:8%;background:#f39c12;"><span>2</span></div></div><div class="wevent">🗳 Eleições 4/out — ruído</div><div class="wmat"><span class="wm" style="color:#f39c12;">2</span></div><div class="wcum"><span class="wc">40</span></div></div>
+    <div class="wk"><div class="wn">W16</div><div class="wdate">9–15/out</div><div class="wbar"><div class="wfill" style="width:8%;background:#c9a84c;"><span>2</span></div></div><div class="wevent">🗳 Eleições 25/out se aprox.</div><div class="wmat"><span class="wm">2</span></div><div class="wcum"><span class="wc">42</span></div></div>
+    <div class="wk wmilestone"><div class="wn">W17</div><div class="wdate">16–22/out</div><div class="wbar"><div class="wfill" style="width:12%;background:#c9a84c;"><span>3</span></div></div><div class="wevent">🎓 Curso Livre 3 — 24–25/out</div><div class="wmat"><span class="wm">3</span></div><div class="wcum"><span class="wc">45</span></div></div>
+    <div class="wk wmilestone"><div class="wn">W18</div><div class="wdate">23–31/out</div><div class="wbar"><div class="wfill" style="width:20%;background:#4caf88;"><span>5 — SPRINT FINAL</span></div></div><div class="wevent">🏁 Últimas vagas · urgência</div><div class="wmat"><span class="wm" style="color:#4caf88;">5</span></div><div class="wcum"><span class="wc" style="color:#c9a84c;font-size:13px;">50 ✓</span></div></div>
+  </div>
+</div>
+
+<!-- ====== 08 INDICADORES ====== -->
+<div class="sec" id="s7">
+  <div class="topbar">
+    <div><div class="ttl">Indicadores da Operação</div><div class="sub">KPIs semanais e mensais · revisão toda segunda-feira · Igor + Lorena + Julia</div></div>
+    <div class="pill">REVISÃO SEMANAL</div>
+  </div>
+
+  <div class="card" style="margin-bottom:0;">
+    <table class="kt">
+      <thead><tr><th>INDICADOR</th><th>META T02</th><th>BENCHMARK T1</th><th>CADÊNCIA</th><th>DONO</th></tr></thead>
+      <tbody>
+        <tr class="kcat"><td colspan="5">AQUISIÇÃO</td></tr>
+        <tr><td class="ktn">CPL — Custo por Lead</td><td class="ktv">≤ R$ 12,00</td><td class="ktb">R$ 5,26</td><td>Semanal</td><td>Igor</td></tr>
+        <tr><td class="ktn">Leads gerados / semana</td><td class="ktv">≥ 45 leads</td><td class="ktb">~18/sem</td><td>Semanal</td><td>Igor</td></tr>
+        <tr><td class="ktn">% leads por canal</td><td class="ktv">Nenhum canal &gt; 60%</td><td class="ktb">—</td><td>Quinzenal</td><td>Igor</td></tr>
+
+        <tr class="kcat"><td colspan="5">CONVERSÃO COMERCIAL</td></tr>
+        <tr><td class="ktn">Taxa qualificação (lead → qual.)</td><td class="ktv">≥ 50%</td><td class="ktb">Não medido</td><td>Semanal</td><td>Lorena</td></tr>
+        <tr><td class="ktn">Taxa HOT abordados em 2h</td><td class="ktv">100%</td><td class="ktb">Não medido</td><td>Diário</td><td>Lorena</td></tr>
+        <tr><td class="ktn">Taxa proposta → matrícula</td><td class="ktv">≥ 50%</td><td class="ktb">Não medido</td><td>Semanal</td><td>Lorena</td></tr>
+        <tr><td class="ktn">Taxa lead → matrícula (geral)</td><td class="ktv">≥ 6,25%</td><td class="ktb">5% T1</td><td>Mensal</td><td>Lorena + Igor</td></tr>
+        <tr><td class="ktn">Ciclo médio de venda</td><td class="ktv">≤ 21 dias</td><td class="ktb">Não medido</td><td>Mensal</td><td>Lorena</td></tr>
+
+        <tr class="kcat"><td colspan="5">PRODUTO DE ENTRADA</td></tr>
+        <tr><td class="ktn">Participantes por Curso Livre</td><td class="ktv">≥ 25/edição</td><td class="ktb">—</td><td>Por evento</td><td>Igor + Julia</td></tr>
+        <tr><td class="ktn">Conv. Curso Livre → Matrícula</td><td class="ktv">≥ 25%</td><td class="ktb">—</td><td>Por evento</td><td>Lorena</td></tr>
+        <tr><td class="ktn">Conv. Webinário → Matrícula</td><td class="ktv">≥ 15%</td><td class="ktb">—</td><td>Por evento</td><td>Lorena</td></tr>
+
+        <tr class="kcat"><td colspan="5">RECEITA E FINANCEIRO</td></tr>
+        <tr><td class="ktn">Matrículas acumuladas</td><td class="ktv">50 até 31/out</td><td class="ktb">16 T1</td><td>Semanal</td><td>Julia</td></tr>
+        <tr><td class="ktn">Receita acumulada</td><td class="ktv">R$ 425.000</td><td class="ktb">~R$ 136k</td><td>Semanal</td><td>Julia</td></tr>
+        <tr><td class="ktn">CAC total</td><td class="ktv">≤ R$ 1.500</td><td class="ktb">Não medido</td><td>Mensal</td><td>Igor + Julia</td></tr>
+        <tr><td class="ktn">Taxa de inadimplência</td><td class="ktv">≤ 5%</td><td class="ktb">Não medido</td><td>Mensal</td><td>Julia</td></tr>
+        <tr><td class="ktn">% matrículas ICP-Saúde</td><td class="ktv">≥ 50%</td><td class="ktb">~60% T1</td><td>Mensal</td><td>Lorena</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ====== 09 RISCOS ====== -->
+<div class="sec" id="s8">
+  <div class="topbar">
+    <div><div class="ttl">Riscos e Dependências</div><div class="sub">9 riscos mapeados · ordenados por probabilidade × impacto na meta</div></div>
+    <div class="pill">3 CRÍTICOS · 4 ALTOS · 2 MÉDIOS</div>
+  </div>
+
+  <div class="g2">
+    <div>
+      <div class="card">
+        <div class="ct">Riscos Críticos — Ação Imediata</div>
+        <div class="rrow" style="padding-top:0">
+          <div class="rbadge rc">R1</div>
+          <div><div class="rtl">CRM inexistente — leads se perdem novamente</div><div class="rds">T1 perdeu leads sem rastreamento. Sem CRM ativo antes do dia 26/jun, T2 começa repetindo o erro. Impacto direto: cada dia sem CRM = HOTs não atendidos em 2h = conversão que cai.</div><div class="rmit">→ Configurar o EVO CRM com pipeline de 7 estágios antes de 26/jun. Igor e Lorena treinados na semana 1.</div></div>
+        </div>
+        <div class="rrow">
+          <div class="rbadge rc">R2</div>
+          <div><div class="rtl">Lorena sem script, sem SLA, sem processo</div><div class="rds">800 leads sem processo estruturado = exatamente o que aconteceu na T1. Uma pessoa não gerencia esse volume no improviso.</div><div class="rmit">→ Playbook de vendas entregue até 30/jun: BANT + objeções + follow-up D+1/D+3/D+7.</div></div>
+        </div>
+        <div class="rrow" style="padding-bottom:0">
+          <div class="rbadge rc">R3</div>
+          <div><div class="rtl">Financeiro 100% manual — colapso em set/out</div><div class="rds">Julia gerencia operações + financeiro. No pico de Set/Out, 30+ cobranças manuais simultâneas travará a operação.</div><div class="rmit">→ Migrar para Asaas ou Iugu até Ago/26. Cobranças automáticas reduzem carga de Julia em ~70%.</div></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <div class="ct">Riscos Altos — Monitorar Ativamente</div>
+        <div class="rrow" style="padding-top:0">
+          <div class="rbadge rm2">R4</div>
+          <div><div class="rtl">Copa do Mundo (11/jun–19/jul) — atenção dispersa</div><div class="rds">CPL sobe e CTR cai durante Copa. Pior momento para lançar tráfego pesado.</div><div class="rmit">→ Focar em estruturação nas semanas de Copa. Tráfego pesado só após 20/jul.</div></div>
+        </div>
+        <div class="rrow">
+          <div class="rbadge rm2">R5</div>
+          <div><div class="rtl">Eleições municipais (4/out e 25/out)</div><div class="rds">CPL sobe 20–40% em período eleitoral. Meta: 38 matrículas antes de 4/out para não depender de Out.</div><div class="rmit">→ Sprint intensivo em Set. Eleições como buffer, não como janela primária.</div></div>
+        </div>
+        <div class="rrow">
+          <div class="rbadge rm2">R6</div>
+          <div><div class="rtl">Igor sobrecarregado — gargalo de marketing</div><div class="rds">Uma pessoa gerenciando tráfego + CRM + criativo + parcerias + conteúdo para 3x o volume da T1.</div><div class="rmit">→ Priorização clara: CRM primeiro, tráfego segundo, criativos terceirizados se necessário.</div></div>
+        </div>
+        <div class="rrow" style="padding-bottom:0">
+          <div class="rbadge rm2">R7</div>
+          <div><div class="rtl">Meta 3x maior com time igual</div><div class="rds">T1 → 16 matrículas. T2 → 50. Mesmos 3 profissionais. A diferença que viabiliza: processo + automação.</div><div class="rmit">→ Automações eliminam trabalho manual. Processo distribui o volume. Time não precisa triplicar.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:0;">
+    <div class="ct">Dependências Críticas do Sistema</div>
+    <div class="g2" style="gap:12px;">
+      <div class="rrow" style="padding:8px 0;border-bottom:none;">
+        <div class="rbadge rm2">D1</div>
+        <div><div class="rtl">LP → CRM — integração técnica</div><div class="rds">Sem webhook da landing page para o CRM, Lorena recebe leads por e-mail ou WhatsApp manual. Isso cria atraso e leads perdidos. Igor precisa configurar isso antes do tráfego começar.</div></div>
+      </div>
+      <div class="rrow" style="padding:8px 0;border-bottom:none;">
+        <div class="rbadge rb2">D2</div>
+        <div><div class="rtl">Alunos T1 → Programa de Indicação</div><div class="rds">16 alunos em 10 estados são o canal de maior conversão estimada (40%). Depende de Julia contatar todos antes de 10/jul com proposta clara de embaixador + incentivo definido.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 10 ROADMAP ====== -->
+<div class="sec" id="s9">
+  <div class="topbar">
+    <div><div class="ttl">Roadmap de Implementação</div><div class="sub">120 dias de captação (5 fases) + 12 meses de entrega · do dia 0 à conclusão da turma</div></div>
+    <div class="pill">26/JUN/2026 → NOV/2027</div>
+  </div>
+
+  <div class="g2">
+    <div>
+      <div class="rmp hot">
+        <div class="rper">FASE 1 · 26 JUN – 9 JUL (2 semanas)</div>
+        <div class="rtitle">🔧 Estruturação — Antes de tudo</div>
+        <ul class="rtasks">
+          <li>Configurar 3 pipelines no EVO CRM (P1 Captação · P2 Produto de Entrada · P3 Aluno 12 meses) <span class="own">Igor</span></li>
+          <li>Configurar webhook LP → CRM <span class="own">Igor</span></li>
+          <li>Criar script de qualificação BANT para WhatsApp <span class="own">Lorena</span></li>
+          <li>Definir SLAs: HOT=2h, WARM=24h, COLD=automação <span class="own">Lorena</span></li>
+          <li>Migrar financeiro para Asaas ou Iugu <span class="own">Julia</span></li>
+          <li>Contatar os 16 alunos T1 — programa de embaixadores <span class="own">Julia</span></li>
+          <li>Configurar sequência de e-mails automática de boas-vindas <span class="own">Igor</span></li>
+          <li>Abordagem dos leads que participaram do CL1 (20–21/jun) <span class="own">Lorena</span></li>
+        </ul>
+      </div>
+
+      <div class="rmp">
+        <div class="rper">FASE 2 · 10 JUL – 6 AGO (4 semanas)</div>
+        <div class="rtitle">🎓 Cursos Livres + Aquecimento</div>
+        <ul class="rtasks">
+          <li>Executar Curso Livre 2 (11–12/jul) e capturar leads <span class="own">Todos</span></li>
+          <li>Iniciar tráfego pago pós-Copa (após 20/jul) <span class="own">Igor</span></li>
+          <li>Abordagem ativa de todos participantes dos CLs <span class="own">Lorena</span></li>
+          <li>Executar Curso Livre 3 (02–03/ago) <span class="own">Todos</span></li>
+          <li>Primeiro report de pipeline semanal <span class="own">Lorena + Igor</span></li>
+          <li>Produzir conteúdo de autoridade Brasílio no LinkedIn <span class="own">Igor</span></li>
+          <li>Meta ao final da fase: 9 matrículas acumuladas</li>
+        </ul>
+      </div>
+
+      <div class="rmp">
+        <div class="rper">FASE 3 · 7 AGO – 3 SET (4 semanas)</div>
+        <div class="rtitle">🎙 Webinários Pagos + Pré-Lista</div>
+        <ul class="rtasks">
+          <li>Realizar Webinário Pago 1 (data a definir) <span class="own">Igor + Julia</span></li>
+          <li>Realizar Webinário Pago 2 (data a definir) <span class="own">Igor + Julia</span></li>
+          <li>Abordagem de todos participantes em até 48h <span class="own">Lorena</span></li>
+          <li>Abrir pré-lista de espera exclusiva para T2 <span class="own">Igor</span></li>
+          <li>Negociar parcerias com CFBM e CFO <span class="own">Igor</span></li>
+          <li>Aumentar tráfego LinkedIn Ads <span class="own">Igor</span></li>
+          <li>Meta ao final da fase: 19 matrículas acumuladas</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="rmp">
+        <div class="rper">FASE 4 · 4 SET – 3 OUT (4 semanas)</div>
+        <div class="rtitle">🚀 Sprint de Matrículas — Abertura Oficial</div>
+        <ul class="rtasks">
+          <li>Abertura oficial de matrículas T2 <span class="own">Todos</span></li>
+          <li>E-mail + WhatsApp para 100% da base — oferta de abertura <span class="own">Igor</span></li>
+          <li>Dobrar budget de tráfego em setembro <span class="own">Igor</span></li>
+          <li>Lorena em regime de calls: mínimo 5/dia <span class="own">Lorena</span></li>
+          <li>Comunicar vagas restantes a cada semana <span class="own">Igor</span></li>
+          <li>Lançar depoimentos em vídeo e texto de alunos T1 <span class="own">Igor</span></li>
+          <li>Meta ao final da fase: 38 matrículas antes das eleições (4/out)</li>
+        </ul>
+      </div>
+
+      <div class="rmp">
+        <div class="rper">FASE 5 · 4 OUT – 31 OUT (4 semanas)</div>
+        <div class="rtitle">🏁 Sprint Final + Encerramento</div>
+        <ul class="rtasks">
+          <li>Reduzir tráfego pago durante eleições (4 e 25/out) <span class="own">Igor</span></li>
+          <li>Executar Curso Livre 3 (24–25/out) <span class="own">Todos</span></li>
+          <li>Comunicar encerramento de matrículas com data fixa <span class="own">Igor</span></li>
+          <li>Abordagem das últimas vagas com urgência máxima <span class="own">Lorena</span></li>
+          <li>Onboarding de todos os matriculados — docs + acesso <span class="own">Julia</span></li>
+          <li>Preparação logística para início das aulas 31/out–1/nov <span class="own">Julia</span></li>
+          <li>Meta ao final da fase: <strong>50 matrículas fechadas</strong></li>
+        </ul>
+      </div>
+
+      <div class="rmp" style="margin-top:8px;border-left:3px solid #4caf88;">
+        <div class="rper" style="color:#4caf88;">FASE 6 · 1/NOV/2026 → NOV/2027 — 12 meses de entrega</div>
+        <div class="rtitle">📚 Entrega, Retenção e Expansão</div>
+        <ul class="rtasks">
+          <li>Onboarding completo dos 50 alunos — acesso + grupo em até 24h <span class="own">Julia</span></li>
+          <li>Health Score quinzenal — detectar alunos em risco antes do cancelamento <span class="own">Julia</span></li>
+          <li>CS proativo para alunos sem acesso há 14+ dias <span class="own">Julia</span></li>
+          <li>NPS no mês 3 e mês 6 — identificar satisfeitos e insatisfeitos <span class="own">Julia</span></li>
+          <li>Case studies mensais de alunos T1 e T2 para alimentar T3 <span class="own">Igor</span></li>
+          <li>Lista de espera T3 aberta logo após início das aulas <span class="own">Lorena</span></li>
+          <li>Oferta de indicação para alunos T2 no mês 10 <span class="own">Lorena</span></li>
+          <li>Cerimônia de conclusão + coleta de depoimentos em vídeo <span class="own">Julia</span></li>
+          <li>Exportar dados para Otimiza Growth Intelligence (cohort retenção T2) <span class="own">Igor + Julia</span></li>
+          <li><strong>Meta retenção: ≥ 80% dos 50 alunos concluem os 12 meses</strong></li>
+        </ul>
+      </div>
+
+      <div class="card" style="margin-top:2px;">
+        <div class="ct">As 3 Ações Que Movem o Ponteiro Esta Semana</div>
+        <ul class="ul">
+          <li><span class="num">01</span><div><strong>CRM online hoje.</strong> Cada dia sem CRM é um HOT não atendido em 2h. Um lead HOT perdido = R$8.500 que não entra.</div></li>
+          <li><span class="num">02</span><div><strong>Lorena com playbook até 30/jun.</strong> Script BANT + follow-up D+1/D+3/D+7. Sem processo, 800 leads não viram 50 matrículas.</div></li>
+          <li><span class="num">03</span><div><strong>Contatar alunos T1 ainda hoje.</strong> 16 alunos em 10 estados = canal gratuito com 40% de conversão. O melhor ROI da operação inteira.</div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ft">
+  <p>Diagnóstico baseado em: Operação T02 ICBID · Análise T1 (320 leads · R$5,26 CPL · 16 matrículas) · Pesquisa de Mercado Jun/2026 · Dados Serasa/Mordor Intelligence</p>
+  <p>MSE Funnel Labs v4.1 — © 7D/SECRETS LTDA (Anthony Nichols & André Cia)</p>
+</div>
+
+<script>
+function show(i){
+  document.querySelectorAll('.sec').forEach((s,j)=>s.classList.toggle('on',i===j));
+  document.querySelectorAll('.nb').forEach((b,j)=>b.classList.toggle('on',i===j));
+}
+</script>
+</body>
+</html>
