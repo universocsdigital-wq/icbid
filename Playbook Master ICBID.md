@@ -2,7 +2,7 @@
 
 Acesse o playbook completo e atualizado no link abaixo:
 
-**🔗 [Acessar Playbook Master](https://universocsdigital-wq.github.io/icbid/playbook-master-icbid-t02.html)**
+**🔗 [Acessar Playbook Master](https://universocsdigital-wq.github.io/icbid/playbook-master.html)**
 
 ---
 
