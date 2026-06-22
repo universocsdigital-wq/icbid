@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Playbook Master — ICBID Pós-Graduação T2</title>
+<style>
+:root {
+  --gold: #c9a84c;
+  --gold-light: #e8c96a;
+  --gold-dim: #8a6e2a;
+  --bg: #0d0d0d;
+  --surface: #161616;
+  --surface2: #1e1e1e;
+  --surface3: #252525;
+  --border: #2a2a2a;
+  --text: #e8e4dc;
+  --text-dim: #8a8580;
+  --text-muted: #555;
+  --red: #c0392b;
+  --green: #27ae60;
+  --blue: #2980b9;
+  --amber: #e67e22;
+  --purple: #8e44ad;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Georgia',serif;font-size:14px;line-height:1.6;}
+a{color:var(--gold);text-decoration:none;}
+
+/* ── HEADER ── */
+.hdr{background:var(--surface);border-bottom:1px solid var(--border);padding:20px 32px;display:flex;align-items:center;justify-content:space-between;}
+.hdr-title{font-size:18px;font-weight:700;letter-spacing:.04em;color:var(--gold);}
+.hdr-sub{font-size:11px;color:var(--text-dim);margin-top:2px;}
+.hdr-badges{display:flex;gap:8px;flex-wrap:wrap;}
+.badge{padding:4px 10px;border-radius:3px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+.badge-gold{background:#2a1f00;border:1px solid var(--gold-dim);color:var(--gold);}
+.badge-green{background:#0a2a12;border:1px solid #1a5c30;color:#4caf84;}
+.badge-blue{background:#0a1a2a;border:1px solid #1a3a5c;color:#5ba0d0;}
+
+/* ── TABS ── */
+.tabs{background:var(--surface);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;gap:0;}
+.tabs::-webkit-scrollbar{height:3px;}
+.tabs::-webkit-scrollbar-thumb{background:var(--gold-dim);}
+.tab{padding:14px 22px;cursor:pointer;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;}
+.tab:hover{color:var(--text-dim);}
+.tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+
+/* ── CONTENT ── */
+.content{display:none;padding:32px;}
+.content.active{display:block;}
+
+/* ── SECTION HEADERS ── */
+.sec-title{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+
+/* ── GRID UTILS ── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+.grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px;}
+@media(max-width:900px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}}
+
+/* ── CARDS ── */
+.card{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:20px;}
+.card-gold{border-color:var(--gold-dim);background:#140f00;}
+.card-green{border-color:#1a5c30;background:#050f08;}
+.card-blue{border-color:#1a3a5c;background:#050a10;}
+.card-red{border-color:#5c1a1a;background:#100505;}
+.card-header{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+.card-value{font-size:28px;font-weight:700;color:var(--gold);line-height:1.1;}
+.card-sub{font-size:11px;color:var(--text-dim);margin-top:4px;}
+
+/* ── METRIC ROW ── */
+.metric-row{display:flex;align-items:baseline;gap:8px;}
+.metric-main{font-size:22px;font-weight:700;color:var(--gold);}
+.metric-label{font-size:11px;color:var(--text-dim);}
+
+/* ── TABLE ── */
+.tbl{width:100%;border-collapse:collapse;font-size:12px;}
+.tbl th{background:var(--surface3);color:var(--text-dim);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:10px 12px;text-align:left;border-bottom:1px solid var(--border);}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top;}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr:hover td{background:var(--surface3);}
+.tbl .num{text-align:right;font-variant-numeric:tabular-nums;}
+
+/* ── PIPELINE ── */
+.pipe-stages{display:flex;gap:0;flex-wrap:wrap;margin:12px 0;}
+.stage{padding:8px 14px;font-size:11px;font-weight:700;border:1px solid var(--border);border-right:none;position:relative;background:var(--surface2);}
+.stage:last-child{border-right:1px solid var(--border);}
+.stage-num{font-size:9px;color:var(--text-muted);display:block;margin-bottom:2px;}
+.stage-name{color:var(--text);}
+.stage-sla{font-size:9px;color:var(--text-muted);margin-top:2px;}
+.stage-owner{font-size:9px;color:var(--gold);margin-top:2px;}
+.pipe-gold .stage{background:#140f00;border-color:var(--gold-dim);}
+.pipe-green .stage{background:#050f08;border-color:#1a5c30;}
+
+/* ── TAGS ── */
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;letter-spacing:.06em;}
+.tag-gold{background:#2a1f00;color:var(--gold);}
+.tag-green{background:#0a2a12;color:#4caf84;}
+.tag-blue{background:#0a1a2a;color:#5ba0d0;}
+.tag-red{background:#2a0a0a;color:#e05050;}
+.tag-amber{background:#2a1400;color:#e67e22;}
+.tag-purple{background:#1a0a2a;color:#9b59b6;}
+
+/* ── ARROW ── */
+.arrow{color:var(--text-muted);padding:0 6px;}
+
+/* ── SCRIPT BOX ── */
+.script-box{background:var(--surface3);border-left:3px solid var(--gold);padding:16px;font-size:12px;line-height:1.7;border-radius:0 4px 4px 0;font-family:monospace;white-space:pre-wrap;color:var(--text);margin:8px 0;}
+
+/* ── ALERT ── */
+.alert-row{display:flex;align-items:flex-start;gap:12px;padding:12px;border-radius:5px;margin:8px 0;background:var(--surface2);border:1px solid var(--border);}
+.alert-icon{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;font-weight:700;}
+.alert-igor .alert-icon{background:#0a1a2a;color:#5ba0d0;}
+.alert-lorena .alert-icon{background:#2a1400;color:#e67e22;}
+.alert-julia .alert-icon{background:#0a2a12;color:#4caf84;}
+.alert-body{}
+.alert-trigger{font-size:11px;font-weight:700;color:var(--text);}
+.alert-detail{font-size:11px;color:var(--text-dim);}
+
+/* ── PERSON COLUMN ── */
+.person-hdr{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.person-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;}
+.avatar-igor{background:#0a1a2a;color:#5ba0d0;border:2px solid #1a3a5c;}
+.avatar-lorena{background:#2a1400;color:#e67e22;border:2px solid #5c2a00;}
+.avatar-julia{background:#0a2a12;color:#4caf84;border:2px solid #1a5c30;}
+.avatar-hiago{background:#1a0a2a;color:#9b59b6;border:2px solid #3a1a5a;}
+.person-name{font-size:13px;font-weight:700;color:var(--text);}
+.person-role{font-size:10px;color:var(--text-muted);}
+
+/* ── TASK ITEM ── */
+.task{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--border);}
+.task:last-child{border-bottom:none;}
+.task-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:5px;}
+.task-dot-urgent{background:var(--red);}
+.task-text{font-size:12px;color:var(--text);}
+.task-text small{color:var(--text-muted);font-size:10px;display:block;margin-top:2px;}
+
+/* ── PHASE BLOCK ── */
+.phase-block{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:16px;margin-bottom:12px;}
+.phase-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;}
+
+/* ── AUTO ITEM ── */
+.auto-item{display:grid;grid-template-columns:28px 1fr;gap:12px;padding:12px;border-radius:5px;margin:6px 0;background:var(--surface2);border:1px solid var(--border);}
+.auto-num{color:var(--gold);font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;}
+.auto-title{font-size:12px;font-weight:700;color:var(--text);}
+.auto-detail{font-size:11px;color:var(--text-dim);margin-top:3px;}
+.auto-tech{margin-top:5px;}
+
+/* ── FORECAST TABLE ── */
+.fc-cell-hit{background:#0a2a12;color:#4caf84;}
+.fc-cell-evt{background:#140f00;color:var(--gold);}
+.fc-cell-mark{background:#100505;color:#e05050;}
+
+/* ── DIVIDER ── */
+.divider{border:none;border-top:1px solid var(--border);margin:24px 0;}
+
+/* ── LIVE PANEL ── */
+.live-badge{display:inline-flex;align-items:center;gap:5px;background:#0a2a0a;border:1px solid #1a5c30;color:#4caf84;padding:3px 9px;border-radius:3px;font-size:10px;font-weight:700;letter-spacing:.08em;vertical-align:middle;}
+.progress-wrap{background:var(--surface3);border-radius:3px;height:5px;margin-top:8px;overflow:hidden;}
+.progress-bar{height:5px;border-radius:3px;transition:width .6s ease;}
+.bar-gold{background:var(--gold);}
+.bar-green{background:#27ae60;}
+.status-pill{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:3px;font-size:10px;font-weight:700;width:100%;box-sizing:border-box;}
+.pill-ativo{background:#0a2a12;color:#4caf84;border:1px solid #1a5c30;}
+.pill-pendente{background:#2a1400;color:#e67e22;border:1px solid #5c3a00;}
+.pill-problema{background:#2a0a0a;color:#e05050;border:1px solid #5c1a1a;}
+.live-dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0;}
+
+/* ── UTIL ── */
+.mt8{margin-top:8px;}.mt16{margin-top:16px;}.mt24{margin-top:24px;}.mt32{margin-top:32px;}
+.mb8{margin-bottom:8px;}.mb16{margin-bottom:16px;}
+.small{font-size:11px;color:var(--text-dim);}
+.bold{font-weight:700;}
+.gold{color:var(--gold);}
+.green{color:#4caf84;}
+.red{color:#e05050;}
+.amber{color:#e67e22;}
+.blue{color:#5ba0d0;}
+.center{text-align:center;}
+</style>
+<script src="dados.js"></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div>
+    <div class="hdr-title">ICBID — Pós-Graduação Turma 2 · Playbook Master</div>
+    <div class="hdr-sub">Instituto de Ciências Aplicadas à Biometria para Identificação Humana · Jun 2026 → Nov 2027</div>
+  </div>
+  <div class="hdr-badges">
+    <span class="badge badge-gold">50 matrículas</span>
+    <span class="badge badge-gold">R$ 425.000</span>
+    <span class="badge badge-green">18 sem captação</span>
+    <span class="badge badge-blue">12 meses entrega</span>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab active" onclick="go(0)">Dashboard</div>
+  <div class="tab" onclick="go(1)">Jornada</div>
+  <div class="tab" onclick="go(2)">Pipelines EVO</div>
+  <div class="tab" onclick="go(3)">Equipe &amp; Fases</div>
+  <div class="tab" onclick="go(4)">Automações</div>
+  <div class="tab" onclick="go(5)">Scripts</div>
+  <div class="tab" onclick="go(6)">Alertas</div>
+  <div class="tab" onclick="go(7)">Forecast &amp; KPIs</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- TAB 0 — DASHBOARD -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="content active" id="t0">
+
+  <!-- ── PAINEL AO VIVO ── -->
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
+    <div><span class="sec-title" style="border:none;margin:0;padding:0;display:inline;">Painel Ao Vivo</span> <span class="live-badge">● LIVE</span></div>
+    <div class="small" id="live-header">Carregando...</div>
+  </div>
+  <div class="grid-4" style="margin-bottom:12px;">
+    <div class="card">
+      <div class="card-header">Leads P1</div>
+      <div class="metric-main" id="live-leads">0</div>
+      <div class="small" id="live-leads-sub">de 800 necessários</div>
+      <div class="progress-wrap"><div class="progress-bar bar-gold" id="live-leads-bar" style="width:0%"></div></div>
+    </div>
+    <div class="card card-green">
+      <div class="card-header">Matrículas</div>
+      <div class="metric-main" id="live-mat" style="color:#4caf84;">0</div>
+      <div class="small" id="live-mat-sub">de 50 · 0% da meta</div>
+      <div class="progress-wrap"><div class="progress-bar bar-green" id="live-mat-bar" style="width:0%"></div></div>
+    </div>
+    <div class="card">
+      <div class="card-header">CPL Atual</div>
+      <div class="metric-main" id="live-cpl">—</div>
+      <div class="small">Meta ≤ R$ 10 · alerta > R$ 15</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Investimento Total</div>
+      <div class="metric-main" id="live-inv">—</div>
+      <div class="small" id="live-receita">Receita confirmada: —</div>
+    </div>
+  </div>
+  <div class="grid-4" style="margin-bottom:24px;">
+    <div class="card">
+      <div class="card-header">Comunidade WhatsApp</div>
+      <div class="metric-main" id="live-comunidade">0</div>
+      <div class="small">membros no grupo</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Inscritos P2</div>
+      <div class="metric-main" id="live-p2">0</div>
+      <div class="small" id="live-p2-sub">CL + Webinário · 0 converteram</div>
+    </div>
+    <div class="card card-red">
+      <div class="card-header">Alunos em Risco</div>
+      <div class="metric-main" id="live-risco" style="color:#e05050;">0</div>
+      <div class="small" id="live-hs">HS médio da turma: —</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Status Ferramentas</div>
+      <div style="display:flex;flex-direction:column;gap:5px;margin-top:8px;">
+        <div id="pill-crm" class="status-pill pill-pendente"><span class="live-dot"></span>&nbsp;CRM EVO</div>
+        <div id="pill-gateway" class="status-pill pill-pendente"><span class="live-dot"></span>&nbsp;Gateway</div>
+        <div id="pill-ead" class="status-pill pill-pendente"><span class="live-dot"></span>&nbsp;Plataforma EAD</div>
+        <div id="pill-automacao" class="status-pill pill-pendente"><span class="live-dot"></span>&nbsp;Automação</div>
+      </div>
+    </div>
+  </div>
+  <hr class="divider">
+
+  <div class="sec-title">Visão Geral da Operação</div>
+  <div class="grid-4" style="margin-bottom:24px;">
+    <div class="card card-gold">
+      <div class="card-header">Meta de matrículas</div>
+      <div class="card-value">50</div>
+      <div class="card-sub">Pós-Graduação T2 · 12 meses</div>
+    </div>
+    <div class="card card-gold">
+      <div class="card-header">Receita alvo</div>
+      <div class="card-value">R$ 425k</div>
+      <div class="card-sub">Ticket médio R$ 8.500</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Campanha captação</div>
+      <div class="card-value" style="font-size:20px;color:var(--text);">18 semanas</div>
+      <div class="card-sub">26 Jun → 1 Nov 2026</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Entrega do curso</div>
+      <div class="card-value" style="font-size:20px;color:var(--text);">12 meses</div>
+      <div class="card-sub">Nov 2026 → Nov 2027</div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:24px;">
+    <div>
+      <div class="sec-title">Engenharia Reversa</div>
+      <div class="card">
+        <table class="tbl">
+          <thead><tr><th>Etapa</th><th>Taxa</th><th>Volume</th></tr></thead>
+          <tbody>
+            <tr><td>Leads necessários</td><td class="num">—</td><td class="num gold bold">800</td></tr>
+            <tr><td>→ Leads qualificados (BANT)</td><td class="num">50%</td><td class="num">400</td></tr>
+            <tr><td>→ Propostas / abordagem</td><td class="num">40%</td><td class="num">160</td></tr>
+            <tr><td>→ Negociações abertas</td><td class="num">50%</td><td class="num">80</td></tr>
+            <tr><td>→ <strong class="gold">Matrículas fechadas</strong></td><td class="num">62,5%</td><td class="num gold bold">50</td></tr>
+            <tr><td colspan="2" style="color:var(--text-muted);font-size:11px;">Conversão funil completo</td><td class="num gold bold">6,25%</td></tr>
+          </tbody>
+        </table>
+        <div class="small mt8">Benchmark T1: 320 leads · 16 matrículas · ~5% conversão · R$ 5,26 CPL</div>
+      </div>
+    </div>
+    <div>
+      <div class="sec-title">Decomposição por Canal</div>
+      <div class="card">
+        <table class="tbl">
+          <thead><tr><th>Canal</th><th>Matrículas</th><th>Conv.</th><th>Volume est.</th></tr></thead>
+          <tbody>
+            <tr><td>Cursos Livres (3 edições)</td><td class="num">20</td><td class="num">25%</td><td class="num">~80 part.</td></tr>
+            <tr><td>Webinários (2–3)</td><td class="num">10</td><td class="num">15%</td><td class="num">~65 part.</td></tr>
+            <tr><td>Tráfego direto LP</td><td class="num">12</td><td class="num">5%</td><td class="num">~240 leads</td></tr>
+            <tr><td>Indicação alunos T1</td><td class="num">8</td><td class="num">40%</td><td class="num">~20 ind.</td></tr>
+            <tr><td><strong class="gold">Total</strong></td><td class="num gold bold">50</td><td class="num gold bold">6,25%</td><td class="num gold bold">~800</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:24px;">
+    <div>
+      <div class="sec-title">Cenários de Resultado</div>
+      <div class="card">
+        <table class="tbl">
+          <thead><tr><th>Cenário</th><th>Matrículas</th><th>Receita</th><th>Conv.</th></tr></thead>
+          <tbody>
+            <tr class="fc-cell-mark"><td>Conservador</td><td class="num">32</td><td class="num">R$ 272k</td><td class="num">4%</td></tr>
+            <tr class="fc-cell-hit"><td><strong>Base (meta)</strong></td><td class="num"><strong>50</strong></td><td class="num"><strong>R$ 425k</strong></td><td class="num"><strong>6,25%</strong></td></tr>
+            <tr class="fc-cell-evt"><td>Otimista</td><td class="num">65</td><td class="num">R$ 552k</td><td class="num">8,1%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="sec-title">Equipe</div>
+      <div class="card">
+        <div class="task" style="padding:10px 0;">
+          <div class="person-avatar avatar-igor">I</div>
+          <div>
+            <div class="bold">Igor</div>
+            <div class="small">Aquisição · Tráfego pago · LP · Automação · Otimiza</div>
+          </div>
+        </div>
+        <div class="task" style="padding:10px 0;">
+          <div class="person-avatar avatar-hiago">H</div>
+          <div>
+            <div class="bold">Hiago</div>
+            <div class="small">EVO CRM · Sistema EAD · Pipelines · Integrações Asaas</div>
+          </div>
+        </div>
+        <div class="task" style="padding:10px 0;">
+          <div class="person-avatar avatar-lorena">L</div>
+          <div>
+            <div class="bold">Lorena</div>
+            <div class="small">Comercial · Atendimento leads · Fechamento · Follow-up · Recuperação</div>
+          </div>
+        </div>
+        <div class="task" style="padding:10px 0;border-bottom:none;">
+          <div class="person-avatar avatar-julia">J</div>
+          <div>
+            <div class="bold">Julia</div>
+            <div class="small">CS · Onboarding · Acompanhamento alunos · Health Score · Retenção</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-title">Ferramentas da Operação</div>
+  <div class="grid-4">
+    <div class="card"><div class="card-header">CRM <span class="tag tag-gold" style="font-size:10px;padding:2px 6px;">Plano A</span></div><div class="bold gold">EVO CRM</div><div class="small">3 pipelines · P1 captação · P2 produto entrada · P3 aluno 12 meses</div><div class="small" style="color:#9b59b6;margin-top:4px;">⚠ Plano B: Data Crazy R$460/mês + R$2.460 setup · decisão até segunda-feira</div></div>
+    <div class="card"><div class="card-header">Automação</div><div class="bold gold">Ferramenta a confirmar com Igor</div><div class="small">Hub central de webhooks · integra LP, EVO, Asaas, USINA, WhatsApp, plataforma · pode ser n8n, Make ou outra</div></div>
+    <div class="card"><div class="card-header">Pagamentos</div><div class="bold gold">Asaas</div><div class="small">Gateway principal · webhooks de pagamento e cancelamento · boleto parcelado oferecer só como última alternativa em negociação</div></div>
+    <div class="card"><div class="card-header">Matrículas e Contratos</div><div class="bold gold">USINA Edu</div><div class="small">Plataforma de gestão de matrículas e documentação · integra com o fluxo de pagamento Pós-Grad</div></div>
+    <div class="card"><div class="card-header">Plataforma EAD</div><div class="bold" style="color:var(--text);">Em validação (MVP 10 Jul)</div><div class="small">MVP esperado 1ª semana de Jul · Hiago entrega · exportação para Health Score · log last_access</div><div class="small" style="color:#e74c3c;margin-top:4px;">⚠ Aluno matriculado antes de Nov fica sem conteúdo — risco de objeção</div></div>
+    <div class="card"><div class="card-header">Análise</div><div class="bold" style="color:var(--text);">Otimiza Growth</div><div class="small">5 modelos: Conversão · Retenção · Churn · Health Score · Forecast</div></div>
+    <div class="card"><div class="card-header">Dados</div><div class="bold" style="color:var(--text);">Google Sheets</div><div class="small">Destino dos exports do Otimiza · atualização semanal via automação</div></div>
+    <div class="card"><div class="card-header">Comunidade WhatsApp <span class="tag tag-green" style="font-size:10px;padding:2px 6px;">Novo</span></div><div class="bold" style="color:var(--text);">Grupo Fechado</div><div class="small">Canal principal de volume a baixo custo · Mês 1 engajamento → Mês 2 lista espera → Mês 3 campanha ativa · moderação obrigatória</div></div>
+  </div>
+
+  <div class="sec-title" style="margin-top:24px;">Riscos e Bloqueios Ativos</div>
+  <div class="grid-2">
+    <div class="card card-red">
+      <div class="card-header">🚨 Decisões Urgentes (até Segunda-feira)</div>
+      <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text"><strong>CRM:</strong> EVO confirma operação ou migra para Data Crazy?<small>Hiago precisa confirmar: EVO tem webhook nativo + API de escrita?</small></div></div>
+      <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text"><strong>Gateway de pagamento:</strong> ativar recuperação de carrinho no Asaas antes do W1<small>T1 perdeu 153 leads no carrinho sem recuperação — confirmar se Asaas tem esse recurso ativo</small></div></div>
+      <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text"><strong>LP:</strong> remover botões "Inscreva-se" do hero e do menu · trocar por "Saiba mais" com scroll<small>Hiago executa · hoje os CTAs pulam o formulário direto para WhatsApp</small></div></div>
+    </div>
+    <div class="card" style="border-left:3px solid #e74c3c;">
+      <div class="card-header">⚠ Riscos em Acompanhamento</div>
+      <div class="task"><div class="task-dot"></div><div class="task-text"><strong>EAD independente:</strong> Hiago construiu sem consulta · MVP prometido 10 Jul<small>Risco de descobrir lacunas tarde. Julia acompanhar de perto ao receber MVP.</small></div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text"><strong>Aluno antecipado sem conteúdo:</strong> quem matricula antes de Nov espera sem nada<small>Trilha inicial na área de membros é solução ideal — ainda sem recurso para isso</small></div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text"><strong>Eleições (W15 · ~4 Out):</strong> pausar campanhas pagas · CPL dispara<small>Igor avalia rodar cursos livres só até meio-dia no dia da eleição</small></div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text"><strong>Pixel:</strong> Igor não tem acesso individual por lead · só métricas agregadas<small>UTMs no formulário são o único rastreio por lead. Padronizar desde o W1.</small></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- TAB 1 — JORNADA -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="content" id="t1">
+  <div class="sec-title">Jornada Completa do Cliente — Captação + Entrega</div>
+  <div class="card" style="margin-bottom:24px;">
+    <div style="overflow-x:auto;">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>#</th><th>Etapa</th><th>O que acontece</th><th>Sinal de avanço</th><th>Sinal de risco</th><th>Responsável</th><th>Pipeline</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="num gold bold">1</td><td><strong>Descoberta</strong></td><td>Lead chega via tráfego, indicação, redes sociais ou CL</td><td>Preenche LP · entra no EVO</td><td>Bounce sem lead</td><td><span class="tag tag-blue">Igor</span></td><td><span class="tag tag-gold">P1</span></td></tr>
+          <tr><td class="num gold bold">2</td><td><strong>Qualificação</strong></td><td>Lorena contata em até 2h · valida BANT</td><td>Lead responde · demonstra interesse</td><td>Sem resposta 24h</td><td><span class="tag tag-amber">Lorena</span></td><td><span class="tag tag-gold">P1</span></td></tr>
+          <tr><td class="num gold bold">3</td><td><strong>Produto de Entrada</strong></td><td>Participa de CL / Webinário / Aula Paga</td><td>Pagamento CL confirmado · Inscrito P2</td><td>No-show · não converte</td><td><span class="tag tag-amber">Lorena</span> <span class="tag tag-green">Julia</span></td><td><span class="tag tag-blue">P2</span></td></tr>
+          <tr><td class="num gold bold">4</td><td><strong>Oferta Pós-Grad</strong></td><td>Oferta feita durante/após evento · negociação</td><td>Demonstra intenção de compra</td><td>Objeções não tratadas</td><td><span class="tag tag-amber">Lorena</span></td><td><span class="tag tag-gold">P1</span> <span class="tag tag-blue">P2</span></td></tr>
+          <tr><td class="num gold bold">5</td><td><strong>Matrícula</strong></td><td>Pagamento Pós-Grad confirmado no Asaas</td><td>Asaas webhook → P3 criado · USINA processa matrícula e documentação</td><td>Boleto vencido · chargeback</td><td><span class="tag tag-amber">Lorena</span></td><td><span class="tag tag-gold">P1 → P3</span></td></tr>
+          <tr style="background:#050f08;"><td class="num gold bold">6</td><td><strong>Onboarding</strong></td><td>Acesso plataforma · contrato assinado · boas-vindas</td><td>1º acesso plataforma em D+7</td><td>Sem acesso D+7 🚨</td><td><span class="tag tag-green">Julia</span></td><td><span class="tag tag-green">P3</span></td></tr>
+          <tr style="background:#050f08;"><td class="num gold bold">7</td><td><strong>Em Curso</strong></td><td>Aluno consome conteúdo · Health Score quinzenal</td><td>Health Score ≥ 7/10 · acesso semanal</td><td>Health Score &lt; 4/10 🚨</td><td><span class="tag tag-green">Julia</span></td><td><span class="tag tag-green">P3</span></td></tr>
+          <tr style="background:#100505;"><td class="num gold bold">8</td><td><strong>Em Risco</strong></td><td>CS proativo: ligação Julia em 24h</td><td>Retorna à plataforma · regulariza</td><td>Pedido de cancelamento</td><td><span class="tag tag-green">Julia</span></td><td><span class="tag tag-green">P3</span></td></tr>
+          <tr style="background:#050f08;"><td class="num gold bold">9</td><td><strong>Conclusão</strong></td><td>Aluno finaliza 12 meses · NPS coletado</td><td>NPS ≥ 8 · depoimento autorizado</td><td>NPS &lt; 6 · sem depoimento</td><td><span class="tag tag-green">Julia</span></td><td><span class="tag tag-green">P3</span></td></tr>
+          <tr style="background:#0a1a2a;"><td class="num gold bold">10</td><td><strong>Expansão / T3</strong></td><td>Lorena faz oferta T3 · waitlist aberta</td><td>Interesse em T3 · indicação</td><td>Sem engajamento pós-conclusão</td><td><span class="tag tag-amber">Lorena</span> <span class="tag tag-green">Julia</span></td><td><span class="tag tag-gold">P1 (#expansao-t3)</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sec-title">Transições entre Pipelines</div>
+  <div class="grid-2">
+    <div class="card card-gold">
+      <div class="card-header">P1 → P2 (Produto de Entrada)</div>
+      <div class="task" style="padding:10px 0;"><div class="task-dot"></div><div class="task-text"><strong>Gatilho:</strong> Asaas confirma pagamento do CL/Webinário/Aula Paga<br><small>Automação cria card em P2 "Inscrito" · move P1 para "Engajado" · tag #produto-entrada</small></div></div>
+      <div class="task" style="padding:10px 0;"><div class="task-dot"></div><div class="task-text"><strong>No-show:</strong> Participante não comparece ao evento<br><small>P2 encerrado · retorna P1 com tag #cl-no-show · Lorena agenda follow-up D+3</small></div></div>
+    </div>
+    <div class="card card-green">
+      <div class="card-header">P2 → P3 (Matrícula Pós-Grad)</div>
+      <div class="task" style="padding:10px 0;"><div class="task-dot"></div><div class="task-text"><strong>Gatilho:</strong> Asaas confirma pagamento Pós-Grad<br><small>Automação cria card P3 "Onboarding" · USINA processa documentação e contrato · plataforma libera acesso · P2 = "Converteu"</small></div></div>
+      <div class="task" style="padding:10px 0;"><div class="task-dot"></div><div class="task-text"><strong>Não converteu:</strong> Participou mas não comprou<br><small>P2 = "Não Converteu" · permanece P1 · Lorena follow-up D+3 e D+7 com nova abordagem</small></div></div>
+    </div>
+    <div class="card card-blue">
+      <div class="card-header">P3 → P1 (Expansão T3)</div>
+      <div class="task" style="padding:10px 0;"><div class="task-dot"></div><div class="task-text"><strong>Gatilho:</strong> Aluno conclui 12 meses + T3 em captação<br><small>Automação cria card P1 com tag #expansao-t3 · Lorena recebe alerta para oferta T3</small></div></div>
+    </div>
+    <div class="card card-red">
+      <div class="card-header">P3 — Cancelamento</div>
+      <div class="task" style="padding:10px 0;"><div class="task-dot task-dot-urgent"></div><div class="task-text"><strong>Gatilho:</strong> Cancelamento confirmado no Asaas<br><small>Automação dispara pesquisa 3 perguntas · EVO P3 = "Cancelou" · Otimiza registra motivo</small></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- TAB 2 — PIPELINES EVO -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="content" id="t2">
+
+  <!-- LÓGICA -->
+  <div class="sec-title">Lógica dos 3 Pipelines</div>
+  <div class="grid-3" style="margin-bottom:8px;">
+    <div class="card card-gold">
+      <div class="card-header">P1 · Captação / Leads</div>
+      <div class="bold gold">Todo lead entra aqui</div>
+      <div class="small mt8">Sem exceção — tráfego pago, orgânico, indicação ou CL. P1 é o ponto de entrada único de qualquer pessoa que ainda não é aluna da pós.</div>
+    </div>
+    <div class="card card-blue">
+      <div class="card-header">P2 · Produto de Entrada</div>
+      <div class="bold" style="color:#5ba0d0;">Só para quem comprou CL ou webinário</div>
+      <div class="small mt8">Não é obrigatório. Existe apenas para registrar a jornada de quem comprou um produto de entrada e medir quantos convertem para a pós.</div>
+    </div>
+    <div class="card card-green">
+      <div class="card-header">P3 · Aluno Pós-Grad</div>
+      <div class="bold" style="color:#4caf84;">Só para quem está matriculado</div>
+      <div class="small mt8">Criado automaticamente quando o pagamento da pós é confirmado. Acompanha o aluno durante os 12 meses de entrega do curso.</div>
+    </div>
+  </div>
+
+  <div class="sec-title">Três caminhos possíveis</div>
+  <div class="grid-3" style="margin-bottom:24px;">
+    <div class="card">
+      <div class="card-header">Caminho 1 — Lead direto para pós</div>
+      <div class="small mb8">Tráfego direto, orgânico ou indicação · sem produto de entrada</div>
+      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-top:8px;">
+        <span class="tag tag-gold">P1 Novo Lead</span>
+        <span class="arrow">→</span>
+        <span class="tag tag-gold">Qualificando</span>
+        <span class="arrow">→</span>
+        <span class="tag tag-gold">Engajado</span>
+        <span class="arrow">→</span>
+        <span class="tag tag-gold">Proposta</span>
+        <span class="arrow">→</span>
+        <span class="tag tag-gold">Matriculado</span>
+        <span class="arrow">→</span>
+        <span class="tag tag-green">P3 Onboarding</span>
+      </div>
+      <div class="small mt8">P2 não existe para essa pessoa.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Caminho 2 — Lead via produto de entrada</div>
+      <div class="small mb8">Compra CL ou webinário antes de decidir sobre a pós</div>
+      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-top:8px;">
+        <span class="tag tag-gold">P1 Novo Lead</span>
+        <span class="arrow">→</span>
+        <span class="tag tag-gold">Engajado</span>
+        <span class="arrow">→</span>
+        <span class="tag tag-blue">P2 Inscrito</span>
+        <span class="arrow">→</span>
+        <span class="tag tag-blue">Participou</span>
+        <span class="arrow">→</span>
+        <span class="tag tag-blue">Converteu</span>
+        <span class="arrow">→</span>
+        <span class="tag tag-green">P3 Onboarding</span>
+      </div>
+      <div class="small mt8">P1 fecha como "Matriculado" quando P2 converte.</div>
+    </div>
+    <div class="card card-blue">
+      <div class="card-header">Caminho 3 — Lead entra pela Comunidade WhatsApp</div>
+      <div class="small mb8">Anúncio de comunidade → mini-LP com formulário → recebe link do grupo → Lorena nutre até converter</div>
+      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-top:8px;">
+        <span class="tag tag-blue">Anúncio</span>
+        <span class="arrow">→</span>
+        <span class="tag tag-blue">Mini-LP + Form</span>
+        <span class="arrow">→</span>
+        <span class="tag tag-gold">P1 Novo Lead</span>
+        <span class="arrow">→</span>
+        <span class="tag tag-blue">Comunidade</span>
+        <span class="arrow">→</span>
+        <span class="tag tag-gold">Engajado → Pós</span>
+      </div>
+      <div class="small mt8" style="color:#5ba0d0;"><strong>canal_origem = whatsapp-comunidade</strong> · card P1 criado automaticamente via webhook · Lorena também pode adicionar manualmente quem demonstrar interesse no grupo</div>
+    </div>
+  </div>
+
+  <!-- SOP COMUNIDADE -->
+  <div class="sec-title">SOP — Comunidade WhatsApp · Papéis e Regras de Operação</div>
+  <div class="grid-2" style="margin-bottom:24px;">
+    <div class="card">
+      <div class="card-header">Formato e Regras do Grupo</div>
+      <ul style="margin:8px 0 0 16px;font-size:12px;color:var(--text-dim);line-height:1.8;">
+        <li><strong>Grupo fechado</strong> — somente admins postam (Lucyanne / Julia)</li>
+        <li>Comentários nas postagens liberados · postagem livre dos membros <strong>bloqueada</strong></li>
+        <li>Fixado no topo: <em>"Dúvidas sobre a pós → fale com Lorena → [link DM]"</em></li>
+        <li>Abre para interação dos membros em momentos específicos (live, webinário)</li>
+        <li>Risco de ban: baixo — conteúdo ICBID não é agressivo</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-header">Quem faz o quê</div>
+      <table class="tbl" style="font-size:11px;">
+        <thead><tr><th>Ação</th><th>Responsável</th></tr></thead>
+        <tbody>
+          <tr><td>Produzir conteúdo educativo (2–3×/semana)</td><td>Igor</td></tr>
+          <tr><td>Postar no grupo / agendar publicações</td><td>Julia</td></tr>
+          <tr><td>Responder perguntas técnicas do tema</td><td>Igor (ou persona de suporte)</td></tr>
+          <tr><td>Responder "quanto custa?" / "como me matriculo?"</td><td>Lorena via DM — nunca no grupo</td></tr>
+          <tr><td>Identificar lead quente e criar card P1 no EVO</td><td>Lorena (manual) ou mini-LP (auto)</td></tr>
+          <tr><td>Moderar (remover spam, fixar avisos)</td><td>Julia</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="grid-2" style="margin-bottom:24px;">
+    <div class="card card-gold">
+      <div class="card-header">Como lead da Comunidade entra no EVO</div>
+      <div class="small" style="line-height:1.9;">
+        <strong>Automático (preferencial):</strong> anúncio → mini-LP com formulário (nome + tel + email) → link do grupo liberado após envio → webhook cria card P1 com <code>canal_origem = whatsapp-comunidade</code><br><br>
+        <strong>Manual (Lorena):</strong> pessoa faz pergunta comercial no grupo ou DM → Lorena abre card P1 manualmente no EVO antes de responder<br><br>
+        <span style="color:var(--gold);">⚠ Sem uma dessas duas ações, o lead não existe no EVO e não pode ser rastreado nem recuperado.</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">Persona de Suporte — roteiro rápido</div>
+      <div class="small" style="line-height:1.9;">
+        <strong>Pergunta técnica do tema:</strong> <em>"Boa pergunta! Vou verificar com o professor e te retorno aqui ainda hoje."</em> → encaminha a resposta depois<br><br>
+        <strong>Pergunta sobre preço / matrícula:</strong> <em>"Para informações sobre investimento e condições, fale diretamente com a Lorena → [link]"</em><br><br>
+        <strong>Reclamação ou crítica:</strong> <em>"Obrigado por compartilhar. Pode me mandar DM para a gente resolver isso diretamente?"</em><br><br>
+        <em style="color:var(--text-muted);">A persona de suporte nunca responde preço no grupo. Sempre direciona para DM Lorena.</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- P1 -->
+  <div class="sec-title">Pipeline 1 — Captação / Leads · Permanente · Igor + Lorena</div>
+  <div class="card card-gold" style="margin-bottom:24px;">
+    <div class="pipe-stages pipe-gold">
+      <div class="stage"><span class="stage-num">01</span><span class="stage-name">Novo Lead</span><span class="stage-sla">SLA contato: 2h</span><span class="stage-owner">Igor / Lorena</span></div>
+      <div class="stage"><span class="stage-num">02</span><span class="stage-name">Qualificando</span><span class="stage-sla">BANT · 24–48h</span><span class="stage-owner">Lorena</span></div>
+      <div class="stage"><span class="stage-num">03</span><span class="stage-name">Engajado</span><span class="stage-sla">Nurture ativo</span><span class="stage-owner">Lorena</span></div>
+      <div class="stage"><span class="stage-num">04</span><span class="stage-name">Proposta</span><span class="stage-sla">Resposta: 24h</span><span class="stage-owner">Lorena</span></div>
+      <div class="stage"><span class="stage-num">05</span><span class="stage-name">Negociando</span><span class="stage-sla">Follow-up: 48h</span><span class="stage-owner">Lorena</span></div>
+      <div class="stage"><span class="stage-num">06</span><span class="stage-name gold bold">Matriculado</span><span class="stage-sla">→ cria P3</span><span class="stage-owner">Auto</span></div>
+      <div class="stage"><span class="stage-num">07</span><span class="stage-name red">Perdido</span><span class="stage-sla">Motivo obrigatório</span><span class="stage-owner">Lorena</span></div>
+    </div>
+    <div class="mt16">
+      <table class="tbl">
+        <thead><tr><th>Estágio</th><th>Campos obrigatórios EVO</th><th>Responsável</th><th>SLA</th><th>Ação automação</th></tr></thead>
+        <tbody>
+          <tr><td>Novo Lead</td><td>canal_origem · UTM · telefone · email</td><td>Igor (auto)</td><td>Contato em 2h</td><td>Alerta WhatsApp Lorena se score ≥ 7</td></tr>
+          <tr><td>Qualificando</td><td>budget · autoridade · necessidade · timeline</td><td>Lorena</td><td>24–48h</td><td>—</td></tr>
+          <tr><td>Engajado</td><td>interesse_produto (CL/Pós/Webinar)</td><td>Lorena</td><td>Nurture semanal</td><td>Sequência email automática</td></tr>
+          <tr><td>Proposta</td><td>data_proposta · valor_proposto</td><td>Lorena</td><td>Resposta em 24h</td><td>Alerta se sem resposta 48h</td></tr>
+          <tr><td>Negociando</td><td>objecao · contraproposta</td><td>Lorena</td><td>Follow-up em 48h</td><td>—</td></tr>
+          <tr><td>Matriculado</td><td>data_fechamento · valor_venda · forma_pagamento</td><td>Auto (Asaas)</td><td>—</td><td>Cria P3 "Onboarding" automaticamente</td></tr>
+          <tr><td>Perdido</td><td>motivo_perda (seleção obrigatória)</td><td>Lorena</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+      <div class="small mt8">⚠️ Campo <strong>motivo_perda</strong> deve ser SELEÇÃO (dropdown), nunca texto livre. Opções: Preço · Concorrente · Sem orçamento · Não compareceu · Interesse perdido · Outro</div>
+    </div>
+  </div>
+
+  <!-- P2 -->
+  <div class="sec-title">Pipeline 2 — Produto de Entrada (CL / Webinário / Aula Paga) · Sazonal · Julia + Lorena</div>
+  <div class="small mb8">Ativo nas semanas de evento: W3 (CL Ed.1) · W6 (CL Ed.2) · W7–W8 (Webinários) · W17 (CL Ed.3)</div>
+  <div class="card card-blue" style="margin-bottom:24px;">
+    <div class="pipe-stages">
+      <div class="stage" style="background:#050a10;border-color:#1a3a5c;"><span class="stage-num">01</span><span class="stage-name">Inscrito</span><span class="stage-sla">Auto via Asaas</span><span class="stage-owner">Julia</span></div>
+      <div class="stage" style="background:#050a10;border-color:#1a3a5c;"><span class="stage-num">02</span><span class="stage-name">Participou</span><span class="stage-sla">Dia do evento</span><span class="stage-owner">Julia</span></div>
+      <div class="stage" style="background:#050a10;border-color:#1a3a5c;"><span class="stage-num">03</span><span class="stage-name">Oferta Feita</span><span class="stage-sla">24h pós-evento</span><span class="stage-owner">Lorena</span></div>
+      <div class="stage" style="background:#0a2a12;border-color:#1a5c30;"><span class="stage-num">04A</span><span class="stage-name green bold">Converteu</span><span class="stage-sla">→ cria P3</span><span class="stage-owner">Auto</span></div>
+      <div class="stage" style="background:#100505;border-color:#5c1a1a;"><span class="stage-num">04B</span><span class="stage-name red">Não Converteu</span><span class="stage-sla">Follow D+3/D+7</span><span class="stage-owner">Lorena</span></div>
+    </div>
+    <div class="mt16">
+      <table class="tbl">
+        <thead><tr><th>Estágio</th><th>Campos obrigatórios</th><th>Ação</th></tr></thead>
+        <tbody>
+          <tr><td>Inscrito</td><td>data_inscricao · tipo_produto · valor_pago</td><td>Automação cria card ao confirmar pagamento Asaas CL</td></tr>
+          <tr><td>Participou</td><td>compareceu (sim/não) · show_rate</td><td>Marcado manualmente Julia no dia do evento</td></tr>
+          <tr><td>Oferta Feita</td><td>data_oferta · valor_ofertado</td><td>Lorena registra na abordagem</td></tr>
+          <tr><td>Converteu</td><td>data_conversao · ticket_pos_grad</td><td>Automação detecta pagamento Pós-Grad → cria P3 automaticamente</td></tr>
+          <tr><td>Não Converteu</td><td>motivo_nao_conversao (seleção)</td><td>Lorena: follow D+3 · follow D+7 · retorna P1</td></tr>
+        </tbody>
+      </table>
+      <div class="small mt8">Meta de conversão P2 → Pós-Grad: ≥ 25%. Acompanhar taxa por edição de CL.</div>
+    </div>
+  </div>
+
+  <!-- P3 -->
+  <div class="sec-title">Pipeline 3 — Aluno Pós-Graduação · 12 meses · Julia</div>
+  <div class="card card-green" style="margin-bottom:24px;">
+    <div class="pipe-stages pipe-green">
+      <div class="stage"><span class="stage-num">01</span><span class="stage-name">Onboarding</span><span class="stage-sla">Acesso D+1</span><span class="stage-owner">Julia</span></div>
+      <div class="stage"><span class="stage-num">02</span><span class="stage-name">Em Curso</span><span class="stage-sla">HS quinzenal</span><span class="stage-owner">Julia</span></div>
+      <div class="stage"><span class="stage-num">03</span><span class="stage-name" style="color:#e05050;">Em Risco</span><span class="stage-sla">CS em 24h 🚨</span><span class="stage-owner">Julia</span></div>
+      <div class="stage"><span class="stage-num">04</span><span class="stage-name green">Concluiu</span><span class="stage-sla">NPS em 7 dias</span><span class="stage-owner">Julia</span></div>
+      <div class="stage"><span class="stage-num">05</span><span class="stage-name gold">Expansão</span><span class="stage-sla">Oferta T3 30d</span><span class="stage-owner">Lorena</span></div>
+      <div class="stage"><span class="stage-num">06</span><span class="stage-name red">Cancelou</span><span class="stage-sla">Pesquisa auto</span><span class="stage-owner">Auto</span></div>
+    </div>
+    <div class="mt16">
+      <table class="tbl">
+        <thead><tr><th>Estágio</th><th>Critério de entrada</th><th>Campos</th><th>Ação crítica</th></tr></thead>
+        <tbody>
+          <tr><td>Onboarding</td><td>Pagamento Pós-Grad confirmado Asaas</td><td>data_matricula · forma_pgto · documentacao_usina</td><td>Julia verifica 1º acesso plataforma D+7 — se não acessou: ligar 🚨</td></tr>
+          <tr><td>Em Curso</td><td>1º acesso plataforma registrado</td><td>data_primeiro_acesso · ultimo_acesso · progresso_%</td><td>Health Score quinzenal · HS &lt; 4 → move para Em Risco automaticamente</td></tr>
+          <tr><td>Em Risco</td><td>Health Score &lt; 4/10 ou inatividade 21 dias</td><td>data_alerta · health_score · motivo_risco</td><td>Julia liga em até 24h · registra resultado da abordagem</td></tr>
+          <tr><td>Concluiu</td><td>100% módulos obrigatórios concluídos</td><td>data_conclusao · percentual_final</td><td>Enviar NPS em 7 dias · solicitar depoimento</td></tr>
+          <tr><td>Expansão</td><td>NPS ≥ 7 + T3 em abertura</td><td>nps_score · interesse_t3</td><td>Automação cria card P1 com #expansao-t3 · Lorena recebe alerta</td></tr>
+          <tr><td>Cancelou</td><td>Cancelamento Asaas confirmado</td><td>data_cancelamento · motivo (pesquisa)</td><td>Automação dispara pesquisa exit 3 perguntas · exporta para Otimiza Sheets</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="small mt8">Health Score = (frequência_acesso × 0.4) + (progresso % × 0.3) + (adimplência × 0.3) · Escala 0–10 · Atualização quinzenal via automação</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- TAB 3 — EQUIPE & FASES -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="content" id="t3">
+
+  <div class="sec-title">Esta Semana — Semana 1 (26 Jun 2026) — Setup Obrigatório</div>
+  <div class="grid-4" style="margin-bottom:24px;">
+    <div class="card">
+      <div class="person-hdr"><div class="person-avatar avatar-igor">I</div><div><div class="person-name">Igor</div><div class="person-role">Aquisição · Automação · Tráfego</div></div></div>
+      <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text">Ativar recuperação de carrinho no Asaas<small>T1 gerou 153 carrinhos abandonados sem recuperação — confirmar e ativar antes do W1</small></div></div>
+      <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text">Instalar pixel Meta + GTM na LP · testar 4 eventos<small>PageView · Lead · InitiateCheckout · Purchase — testar ANTES de ligar tráfego</small></div></div>
+      <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text">Repassar ao Hiago: remover CTAs "Inscreva-se" do hero e do menu da LP<small>Substituir por "Saiba mais" com scroll · formulário não pode ter botão de WhatsApp abaixo</small></div></div>
+      <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text">Configurar estrutura UTM padrão para todos os canais<small>utm_source / utm_medium / utm_campaign / utm_content — único rastreio por lead disponível</small></div></div>
+      <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text">Montar automação: webhook LP → EVO P1 + alerta HOT Lorena<small>Testar: lead entra na LP → card criado no EVO com UTMs e campos do formulário preenchidos</small></div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Iniciar com R$ 45/dia · 5 criativos · 5 conjuntos de anúncio<small>Meta Ads principal · Google em paralelo · LinkedIn apenas orgânico</small></div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Definir CPL máximo: meta ≤ R$ 10 · alerta automático se > R$ 15</div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Criar comunidade WhatsApp fechada e configurar link de entrada automático</div></div>
+    </div>
+    <div class="card">
+      <div class="person-hdr"><div class="person-avatar avatar-hiago">H</div><div><div class="person-name">Hiago</div><div class="person-role">EVO CRM · EAD</div></div></div>
+      <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text">Criar P1 Captação no EVO: 7 estágios + campos obrigatórios<small>motivo_perda e canal_origem como SELEÇÃO — nunca texto livre</small></div></div>
+      <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text">Criar P2 Produto Entrada: 5 estágios + campo compareceu (seleção sim/não)</div></div>
+      <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text">Criar P3 Aluno Pós-Grad 12 meses: 6 estágios + campo health_score</div></div>
+      <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text">Confirmar: EVO tem webhook de saída nativo? (necessário para qualquer ferramenta de automação)<small>Resposta define o design de todas as automações</small></div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Mapear campos de log disponíveis no EAD<small>Precisamos: data_primeiro_acesso · ultimo_acesso · progresso_% · modulos_concluidos</small></div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Confirmar fluxo Asaas → USINA: webhook direto ou via automação?</div></div>
+    </div>
+    <div class="card">
+      <div class="person-hdr"><div class="person-avatar avatar-lorena">L</div><div><div class="person-name">Lorena</div><div class="person-role">Comercial · Vendas</div></div></div>
+      <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text">Definir critérios BANT para qualificação de leads ICBID<small>Budget: capacidade R$ 8.500 · Authority: decide · Need: área biometria · Timeline: T2</small></div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Testar fluxo de notificação: lead entra EVO → alerta WhatsApp chega em até 2 min</div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Revisar e personalizar scripts de abordagem (Tab Scripts)</div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Definir SLA pessoal: resposta em até 2h horário comercial</div></div>
+    </div>
+    <div class="card">
+      <div class="person-hdr"><div class="person-avatar avatar-julia">J</div><div><div class="person-name">Julia</div><div class="person-role">CS · Operações</div></div></div>
+      <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text">Validar acesso à plataforma EAD com Hiago<small>Confirmar quais campos de log ela consegue visualizar no painel</small></div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Preparar template de boas-vindas onboarding (D+1 após matrícula)</div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Montar checklist de onboarding: acesso · contrato · grupo WhatsApp · apresentação</div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Configurar lembrete quinzenal para calcular Health Score manualmente (até automação estar pronta)</div></div>
+    </div>
+  </div>
+
+  <!-- FASES 1-5 -->
+  <div class="sec-title">Fases da Campanha de Captação (W1–W18)</div>
+
+  <!-- ESTRATEGIA 3 MESES -->
+  <div class="card card-gold" style="margin-bottom:20px;">
+    <div class="card-header">Estratégia dos 3 Meses — Estrutura Definida com Igor</div>
+    <div class="grid-3" style="margin-top:8px;">
+      <div>
+        <div class="bold" style="color:var(--gold);margin-bottom:6px;">Mês 1 — Jul · Engajamento</div>
+        <div class="small">Objetivo: construir comunidade WhatsApp e criar audiência<br>Produto: Webinário pago (R$30–50) como isca<br>Tráfego: awareness + entrada na comunidade<br>CTA das campanhas → comunidade, não venda direta</div>
+      </div>
+      <div>
+        <div class="bold" style="color:var(--gold);margin-bottom:6px;">Mês 2 — Ago · Lista de Espera</div>
+        <div class="small">Objetivo: nutrir base + vender módulos livres<br>Produto: Módulos livres (R$97–297) · Webinários<br>Alunos T1 convidados para indicar T2<br>Lista de espera aberta para Pós-Grad</div>
+      </div>
+      <div>
+        <div class="bold" style="color:var(--gold);margin-bottom:6px;">Mês 3 — Set/Out · Campanha Ativa</div>
+        <div class="small">Objetivo: 50 matrículas Pós-Grad<br>Todos os criativos e CTAs → Pós-Grad<br>Eleições (~4 Out): pausar tráfego pago<br>CL Ed.3 W17 como última alavanca</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FASE 1 -->
+  <div class="phase-block">
+    <div class="phase-label"><span class="tag tag-gold">Fase 1 · W1–W3 · 26 Jun – 17 Jul</span> Setup · Engajamento · Comunidade + Webinário 1</div>
+    <div class="grid-3">
+      <div><div class="small bold mb8">Igor</div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Subir LP com pixel ativo e formulário corrigido (sem CTA direto para WhatsApp)</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Campanhas Meta + Google: objetivo entrada na comunidade WhatsApp (não venda direta)</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Campanha webinário pago (R$30–50) · início agosto</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Orgânico: YouTube Shorts · TikTok · Instagram · Facebook (conteúdo autoridade biometria)</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">LinkedIn: gestão orgânica apenas — sem tráfego pago</div></div>
+      </div>
+      <div><div class="small bold mb8">Lorena</div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Contato com alunos T1 — pedir indicações para T2</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Responder leads que chegarem via comunidade e formulário (SLA 2h)</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Leads quentes: convidar para comunidade como gatilho de compra</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Registrar qualificação no EVO (P1 etapas 1–3)</div></div>
+      </div>
+      <div><div class="small bold mb8">Julia</div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Coletar depoimentos alunos T1 para prova social</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Receber e testar MVP do EAD (entrega prevista 10 Jul)</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Preparar material de onboarding T2</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Moderar comunidade WhatsApp · definir frequência de publicações</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FASE 2 -->
+  <div class="phase-block">
+    <div class="phase-label"><span class="tag tag-blue">Fase 2 · W3–W6 · CL Edição 1 + Nurture + CL Edição 2</span></div>
+    <div class="grid-3">
+      <div><div class="small bold mb8">Igor</div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">W3: Ativar campanha inscricão CL Ed.1 · Meta + Google</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">W4–W5: Nurture lead não-convertido: conteúdo + case T1</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">W6: Ativar campanha CL Ed.2 · ampliar audiences</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Monitorar CPL semanal — alerta se &gt; R$ 15</div></div>
+      </div>
+      <div><div class="small bold mb8">Lorena</div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">W3: Fazer oferta Pós-Grad no CL Ed.1 (durante e pós)</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Follow-up CL Ed.1 não-convertido: D+3 e D+7</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">W6: Fazer oferta Pós-Grad no CL Ed.2</div></div>
+      </div>
+      <div><div class="small bold mb8">Julia</div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">W3: Coordenar operação do CL Ed.1 (presença, plataforma)</div></div>
+        <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text">Verificar 1º acesso alunos que matricularam D+7 🚨</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">W6: Coordenar CL Ed.2</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FASE 3 -->
+  <div class="phase-block">
+    <div class="phase-label"><span class="tag tag-purple">Fase 3 · W7–W10 · Webinários + Nurture Médio</span></div>
+    <div class="grid-3">
+      <div><div class="small bold mb8">Igor</div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">W7–W8: Campanhas inscricão webinário · retargeting base quente</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">W9–W10: Nurture leads frios com conteúdo técnico biometria</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Análise Otimiza mid-campaign: checar funil de conversão</div></div>
+      </div>
+      <div><div class="small bold mb8">Lorena</div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">W7–W8: Oferta Pós-Grad nos 2 webinários · pitch ao vivo</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Follow-up webinar não-convertido: D+3 e D+7</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">W9–W10: Retomar leads frios do início da campanha</div></div>
+      </div>
+      <div><div class="small bold mb8">Julia</div>
+        <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text">Health Score quinzenal: 1ª rodada alunos matriculados 🚨</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">NPS mês 3 (alunos matriculados em W3–W4)</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">CS proativo em alunos com HS &lt; 4/10</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FASE 4 -->
+  <div class="phase-block">
+    <div class="phase-label"><span class="tag tag-amber">Fase 4 · W11–W16 · Sprint Final Captação + Carrinho Aberto</span></div>
+    <div class="grid-3">
+      <div><div class="small bold mb8">Igor</div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">W11: 🚀 Virada de campanha — aumentar budget tráfego 30%</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">W11–W13: Campanha agressiva de retargeting toda a base</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">W14–W16: Carrinho aberto Pós-Grad · urgência e escassez</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">W15: 🗳 Eleições — monitorar performance de ads, reduzir se necessário</div></div>
+      </div>
+      <div><div class="small bold mb8">Lorena</div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">W11–W13: Abordagem intensiva leads em negociação</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">W14–W16: Urgência real: vagas limitadas · data de encerramento</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Recuperar leads perdidos nos estágios 3–4 do P1</div></div>
+      </div>
+      <div><div class="small bold mb8">Julia</div>
+        <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text">Health Score 2ª rodada · CS proativo 24h quem está em risco 🚨</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Coletar depoimentos para reforçar credibilidade no sprint final</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FASE 5 -->
+  <div class="phase-block">
+    <div class="phase-label"><span class="tag tag-amber">Fase 5 · W17–W18 · CL Ed.3 + Últimas Matrículas</span></div>
+    <div class="grid-3">
+      <div><div class="small bold mb8">Igor</div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">W17: 🎓 CL Edição 3 — campanha de inscricão</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">W18: ✓ Última chamada — campanha de urgência máxima</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Exportar dados completos da campanha para Otimiza Sheets</div></div>
+      </div>
+      <div><div class="small bold mb8">Lorena</div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">W17: Oferta Pós-Grad no CL Ed.3 — última oportunidade</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">W18: Contatar TODOS os leads em aberto no P1</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Meta: fechar os últimos X leads para atingir 50 matrículas</div></div>
+      </div>
+      <div><div class="small bold mb8">Julia</div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Preparar estrutura da turma T2 na plataforma</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Planejar evento de boas-vindas T2 (online ou presencial)</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FASE 6 -->
+  <div class="phase-block" style="border-color:#1a5c30;">
+    <div class="phase-label"><span class="tag tag-green">Fase 6 · Nov 2026 → Nov 2027 · Entrega — 12 meses</span></div>
+    <div class="grid-3">
+      <div><div class="small bold mb8">Igor — Mês 1–12</div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Mês 1–2: Publicar social proof (primeiras impressões dos alunos T2)</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Mês 3–6: Case study mensal com resultado real de aluno T1</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Mês 3–6: Monitorar pipeline Otimiza · análise de retenção por cohort</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Mês 9–12: Iniciar campanha T3 com waitlist exclusiva</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Mês 9–12: Produzir vídeos de depoimento alunos T2 para T3</div></div>
+      </div>
+      <div><div class="small bold mb8">Lorena — Mês 1–12</div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Mês 1–2: Abrir waitlist T3 para leads não-convertidos T2</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Mês 1–2: Reativar leads perdidos T2 com oferta Early Bird T3</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Mês 3–6: Nurture mensal T3 (1 email/mês) para a lista de espera</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Mês 10: Oferta referral: aluno T2 indica → desconto em T3</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Mês 11: Oferta upgrade: aluno T2 que concluiu → produto complementar</div></div>
+      </div>
+      <div><div class="small bold mb8">Julia — Mês 1–12</div>
+        <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text">Mês 1: Verificar 1º acesso plataforma D+7 de CADA aluno 🚨</div></div>
+        <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text">Mês 1: Check-in individual semana 2 com cada aluno 🚨</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Mês 1–12: Animar grupo WhatsApp da turma (1 interação/semana)</div></div>
+        <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text">Mês 3–12: Health Score quinzenal · CS proativo em 24h para HS &lt; 4 🚨</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Mês 3 e Mês 6: NPS formal com todos os alunos</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Mês 12: Cerimônia de conclusão + NPS final + pesquisa de saída</div></div>
+        <div class="task"><div class="task-dot"></div><div class="task-text">Mês 12: Exportar dados completos para Otimiza (encerramento ciclo)</div></div>
+      </div>
+    </div>
+    <div class="card card-green mt16">
+      <div class="card-header">Marco de sucesso da Fase 6</div>
+      <div class="bold green">≥ 80% dos 50 alunos concluem os 12 meses · NPS médio ≥ 8 · ≥ 10 depoimentos em vídeo para T3</div>
+    </div>
+  </div>
+
+  <!-- REGRAS FIXAS -->
+  <div class="sec-title mt24">Regras Fixas da Operação</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header">Lorena — Regras Comerciais</div>
+      <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text">SLA resposta: 2h em horário comercial (8h–18h seg-sex)</div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Todo lead entra no EVO antes do primeiro contato</div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Follow-up padrão: D+1 · D+3 · D+7 · D+14 · D+30 · encerrar</div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Motivo de perda: obrigatório registrar no EVO ao mover para "Perdido"</div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Nunca dar desconto não autorizado — consultar Igor antes</div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Show/no-show do CL: registrar no EVO P2 no dia do evento</div></div>
+    </div>
+    <div class="card">
+      <div class="card-header">Julia — Regras CS</div>
+      <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text">1º acesso plataforma: verificar D+7 — se não acessou, ligar 🚨</div></div>
+      <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text">Health Score &lt; 4/10: contato proativo em até 24h 🚨</div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Inatividade 21 dias: alerta automático + CS proativo</div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Pedido de cancelamento: registrar no EVO antes de qualquer ação</div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Depoimento: solicitar apenas após NPS ≥ 8</div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Pesquisa exit (cancelamento): 3 perguntas via automação</div></div>
+    </div>
+    <div class="card">
+      <div class="card-header">Igor — Regras de Marketing/Sistemas</div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Toda LP tem pixel testado antes de ir ao ar</div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">UTM em TODOS os links de campanha — sem exceção</div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">CPL acima de R$ 15 por semana → revisar campanha imediatamente</div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Exportar dados Otimiza toda sexta-feira antes das 18h</div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Qualquer mudança no EVO (campo, estágio) → comunicar Lorena e Julia</div></div>
+    </div>
+    <div class="card">
+      <div class="card-header">Time — Regras Gerais</div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Reunião semanal: toda segunda-feira — revisão pipeline + métricas + próximos 7 dias</div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Qualquer oferta ou desconto não listado → aprovar com Igor antes de comunicar</div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Problemas com plataforma/Asaas → abrir chamado + notificar time no grupo</div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Dados no EVO: sempre registrar antes de sair do computador</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- TAB 4 — AUTOMAÇÕES -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="content" id="t4">
+  <div class="sec-title">14 Automações via automação — Hub Central de Integrações</div>
+  <div class="small mb16">Ferramenta de automação a confirmar com Igor. Integrações necessárias: LP, EVO CRM, Gateway, WhatsApp, USINA Edu, Plataforma EAD, Google Sheets (Otimiza)</div>
+
+  <div class="sec-title">Captação (P1)</div>
+
+  <div class="auto-item">
+    <div class="auto-num">01</div>
+    <div>
+      <div class="auto-title">Lead capture LP → EVO P1</div>
+      <div class="auto-detail">Formulário LP submetido → Automação cria card em P1 "Novo Lead" com UTMs, canal_origem, telefone, e-mail. Igor é notificado no painel Otimiza.</div>
+      <div class="auto-tech"><span class="tag tag-gold">Gatilho: webhook LP</span> <span class="tag tag-blue">Ação: POST EVO API</span> <span class="tag tag-blue">Igor (automação)</span> <span class="tag tag-purple">Hiago (EVO API)</span></div>
+    </div>
+  </div>
+
+  <div class="auto-item">
+    <div class="auto-num">02</div>
+    <div>
+      <div class="auto-title">Alerta HOT → WhatsApp Lorena</div>
+      <div class="auto-detail">Lead entra P1 com score ≥ 7 (calculado por Igor com base em UTM + comportamento) → WhatsApp imediato para Lorena com nome, telefone e canal de origem.</div>
+      <div class="auto-tech"><span class="tag tag-gold">Gatilho: EVO webhook (score ≥ 7)</span> <span class="tag tag-amber">Ação: WhatsApp Lorena</span> <span class="tag tag-blue">Igor (automação)</span></div>
+    </div>
+  </div>
+
+  <div class="auto-item">
+    <div class="auto-num">03</div>
+    <div>
+      <div class="auto-title">Lead sem contato 24h → Alerta Igor + Lorena</div>
+      <div class="auto-detail">Lead em P1 "Novo Lead" sem nenhuma nota de contato após 24h → WhatsApp para Lorena e Igor. Evita leads caindo no esquecimento.</div>
+      <div class="auto-tech"><span class="tag tag-gold">Gatilho: cron 24h após criação (sem nota)</span> <span class="tag tag-amber">Ação: WhatsApp duplo</span> <span class="tag tag-blue">Igor (automação)</span></div>
+    </div>
+  </div>
+
+  <div class="sec-title mt16">Produto de Entrada (P2)</div>
+
+  <div class="auto-item">
+    <div class="auto-num">04</div>
+    <div>
+      <div class="auto-title">Pagamento CL confirmado → cria P2 "Inscrito"</div>
+      <div class="auto-detail">Asaas confirma pagamento de CL/Webinário → Automação cria card em P2 com tipo_produto, data_evento, valor_pago. Move P1 para "Engajado" com tag #produto-entrada.</div>
+      <div class="auto-tech"><span class="tag tag-gold">Gatilho: Asaas webhook payment.confirmed (produto CL)</span> <span class="tag tag-blue">Ação: POST EVO P2 + PATCH P1</span> <span class="tag tag-purple">Hiago (Asaas webhook)</span> <span class="tag tag-blue">Igor (automação)</span></div>
+    </div>
+  </div>
+
+  <div class="auto-item">
+    <div class="auto-num">05</div>
+    <div>
+      <div class="auto-title">No-show CL → retorna P1 com tag #cl-no-show</div>
+      <div class="auto-detail">Julia marca "não compareceu" no P2 → automação encerra card P2, retorna ao P1, adiciona tag #cl-no-show, agenda follow-up D+3 para Lorena.</div>
+      <div class="auto-tech"><span class="tag tag-gold">Gatilho: EVO webhook P2 campo compareceu = NÃO</span> <span class="tag tag-amber">Ação: PATCH P1 tag + task Lorena D+3</span> <span class="tag tag-purple">Hiago (EVO webhook)</span> <span class="tag tag-blue">Igor (automação)</span></div>
+    </div>
+  </div>
+
+  <div class="sec-title mt16">Matrícula e Onboarding (P3)</div>
+
+  <div class="auto-item">
+    <div class="auto-num">06</div>
+    <div>
+      <div class="auto-title">Pagamento Pós-Grad confirmado → cria P3 + USINA + plataforma</div>
+      <div class="auto-detail">Asaas confirma pagamento Pós-Grad → Automação dispara em paralelo: (1) cria card P3 "Onboarding", (2) notifica USINA Edu para processar matrícula e documentação, (3) libera acesso plataforma EAD, (4) move P1 para "Matriculado". Se P2 existir, fecha como "Converteu".</div>
+      <div class="auto-tech"><span class="tag tag-gold">Gatilho: Asaas webhook payment.confirmed (produto Pós-Grad)</span> <span class="tag tag-green">Ação: 4 ações paralelas</span> <span class="tag tag-purple">Hiago (Asaas + EAD)</span> <span class="tag tag-blue">Igor (automação)</span></div>
+    </div>
+  </div>
+
+  <div class="auto-item">
+    <div class="auto-num">07</div>
+    <div>
+      <div class="auto-title">Verificação de acesso D+7 → alerta Julia</div>
+      <div class="auto-detail">7 dias após matrícula → Automação verifica se aluno fez 1º login na plataforma. Se NÃO acessou → WhatsApp urgente para Julia: "Aluno [nome] ainda não entrou na plataforma".</div>
+      <div class="auto-tech"><span class="tag tag-red">Gatilho: cron D+7 após data_matricula</span> <span class="tag tag-green">Ação: WhatsApp Julia (URGENTE)</span> <span class="tag tag-blue">Igor (automação)</span> <span class="tag tag-purple">Hiago (EAD log)</span></div>
+    </div>
+  </div>
+
+  <div class="auto-item">
+    <div class="auto-num">08</div>
+    <div>
+      <div class="auto-title">WhatsApp boas-vindas onboarding D+1</div>
+      <div class="auto-detail">1 dia após matrícula → mensagem automática de boas-vindas via WhatsApp com link da plataforma, link do grupo e resumo dos próximos passos.</div>
+      <div class="auto-tech"><span class="tag tag-gold">Gatilho: cron D+1 após data_matricula</span> <span class="tag tag-green">Ação: WhatsApp aluno</span> <span class="tag tag-blue">Igor (automação)</span></div>
+    </div>
+  </div>
+
+  <div class="sec-title mt16">Health Score e Retenção (P3)</div>
+
+  <div class="auto-item">
+    <div class="auto-num">09</div>
+    <div>
+      <div class="auto-title">Cálculo Health Score quinzenal</div>
+      <div class="auto-detail">A cada 15 dias: automação exporta dados plataforma (last_access, progresso, módulos) + status Asaas (adimplência) → calcula HS = (frequência_acesso × 0.4) + (progresso × 0.3) + (adimplência × 0.3) → atualiza campo health_score no EVO P3.</div>
+      <div class="auto-tech"><span class="tag tag-gold">Gatilho: cron a cada 15 dias</span> <span class="tag tag-blue">Ação: PATCH EVO P3 health_score</span> <span class="tag tag-purple">Hiago (EAD export + Asaas)</span> <span class="tag tag-blue">Igor (automação)</span></div>
+    </div>
+  </div>
+
+  <div class="auto-item">
+    <div class="auto-num">10</div>
+    <div>
+      <div class="auto-title">Health Score &lt; 4/10 → move P3 "Em Risco" + alerta Julia</div>
+      <div class="auto-detail">Após cálculo HS (#09): se HS &lt; 4 → move P3 para "Em Risco" + WhatsApp para Julia: "Aluno [nome] com HS [valor] — ligar em 24h". Julia registra resultado do contato no EVO.</div>
+      <div class="auto-tech"><span class="tag tag-red">Gatilho: health_score &lt; 4 (após #09)</span> <span class="tag tag-green">Ação: PATCH P3 + WhatsApp Julia (URGENTE)</span> <span class="tag tag-blue">Igor (automação)</span></div>
+    </div>
+  </div>
+
+  <div class="auto-item">
+    <div class="auto-num">11</div>
+    <div>
+      <div class="auto-title">Inatividade 21 dias → alerta Julia</div>
+      <div class="auto-detail">Aluno em P3 "Em Curso" sem acesso à plataforma por 21 dias → WhatsApp para Julia mesmo que HS ainda esteja ≥ 4. Sinal preventivo antes de virar risco real.</div>
+      <div class="auto-tech"><span class="tag tag-red">Gatilho: cron diário · last_access &gt; 21 dias atrás</span> <span class="tag tag-green">Ação: WhatsApp Julia</span> <span class="tag tag-blue">Igor (automação)</span> <span class="tag tag-purple">Hiago (EAD log)</span></div>
+    </div>
+  </div>
+
+  <div class="sec-title mt16">Cancelamento e Expansão (P3)</div>
+
+  <div class="auto-item">
+    <div class="auto-num">12</div>
+    <div>
+      <div class="auto-title">Cancelamento Asaas → pesquisa exit + P3 "Cancelou" + Otimiza</div>
+      <div class="auto-detail">Asaas confirma cancelamento → automação: (1) move P3 para "Cancelou", (2) envia pesquisa exit 3 perguntas via WhatsApp, (3) registra motivo no EVO, (4) exporta linha no Otimiza Sheets (churn).</div>
+      <div class="auto-tech"><span class="tag tag-red">Gatilho: Asaas webhook subscription.cancelled</span> <span class="tag tag-amber">Ação: 4 ações paralelas</span> <span class="tag tag-purple">Hiago (Asaas webhook)</span> <span class="tag tag-blue">Igor (automação)</span></div>
+    </div>
+  </div>
+
+  <div class="auto-item">
+    <div class="auto-num">13</div>
+    <div>
+      <div class="auto-title">Conclusão 12 meses → NPS + P3 "Concluiu"</div>
+      <div class="auto-detail">Aluno completa 12 meses (ou 100% módulos obrigatórios) → move P3 para "Concluiu" + dispara NPS em 7 dias + notifica Julia para solicitar depoimento.</div>
+      <div class="auto-tech"><span class="tag tag-gold">Gatilho: data_matricula + 12 meses (ou módulos = 100%)</span> <span class="tag tag-green">Ação: PATCH P3 + cron NPS D+7</span> <span class="tag tag-purple">Hiago (EAD dados)</span> <span class="tag tag-blue">Igor (automação)</span></div>
+    </div>
+  </div>
+
+  <div class="auto-item">
+    <div class="auto-num">14</div>
+    <div>
+      <div class="auto-title">Exportação semanal Otimiza (toda sexta)</div>
+      <div class="auto-detail">Toda sexta-feira: Automação puxa dados de EVO P1/P2/P3 + Asaas + plataforma → consolida em Google Sheets do Otimiza (5 abas: conversão, retenção, churn, health score, forecast). Base para análise semanal do Igor.</div>
+      <div class="auto-tech"><span class="tag tag-gold">Gatilho: cron sexta 17h</span> <span class="tag tag-blue">Ação: Google Sheets APPEND (5 abas)</span> <span class="tag tag-blue">Igor (automação)</span> <span class="tag tag-purple">Hiago (EVO + EAD acesso)</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- TAB 5 — SCRIPTS -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="content" id="t5">
+  <div class="sec-title">Scripts Prontos para Uso</div>
+  <div class="small mb16">Personalize [nome], [produto] e [data] antes de enviar. Adaptações de tom são bem-vindas mas mantenha a estrutura.</div>
+
+  <div class="grid-2">
+    <div>
+      <div class="sec-title">Lorena — Scripts Comerciais</div>
+
+      <div class="card mt8">
+        <div class="card-header">Script L1 — Abordagem Inicial (novo lead)</div>
+        <div class="script-box">Oi [nome]! Tudo bem?
+
+Vi aqui que você se interessou pelo ICBID — Pós-Graduação em Biometria para Identificação Humana.
+
+Posso te contar mais sobre como funciona e tirar suas dúvidas?
+
+[Aguardar resposta antes de continuar]</div>
+        <div class="small">Usar: lead novo em P1 · SLA máx 2h · WhatsApp</div>
+      </div>
+
+      <div class="card mt8">
+        <div class="card-header">Script L2 — Follow-up D+2 (sem resposta)</div>
+        <div class="script-box">Oi [nome], tentei te contatar ontem sobre o ICBID.
+
+Sei que a rotina corrida não deixa muito tempo — mas como as vagas da Turma 2 são limitadas, queria ter certeza que você recebeu as informações antes de encerrar as inscrições.
+
+Posso te mandar um resumo rápido agora?</div>
+        <div class="small">Usar: lead sem resposta após D+1 · não insistir mais de 2x sem resposta</div>
+      </div>
+
+      <div class="card mt8">
+        <div class="card-header">Script L3 — Proposta após interesse manifestado</div>
+        <div class="script-box">Ótimo, [nome]! Com base no que você me contou, o ICBID Pós-Grad faz sentido para [objetivo específico que ele mencionou].
+
+O investimento é R$ 8.500 pelo curso completo de 12 meses.
+
+Você tem alguma dúvida sobre a grade, metodologia ou formas de pagamento que eu possa esclarecer agora?</div>
+        <div class="small">Usar: após qualificação · nunca dar o preço sem contexto · registrar objeções no EVO</div>
+      </div>
+
+      <div class="card mt8">
+        <div class="card-header">Script L4 — Quebra de objeção "preciso pensar"</div>
+        <div class="script-box">Completamente compreensível, [nome].
+
+Só para eu entender melhor — o que você precisaria confirmar antes de decidir? É mais sobre o conteúdo, sobre as datas, ou sobre o investimento mesmo?
+
+Pergunto porque dependendo do que for, talvez eu possa resolver agora e você já sai com a decisão tomada.</div>
+        <div class="small">Usar: após objeção genérica · nunca pressionar · identificar objeção real</div>
+      </div>
+
+      <div class="card mt8">
+        <div class="card-header">Script L5 — Reativação lead frio (&gt; 30 dias)</div>
+        <div class="script-box">Oi [nome]! Faz um tempinho desde nossa última conversa sobre o ICBID.
+
+As vagas da Turma 2 estão se esgotando — e lembrei de você porque o perfil que vi quando conversamos é exatamente o que a pós busca.
+
+Ainda tem interesse, ou posso te colocar na lista para a Turma 3?</div>
+        <div class="small">Usar: lead frio há mais de 30 dias · sem julgamento · dar saída digna (T3)</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="sec-title">Julia — Scripts de CS</div>
+
+      <div class="card mt8">
+        <div class="card-header">Script J1 — Boas-vindas Onboarding (D+1 após matrícula)</div>
+        <div class="script-box">Oi [nome]! Bem-vindo(a) ao ICBID Pós-Graduação Turma 2! 🎓
+
+Sou a Julia, responsável pelo acompanhamento da turma.
+
+Seus próximos passos:
+1. Acesse a plataforma pelo link: [link]
+2. Assine o contrato pelo e-mail que chegou agora
+3. Entre no grupo exclusivo da Turma 2: [link grupo]
+
+Qualquer dúvida, fala comigo aqui. Estamos juntos nos próximos 12 meses!</div>
+        <div class="small">Disparado automaticamente via automação D+1 · Julia confirma recebimento D+2</div>
+      </div>
+
+      <div class="card mt8">
+        <div class="card-header">Script J2 — Check-in semana 2</div>
+        <div class="script-box">Oi [nome], tudo bem?
+
+Já fazem 2 semanas desde o início do ICBID. Como está sendo a experiência até agora?
+
+Tem alguma dificuldade com o conteúdo ou com a plataforma que posso ajudar?</div>
+        <div class="small">Usar: semana 2 · contato individual · registrar resposta no EVO P3</div>
+      </div>
+
+      <div class="card mt8">
+        <div class="card-header">Script J3 — CS Proativo (aluno em risco · HS &lt; 4)</div>
+        <div class="script-box">Oi [nome], aqui é a Julia do ICBID.
+
+Percebi que faz um tempo que você não acessou o conteúdo. Queria entender se está tudo bem da sua parte.
+
+Às vezes a rotina aperta, e estou aqui justamente para ajudar a encaixar o curso no seu ritmo. Tem alguma dificuldade específica que posso ajudar a resolver?</div>
+        <div class="small">Usar: HS &lt; 4/10 ou inatividade 21 dias · não mencionar "em risco" · foco em ajuda</div>
+      </div>
+
+      <div class="card mt8">
+        <div class="card-header">Script J4 — NPS Mês 3 / Mês 6</div>
+        <div class="script-box">Oi [nome]! Já completamos [3/6] meses juntos no ICBID.
+
+Queria pedir 2 minutos do seu tempo para uma pergunta:
+
+Em uma escala de 0 a 10, o quanto você indicaria o ICBID para um colega da área?
+
+Sua resposta é muito importante para continuarmos melhorando a experiência da turma.</div>
+        <div class="small">Usar: mês 3 e mês 6 · registrar NPS no EVO P3 · solicitar depoimento se NPS ≥ 8</div>
+      </div>
+
+      <div class="card mt8">
+        <div class="card-header">Script J5 — Pesquisa Exit (cancelamento)</div>
+        <div class="script-box">Oi [nome], recebemos seu pedido de cancelamento.
+
+Antes de finalizar, gostaríamos de entender melhor:
+
+1. O que te levou a tomar essa decisão?
+2. Houve algo que poderíamos ter feito diferente?
+3. Existe alguma forma de resolver a situação que te motivaria a continuar?
+
+Sua resposta nos ajuda a melhorar para as próximas turmas.</div>
+        <div class="small">Disparado via automação ao detectar cancelamento Asaas · respostas vão para Otimiza Sheets</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- TAB 6 — ALERTAS -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="content" id="t6">
+  <div class="sec-title">Sistema de Alertas — 10 Alertas Automáticos via automação</div>
+  <div class="small mb16">Todos os alertas chegam via WhatsApp. Urgente = resposta obrigatória em até 24h.</div>
+
+  <div class="grid-3">
+    <div>
+      <div class="person-hdr"><div class="person-avatar avatar-igor">I</div><div><div class="person-name">Igor — 3 Alertas</div><div class="person-role">Marketing · Sistemas</div></div></div>
+
+      <div class="alert-row alert-igor">
+        <div class="alert-icon">A1</div>
+        <div class="alert-body">
+          <div class="alert-trigger">Lead sem contato 24h</div>
+          <div class="alert-detail">Lead em P1 "Novo Lead" sem nota de contato após 24h. Verificar se Lorena recebeu o alerta. Pode indicar falha de integração EVO → WhatsApp.</div>
+          <div class="auto-tech mt8"><span class="tag tag-blue">Urgência: MÉDIA</span></div>
+        </div>
+      </div>
+
+      <div class="alert-row alert-igor">
+        <div class="alert-icon">A2</div>
+        <div class="alert-body">
+          <div class="alert-trigger">CPL acima de R$ 15 na semana</div>
+          <div class="alert-detail">Custo por lead semanal ultrapassou R$ 15 (benchmark T1: R$ 5,26). Revisar segmentação, criativos e lances das campanhas.</div>
+          <div class="auto-tech mt8"><span class="tag tag-amber">Urgência: ALTA</span></div>
+        </div>
+      </div>
+
+      <div class="alert-row alert-igor">
+        <div class="alert-icon">A3</div>
+        <div class="alert-body">
+          <div class="alert-trigger">Taxa de conversão abaixo de 4% ao fim de W9</div>
+          <div class="alert-detail">Mid-campaign check: se acumulado W1–W9 &lt; 20 matrículas (4% de 800 leads esperados), revisar estratégia de fundo de funil com Lorena.</div>
+          <div class="auto-tech mt8"><span class="tag tag-red">Urgência: CRÍTICA</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="person-hdr"><div class="person-avatar avatar-lorena">L</div><div><div class="person-name">Lorena — 3 Alertas</div><div class="person-role">Comercial · Vendas</div></div></div>
+
+      <div class="alert-row alert-lorena">
+        <div class="alert-icon">A4</div>
+        <div class="alert-body">
+          <div class="alert-trigger">Lead HOT recém-criado (score ≥ 7)</div>
+          <div class="alert-detail">Lead entrou no EVO com score alto. Contato em até 2h (SLA). WhatsApp chega com: nome · telefone · canal de origem · tag de interesse.</div>
+          <div class="auto-tech mt8"><span class="tag tag-red">Urgência: IMEDIATA (2h)</span></div>
+        </div>
+      </div>
+
+      <div class="alert-row alert-lorena">
+        <div class="alert-icon">A5</div>
+        <div class="alert-body">
+          <div class="alert-trigger">Proposta sem resposta 48h</div>
+          <div class="alert-detail">Lead em P1 "Proposta" sem movimentação há 48h. Fazer novo contato com ângulo diferente — não repetir a mesma abordagem.</div>
+          <div class="auto-tech mt8"><span class="tag tag-amber">Urgência: ALTA</span></div>
+        </div>
+      </div>
+
+      <div class="alert-row alert-lorena">
+        <div class="alert-icon">A6</div>
+        <div class="alert-body">
+          <div class="alert-trigger">CL não-converteu — follow-up D+3 e D+7</div>
+          <div class="alert-detail">Participou do CL mas não comprou Pós-Grad. Agendar contato no D+3 com oferta complementar e no D+7 com última chamada antes de encerrar o card P2.</div>
+          <div class="auto-tech mt8"><span class="tag tag-amber">Urgência: ALTA</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="person-hdr"><div class="person-avatar avatar-julia">J</div><div><div class="person-name">Julia — 4 Alertas</div><div class="person-role">CS · Operações</div></div></div>
+
+      <div class="alert-row alert-julia">
+        <div class="alert-icon">A7</div>
+        <div class="alert-body">
+          <div class="alert-trigger">Novo aluno matriculado (P3 criado)</div>
+          <div class="alert-detail">Matrícula confirmada. Julia recebe: nome do aluno, data de início e link do card P3 no EVO. Checar boas-vindas automáticas e agendar check-in semana 2.</div>
+          <div class="auto-tech mt8"><span class="tag tag-blue">Urgência: NORMAL</span></div>
+        </div>
+      </div>
+
+      <div class="alert-row alert-julia">
+        <div class="alert-icon">A8</div>
+        <div class="alert-body">
+          <div class="alert-trigger">Aluno sem acesso à plataforma D+7 🚨</div>
+          <div class="alert-detail">7 dias após matrícula e zero acesso registrado na plataforma. Ligar (não só WhatsApp) para o aluno imediatamente. Registrar resultado no EVO P3.</div>
+          <div class="auto-tech mt8"><span class="tag tag-red">Urgência: CRÍTICA (ligar 24h)</span></div>
+        </div>
+      </div>
+
+      <div class="alert-row alert-julia">
+        <div class="alert-icon">A9</div>
+        <div class="alert-body">
+          <div class="alert-trigger">Health Score &lt; 4/10 🚨</div>
+          <div class="alert-detail">Cálculo quinzenal identificou aluno em zona de risco. P3 movido para "Em Risco". CS proativo obrigatório em 24h. Script J3 disponível na Tab Scripts.</div>
+          <div class="auto-tech mt8"><span class="tag tag-red">Urgência: CRÍTICA (24h)</span></div>
+        </div>
+      </div>
+
+      <div class="alert-row alert-julia">
+        <div class="alert-icon">A10</div>
+        <div class="alert-body">
+          <div class="alert-trigger">Aluno sem atividade 21 dias (Em Curso)</div>
+          <div class="alert-detail">Aluno ainda em P3 "Em Curso" mas sem login há 21 dias — ainda não caiu no Em Risco pelo HS. Contato preventivo antes de virar problema. Script J3 adaptado.</div>
+          <div class="auto-tech mt8"><span class="tag tag-amber">Urgência: ALTA</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- TAB 7 — FORECAST & KPIs -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="content" id="t7">
+
+  <div class="sec-title">Forecast Semanal — W1 a W18 (Jun → Nov 2026)</div>
+  <div class="card" style="overflow-x:auto;margin-bottom:24px;">
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th>Semana</th><th>Data aprox.</th><th>Evento</th><th>Mat. semana</th><th>Acum.</th><th>% meta</th><th>Receita acum.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>W1</td><td>26 Jun</td><td>Setup / Pré-aquecimento</td><td class="num">0</td><td class="num">0</td><td class="num">0%</td><td class="num">—</td></tr>
+        <tr><td>W2</td><td>3 Jul</td><td>Captação ativa</td><td class="num">1</td><td class="num">1</td><td class="num">2%</td><td class="num">R$ 8.500</td></tr>
+        <tr class="fc-cell-evt"><td>W3</td><td>10 Jul</td><td>🎓 CL Edição 1</td><td class="num">2</td><td class="num">3</td><td class="num">6%</td><td class="num">R$ 25.500</td></tr>
+        <tr><td>W4</td><td>17 Jul</td><td>Nurture pós-CL</td><td class="num">2</td><td class="num">5</td><td class="num">10%</td><td class="num">R$ 42.500</td></tr>
+        <tr><td>W5</td><td>24 Jul</td><td>Captação + follow-up</td><td class="num">1</td><td class="num">6</td><td class="num">12%</td><td class="num">R$ 51.000</td></tr>
+        <tr class="fc-cell-evt"><td>W6</td><td>31 Jul</td><td>🎓 CL Edição 2</td><td class="num">3</td><td class="num">9</td><td class="num">18%</td><td class="num">R$ 76.500</td></tr>
+        <tr class="fc-cell-evt"><td>W7</td><td>7 Ago</td><td>🎙 Webinário 1</td><td class="num">3</td><td class="num">12</td><td class="num">24%</td><td class="num">R$ 102.000</td></tr>
+        <tr class="fc-cell-evt"><td>W8</td><td>14 Ago</td><td>🎙 Webinário 2</td><td class="num">3</td><td class="num">15</td><td class="num">30%</td><td class="num">R$ 127.500</td></tr>
+        <tr><td>W9</td><td>21 Ago</td><td>Nurture mid-camp. · check Otimiza</td><td class="num">2</td><td class="num">17</td><td class="num">34%</td><td class="num">R$ 144.500</td></tr>
+        <tr><td>W10</td><td>28 Ago</td><td>Leads frios · reativação</td><td class="num">2</td><td class="num">19</td><td class="num">38%</td><td class="num">R$ 161.500</td></tr>
+        <tr class="fc-cell-evt"><td>W11</td><td>4 Set</td><td>🚀 Sprint final — virada budget</td><td class="num">5</td><td class="num">24</td><td class="num">48%</td><td class="num">R$ 204.000</td></tr>
+        <tr><td>W12</td><td>11 Set</td><td>Retargeting base completa</td><td class="num">5</td><td class="num">29</td><td class="num">58%</td><td class="num">R$ 246.500</td></tr>
+        <tr><td>W13</td><td>18 Set</td><td>Abordagem leads em negociação</td><td class="num">5</td><td class="num">34</td><td class="num">68%</td><td class="num">R$ 289.000</td></tr>
+        <tr><td>W14</td><td>25 Set</td><td>Carrinho aberto Pós-Grad</td><td class="num">4</td><td class="num">38</td><td class="num">76%</td><td class="num">R$ 323.000</td></tr>
+        <tr class="fc-cell-mark"><td>W15</td><td>2 Out</td><td>🗳 Eleições — monitorar ads</td><td class="num">2</td><td class="num">40</td><td class="num">80%</td><td class="num">R$ 340.000</td></tr>
+        <tr><td>W16</td><td>9 Out</td><td>Urgência · vagas limitadas</td><td class="num">2</td><td class="num">42</td><td class="num">84%</td><td class="num">R$ 357.000</td></tr>
+        <tr class="fc-cell-evt"><td>W17</td><td>16 Out</td><td>🎓 CL Edição 3</td><td class="num">3</td><td class="num">45</td><td class="num">90%</td><td class="num">R$ 382.500</td></tr>
+        <tr class="fc-cell-hit"><td>W18</td><td>23 Out</td><td>✓ Última chamada · meta 50</td><td class="num bold">5</td><td class="num bold gold">50</td><td class="num bold green">100%</td><td class="num bold gold">R$ 425.000</td></tr>
+      </tbody>
+    </table>
+    <div class="small mt8">🎓 CL = Curso Livre · 🎙 Webinário · 🚀 Virada de sprint · 🗳 Eleições (cautela com ads) · ✓ Encerramento</div>
+  </div>
+
+  <div class="sec-title">KPIs por Etapa da Jornada</div>
+  <div class="card" style="margin-bottom:24px;overflow-x:auto;">
+    <table class="tbl">
+      <thead>
+        <tr><th>Indicador</th><th>Meta T2</th><th>Benchmark T1</th><th>Alerta (abaixo)</th><th>Responsável</th><th>Frequência</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>CPL (Custo por Lead)</td><td class="num">≤ R$ 10</td><td class="num gold">R$ 5,26</td><td class="num red">R$ 15</td><td>Igor</td><td>Semanal</td></tr>
+        <tr><td>Total de leads gerados</td><td class="num">800</td><td class="num gold">320 (T1)</td><td class="num red">&lt; 400 em W9</td><td>Igor</td><td>Semanal</td></tr>
+        <tr><td>Taxa de qualificação P1</td><td class="num">≥ 50%</td><td class="num gold">~60%</td><td class="num red">&lt; 35%</td><td>Lorena</td><td>Semanal</td></tr>
+        <tr><td>Show rate CL / Webinário</td><td class="num">≥ 70%</td><td class="num">—</td><td class="num red">&lt; 50%</td><td>Julia</td><td>Por evento</td></tr>
+        <tr><td>Conversão P2 → Pós-Grad</td><td class="num">≥ 25%</td><td class="num">—</td><td class="num red">&lt; 15%</td><td>Lorena</td><td>Por evento</td></tr>
+        <tr><td>Taxa de conversão geral</td><td class="num">6,25%</td><td class="num gold">~5% (T1)</td><td class="num red">&lt; 4% W9</td><td>Igor</td><td>Semanal</td></tr>
+        <tr><td>Ticket médio</td><td class="num">R$ 8.500</td><td class="num">—</td><td class="num red">&lt; R$ 7.500</td><td>Lorena</td><td>Mensal</td></tr>
+        <tr><td>Taxa de acesso D+7</td><td class="num">≥ 90%</td><td class="num">—</td><td class="num red">&lt; 70%</td><td>Julia</td><td>Por matrícula</td></tr>
+        <tr><td>Health Score médio turma</td><td class="num">≥ 7/10</td><td class="num">—</td><td class="num red">&lt; 5/10</td><td>Julia</td><td>Quinzenal</td></tr>
+        <tr><td>% alunos em risco (HS &lt; 4)</td><td class="num">≤ 10%</td><td class="num">—</td><td class="num red">&gt; 20%</td><td>Julia</td><td>Quinzenal</td></tr>
+        <tr><td>Taxa de churn (cancelamento)</td><td class="num">≤ 5%</td><td class="num">—</td><td class="num red">&gt; 10%</td><td>Julia</td><td>Mensal</td></tr>
+        <tr><td>NPS médio mês 3</td><td class="num">≥ 8</td><td class="num">—</td><td class="num red">&lt; 6</td><td>Julia</td><td>Mês 3 e 6</td></tr>
+        <tr><td>Taxa de conclusão 12 meses</td><td class="num">≥ 80%</td><td class="num gold">alunos T1</td><td class="num red">&lt; 70%</td><td>Julia</td><td>Anual</td></tr>
+        <tr><td>Conversão T2 → T3 (expansão)</td><td class="num">≥ 30%</td><td class="num">—</td><td class="num red">&lt; 15%</td><td>Lorena</td><td>Final T2</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec-title">Riscos e Contingências</div>
+  <div class="card" style="overflow-x:auto;">
+    <table class="tbl">
+      <thead>
+        <tr><th>Risco</th><th>Probabilidade</th><th>Impacto</th><th>Plano de contingência</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>CPL acima de R$ 15</td><td><span class="tag tag-amber">Médio</span></td><td><span class="tag tag-red">Alto</span></td><td>Revisar criativos e segmentação imediatamente. Testar novo ângulo de copy. Reduzir budget do conjunto com maior CPL.</td></tr>
+        <tr><td>Show rate CL abaixo de 50%</td><td><span class="tag tag-amber">Médio</span></td><td><span class="tag tag-amber">Médio</span></td><td>Aumentar lembretes pré-evento (D-1 · D-0 manhã). Oferecer replay para no-shows. Lorena faz abordagem personalizada.</td></tr>
+        <tr><td>Conversão P2 → Pós &lt; 15% na Ed.1</td><td><span class="tag tag-blue">Baixo</span></td><td><span class="tag tag-red">Alto</span></td><td>Revisar pitch de oferta para Ed.2. Testar novo angulo de benefício. Reforçar urgência/escassez genuína.</td></tr>
+        <tr><td>W15 — Eleições impactam ads</td><td><span class="tag tag-red">Alto</span></td><td><span class="tag tag-amber">Médio</span></td><td>Reduzir budget W15 em 40%. Compensar com W16 mais agressiva. Focar em remarketing (base quente, sem leilão acirrado).</td></tr>
+        <tr><td>Health Score médio abaixo de 5/10</td><td><span class="tag tag-blue">Baixo</span></td><td><span class="tag tag-red">Alto</span></td><td>Reunião de emergência Julia + Igor. Revisar estrutura de entrega do conteúdo. CS individual para todos os alunos em mês 1.</td></tr>
+        <tr><td>Meta de 50 mat. em risco no final de W9</td><td><span class="tag tag-amber">Médio</span></td><td><span class="tag tag-red">Alto</span></td><td>Antecipar sprint final para W10. Adicionar 1 webinário extra em W10. Igor revisa qualidade dos leads no funil.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec-title mt24">Campos Otimiza — Dados Mínimos por Modelo</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header">Modelo de Conversão (EVO P1/P2)</div>
+      <div class="small" style="font-family:monospace;line-height:2;">
+        lead_id · data_entrada · canal_origem<br>
+        etapa_funil · agendamento_realizado<br>
+        compareceu_agendamento · numero_followups<br>
+        tempo_primeira_resposta_minutos<br>
+        data_fechamento · motivo_perda* · valor_venda<br>
+        <span style="color:var(--gold);">* campo SELEÇÃO obrigatório — não texto livre</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">Modelo Health Score / Retenção / Churn (P3 + Plataforma)</div>
+      <div class="small" style="font-family:monospace;line-height:2;">
+        cliente_id · data_matricula · data_primeiro_acesso<br>
+        ultimo_acesso · frequencia_acesso_semanal<br>
+        percentual_progresso · modulos_concluidos<br>
+        status_pagamento (Asaas) · health_score<br>
+        data_cancelamento · motivo_cancelamento*<br>
+        nps_mes3 · nps_mes6 · data_conclusao<br>
+        <span style="color:var(--gold);">* 3 perguntas pesquisa exit via automação → Sheets</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function go(i){
+  document.querySelectorAll('.tab').forEach((t,j)=>t.classList.toggle('active',i===j));
+  document.querySelectorAll('.content').forEach((c,j)=>c.classList.toggle('active',i===j));
+  window.scrollTo(0,0);
+}
+
+// ── PAINEL AO VIVO — lê dados.js ────────────────────────────
+(function(){
+  if(typeof ICBID === 'undefined') {
+    document.getElementById('live-header').textContent = '⚠ dados.js não encontrado — abrir com servidor local ou GitHub Pages';
+    return;
+  }
+  var d = ICBID;
+
+  // Cabeçalho
+  var wLabel = d.semana_atual === 0 ? 'Pré-campanha' : 'W' + d.semana_atual;
+  document.getElementById('live-header').textContent = wLabel + ' · Atualizado em ' + (d.data_atualizacao || '—');
+
+  // Leads
+  document.getElementById('live-leads').textContent = d.leads_total || 0;
+  var pLeads = Math.min(Math.round((d.leads_total||0) / 800 * 100), 100);
+  document.getElementById('live-leads-sub').textContent = 'de 800 necessários · ' + pLeads + '%';
+  document.getElementById('live-leads-bar').style.width = pLeads + '%';
+
+  // Matrículas
+  document.getElementById('live-mat').textContent = d.matriculas || 0;
+  var pMat = Math.min(Math.round((d.matriculas||0) / 50 * 100), 100);
+  document.getElementById('live-mat-sub').textContent = 'de 50 · ' + pMat + '% da meta';
+  document.getElementById('live-mat-bar').style.width = pMat + '%';
+
+  // CPL
+  var cpl = d.cpl || 0;
+  var cplEl = document.getElementById('live-cpl');
+  cplEl.textContent = cpl > 0 ? 'R$ ' + cpl.toFixed(2) : '—';
+  if(cpl > 15) cplEl.style.color = '#e05050';
+  else if(cpl > 0 && cpl <= 10) cplEl.style.color = '#4caf84';
+
+  // Investimento e receita
+  var inv = d.investimento_total || 0;
+  document.getElementById('live-inv').textContent = inv > 0 ? 'R$ ' + inv.toLocaleString('pt-BR') : '—';
+  var rec = d.receita_acumulada || 0;
+  document.getElementById('live-receita').textContent = 'Receita confirmada: ' + (rec > 0 ? 'R$ ' + rec.toLocaleString('pt-BR') : '—');
+
+  // Comunidade
+  document.getElementById('live-comunidade').textContent = d.membros_comunidade || 0;
+
+  // P2
+  var totalP2 = (d.inscritos_cl||0) + (d.inscritos_webinar||0);
+  document.getElementById('live-p2').textContent = totalP2;
+  document.getElementById('live-p2-sub').textContent = 'CL + Webinário · ' + (d.convertidos_p2||0) + ' converteram';
+
+  // Risco
+  var risco = d.alunos_em_risco || 0;
+  document.getElementById('live-risco').textContent = risco;
+  document.getElementById('live-hs').textContent = 'HS médio: ' + (d.health_score_medio > 0 ? d.health_score_medio + '/10' : '—');
+
+  // Status das ferramentas
+  var labels = {crm:'CRM EVO', gateway:'Gateway', ead:'Plataforma EAD', automacao:'Automação'};
+  ['crm','gateway','ead','automacao'].forEach(function(k){
+    var el = document.getElementById('pill-'+k);
+    if(!el) return;
+    var s = d[k+'_status'] || 'pendente';
+    el.className = 'status-pill pill-' + s;
+    el.innerHTML = '<span class="live-dot"></span>&nbsp;' + labels[k];
+  });
+})();
+</script>
+</body>
+</html>
