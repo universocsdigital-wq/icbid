@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Briefing de Parametrização CRM - ICBID T2</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: #1a2535;
+    background: #f4f6f9;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 0 0 64px 0;
+  }
+
+  /* HEADER */
+  .doc-header {
+    background: #021F36;
+    padding: 40px 48px 32px 48px;
+    border-bottom: 4px solid #db9824;
+  }
+
+  .doc-header .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .doc-header .logo-badge {
+    background: #db9824;
+    color: #021F36;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+  }
+
+  .doc-header .org-name {
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .doc-header h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 8px;
+  }
+
+  .doc-header .subtitle {
+    color: #db9824;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .doc-meta {
+    display: flex;
+    gap: 32px;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .doc-meta .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .doc-meta .meta-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .doc-meta .meta-value {
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: 500;
+  }
+
+  /* BODY */
+  .doc-body {
+    padding: 48px 48px 0 48px;
+  }
+
+  /* STATUS BANNER */
+  .status-banner {
+    background: #e8f5e9;
+    border-left: 4px solid #2e7d32;
+    border-radius: 0 8px 8px 0;
+    padding: 20px 24px;
+    margin-bottom: 48px;
+  }
+
+  .status-banner .banner-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #2e7d32;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .status-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .status-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 14px;
+    color: #1a2535;
+    line-height: 1.5;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #2e7d32;
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+
+  /* SECTIONS */
+  .section {
+    margin-bottom: 48px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #db9824;
+  }
+
+  .section-number {
+    background: #021F36;
+    color: #db9824;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #021F36;
+  }
+
+  .subsection {
+    margin-bottom: 32px;
+  }
+
+  .subsection-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #021F36;
+    margin-bottom: 12px;
+    padding-left: 12px;
+    border-left: 3px solid #db9824;
+  }
+
+  p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #2c3e50;
+    margin-bottom: 16px;
+  }
+
+  /* PRIORITY CARD */
+  .priority-card {
+    background: #fff8e1;
+    border: 1px solid #ffcc02;
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+  }
+
+  .priority-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: #b8860b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  .priority-card p {
+    margin-bottom: 0;
+    font-size: 14px;
+  }
+
+  /* FIELDS GRID */
+  .fields-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 16px 0 24px 0;
+  }
+
+  .field-chip {
+    background: #f0f4ff;
+    border: 1px solid #c5cae9;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #021F36;
+    text-align: center;
+  }
+
+  /* PIPELINE TABLE */
+  .pipeline-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 24px 0;
+    font-size: 14px;
+  }
+
+  .pipeline-table th {
+    background: #021F36;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 12px 16px;
+    text-align: left;
+  }
+
+  .pipeline-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #e8ecf0;
+    vertical-align: top;
+    line-height: 1.6;
+    color: #2c3e50;
+  }
+
+  .pipeline-table tr:nth-child(even) td {
+    background: #f8fafc;
+  }
+
+  .pipeline-badge {
+    display: inline-block;
+    background: #db9824;
+    color: #021F36;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 4px;
+  }
+
+  /* RULE BOX */
+  .rule-box {
+    background: #fce4ec;
+    border-left: 4px solid #c62828;
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    margin: 16px 0 24px 0;
+  }
+
+  .rule-box .rule-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: #c62828;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .rule-box p {
+    font-size: 14px;
+    margin-bottom: 0;
+    color: #2c3e50;
+  }
+
+  /* DELIVERABLE CARDS */
+  .deliverable-card {
+    background: #ffffff;
+    border: 1px solid #e0e6ed;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 16px;
+    border-top: 3px solid #021F36;
+  }
+
+  .deliverable-card .card-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #021F36;
+    margin-bottom: 10px;
+  }
+
+  .deliverable-card p {
+    font-size: 14px;
+    margin-bottom: 0;
+    color: #4a5568;
+  }
+
+  /* LIMITATION CARDS */
+  .limitation-card {
+    background: #fff3e0;
+    border: 1px solid #ffe0b2;
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+
+  .limitation-card .limit-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #e65100;
+    margin-bottom: 8px;
+  }
+
+  .limitation-card p {
+    font-size: 14px;
+    margin-bottom: 0;
+    color: #4a5568;
+  }
+
+  /* NEXT STEPS */
+  .steps-list {
+    counter-reset: steps;
+    list-style: none;
+    padding: 0;
+  }
+
+  .steps-list li {
+    counter-increment: steps;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 20px;
+    background: #ffffff;
+    border: 1px solid #e0e6ed;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #2c3e50;
+  }
+
+  .steps-list li::before {
+    content: counter(steps);
+    background: #db9824;
+    color: #021F36;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* FOOTER */
+  .doc-footer {
+    background: #021F36;
+    padding: 24px 48px;
+    margin-top: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .doc-footer .footer-left {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .doc-footer .footer-right {
+    font-size: 13px;
+    color: #db9824;
+    font-weight: 600;
+  }
+
+  @media print {
+    body { background: #ffffff; }
+    .page { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="logo-area">
+      <div class="logo-badge">ICBID</div>
+      <div class="org-name">Instituto de Ciências Biométricas e Identificação Digital</div>
+    </div>
+    <h1>Briefing de Parametrização CRM</h1>
+    <div class="subtitle">Turma T2 - Pós-Graduação</div>
+    <div class="doc-meta">
+      <div class="meta-item">
+        <span class="meta-label">Para</span>
+        <span class="meta-value">Igor Matheus</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">De</span>
+        <span class="meta-value">Lucyanne Cruz (Estrategista)</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Data</span>
+        <span class="meta-value">24/06/2026</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Versão</span>
+        <span class="meta-value">1.0 - Pós-Reunião</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="doc-body">
+
+    <!-- STATUS ATUAL -->
+    <div class="status-banner">
+      <div class="banner-title">Status Atual Confirmado</div>
+      <div class="status-grid">
+        <div class="status-item"><div class="status-dot"></div>CRM Data Crazy operacional (Lucyanne e Lorena cadastradas)</div>
+        <div class="status-item"><div class="status-dot"></div>API e token gerados e entregues para integração</div>
+        <div class="status-item"><div class="status-dot"></div>Automações: uso exclusivo das nativas do Data Crazy</div>
+        <div class="status-item"><div class="status-dot"></div>Recuperação de carrinho resolvida via USINA (link individual)</div>
+        <div class="status-item"><div class="status-dot"></div>WhatsApp configurado no método de coexistência</div>
+        <div class="status-item"><div class="status-dot"></div>Julia cadastrada pendente de confirmação</div>
+      </div>
+    </div>
+
+    <!-- SECAO 1 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">1</div>
+        <div class="section-title">Visão Geral e Objetivo</div>
+      </div>
+      <p>Este documento consolida as diretrizes estratégicas e operacionais para a parametrização do CRM Data Crazy, conforme alinhado na última reunião de acompanhamento. O objetivo central é garantir que o sistema opere com foco absoluto em conversão e retenção, mapeando toda a jornada do aluno de forma sistêmica, sem perda de dados ou histórico de interações.</p>
+      <p>O CRM precisa funcionar como o sistema nervoso central da operação: capturando leads, qualificando automaticamente, acompanhando a jornada de 12 meses e gerando os dados que alimentam a análise semanal da estrategista.</p>
+    </div>
+
+    <!-- SECAO 2 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">2</div>
+        <div class="section-title">Parametrizações sob Responsabilidade de Igor</div>
+      </div>
+
+      <!-- 2.1 -->
+      <div class="subsection">
+        <div class="subsection-title">2.1 Integração da Página de Captura com o CRM</div>
+        <div class="priority-card">
+          <div class="priority-label">Prioridade Máxima - Bloqueio de Campanha</div>
+          <p>Nenhuma campanha de tráfego pode ser ativada antes desta integração estar validada. O lead precisa cair automaticamente no CRM no momento exato do preenchimento do formulário.</p>
+        </div>
+        <p>A configuração deve criar um card automaticamente no Pipeline P1, no estágio "Novo Lead". Os campos abaixo são obrigatórios para que a inteligência de dados funcione corretamente:</p>
+        <div class="fields-grid">
+          <div class="field-chip">Nome</div>
+          <div class="field-chip">Telefone</div>
+          <div class="field-chip">E-mail</div>
+          <div class="field-chip">UTM Source</div>
+          <div class="field-chip">UTM Medium</div>
+          <div class="field-chip">UTM Campaign</div>
+          <div class="field-chip">UTM Content</div>
+          <div class="field-chip">Data / Hora</div>
+        </div>
+        <p>O campo UTM Content deve registrar o criativo específico que originou o clique. Essa informação é essencial para a análise de performance por criativo.</p>
+      </div>
+
+      <!-- 2.2 -->
+      <div class="subsection">
+        <div class="subsection-title">2.2 Estruturação dos Três Pipelines</div>
+        <div class="rule-box">
+          <div class="rule-label">Regra Crítica de Arquitetura</div>
+          <p>A transição de um lead entre pipelines deve ocorrer obrigatoriamente por <strong>duplicação</strong> do card, nunca por movimentação simples. Essa regra preserva o histórico de conversão e a origem do lead no pipeline inicial.</p>
+        </div>
+        <table class="pipeline-table">
+          <thead>
+            <tr>
+              <th>Pipeline</th>
+              <th>Propósito</th>
+              <th>Estágios Obrigatórios</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="pipeline-badge">P1</span><br>Captação</td>
+              <td>Pipeline permanente. Leads da Landing Page, WhatsApp ou indicações. Foco na conversão direta para matrícula.</td>
+              <td>Novo Lead, Qualificado, Em Negociação, Matriculado, Perdido</td>
+            </tr>
+            <tr>
+              <td><span class="pipeline-badge">P2</span><br>Produto de Entrada</td>
+              <td>Pipeline sazonal ativado durante Cursos Livres e Webinários. Foco em converter participantes em matriculados.</td>
+              <td>Inscrito, Participou, Oferta Feita, Converteu, Não Converteu</td>
+            </tr>
+            <tr>
+              <td><span class="pipeline-badge">P3</span><br>Aluno Ativo</td>
+              <td>Pipeline de retenção durante os 12 meses de pós-graduação. Foco em engajamento e renovação.</td>
+              <td>Onboarding, Em Curso, Em Risco, Concluído, Expansão T3</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>No P1, a qualificação exige o preenchimento do campo "motivo_qualificacao" e a perda exige seleção em lista predefinida para "motivo_perda". No P2, o campo "compareceu" (sim/não) é obrigatório. No P3, o estágio "Em Risco" é acionado automaticamente por Health Score baixo ou ausência prolongada de acesso.</p>
+      </div>
+
+      <!-- 2.3 -->
+      <div class="subsection">
+        <div class="subsection-title">2.3 Configuração das Automações Nativas</div>
+        <p>As automações nativas do Data Crazy devem cobrir os seguintes fluxos, sem dependência de ferramentas externas:</p>
+        <div class="deliverable-card">
+          <div class="card-title">Rastreamento de Origem</div>
+          <p>Salvar UTMs automaticamente no card do lead e alimentar o campo "Criativo de Origem" para análise de performance por campanha.</p>
+        </div>
+        <div class="deliverable-card">
+          <div class="card-title">Alertas de Tempo de Resposta</div>
+          <p>Notificar a gestão caso um lead permaneça mais de uma hora sem resposta da equipe. Crítico para não perder leads qualificados na janela de interesse.</p>
+        </div>
+        <div class="deliverable-card">
+          <div class="card-title">Webhook Asaas para Matrícula</div>
+          <p>Criar card automaticamente no Pipeline P3 após confirmação de pagamento via Asaas. Sem intervenção manual.</p>
+        </div>
+        <div class="deliverable-card">
+          <div class="card-title">Exportação para Google Sheets Otimiza</div>
+          <p>Rotina configurada para rodar a cada hora, extraindo dados do CRM e alimentando as cinco abas da planilha: conversão, retenção, churn, health score e forecast.</p>
+        </div>
+        <div class="deliverable-card">
+          <div class="card-title">Avanço por Palavra-Chave</div>
+          <p>Mover cards automaticamente entre estágios com base em palavras-chave nas conversas. A lista de palavras-chave será fornecida por Lucyanne.</p>
+        </div>
+      </div>
+
+      <!-- 2.4 -->
+      <div class="subsection">
+        <div class="subsection-title">2.4 Recriação da Estrutura de Tráfego</div>
+        <p>A estrutura de tráfego pago precisa ser completamente recriada. As configurações anteriores estavam vinculadas a contas incorretas e não podem ser aproveitadas.</p>
+        <p>O processo exige: criação de nova conta de anúncios vinculada oficialmente ao ICBID, instalação e validação de novo pixel, criação de públicos customizados e lookalike a partir da base de contatos da T1, e ativação das campanhas iniciais de validação após a integração CRM estar confirmada.</p>
+      </div>
+    </div>
+
+    <!-- SECAO 3 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">3</div>
+        <div class="section-title">Entregáveis sob Responsabilidade de Lucyanne</div>
+      </div>
+      <p>Os itens abaixo são insumos estratégicos que serão entregues para desbloquear as parametrizações técnicas. Nenhuma automação pode ser finalizada sem esses documentos.</p>
+
+      <div class="deliverable-card">
+        <div class="card-title">Documento de Regras de Negócio</div>
+        <p>Contém a lista completa de tags e seus gatilhos de aplicação, a lógica matemática do Health Score do Aluno, os scripts de abordagem padronizados para automações e as palavras-chave exatas para avanço automático de pipeline.</p>
+      </div>
+      <div class="deliverable-card">
+        <div class="card-title">Base de Contatos T1</div>
+        <p>Planilha com nome, telefone, e-mail e valor de compra dos alunos da turma anterior. Insumo necessário para criação dos públicos customizados e lookalike no Meta Ads.</p>
+      </div>
+      <div class="deliverable-card">
+        <div class="card-title">Acesso DNS e Domínio</div>
+        <p>Alinhamento com Hiago para garantir o apontamento correto para as novas Landing Pages de campanha. Necessário antes da subida das campanhas.</p>
+      </div>
+    </div>
+
+    <!-- SECAO 4 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">4</div>
+        <div class="section-title">Limitações Técnicas e Pontos de Atenção</div>
+      </div>
+
+      <div class="limitation-card">
+        <div class="limit-title">Regra das 24h do WhatsApp</div>
+        <p>O método de coexistência restringe o envio de mensagens livres após 24 horas da última interação do lead. Alertas de tempo de resposta são essenciais para evitar os custos de reativação via templates pagos.</p>
+      </div>
+      <div class="limitation-card">
+        <div class="limit-title">Cota de Tokens do Agente</div>
+        <p>O plano atual possui 50.000 tokens. O consumo precisa ser monitorado para evitar interrupção da qualificação automática. O agente deve ser testado em ambiente de homologação antes de ir para produção.</p>
+      </div>
+      <div class="limitation-card">
+        <div class="limit-title">Duplicação de Cards entre Pipelines</div>
+        <p>Confirmar junto ao suporte do Data Crazy se a duplicação automática entre pipelines está disponível de forma nativa. Caso contrário, será necessário um plano de contingência para preservar o histórico.</p>
+      </div>
+      <div class="limitation-card">
+        <div class="limit-title">Alertas em Grupo de WhatsApp</div>
+        <p>Verificar se o sistema consegue enviar alertas críticos (pagamento confirmado, aluno em risco) diretamente para um grupo da equipe no WhatsApp. Essa funcionalidade precisa ser validada antes da operação entrar em produção.</p>
+      </div>
+    </div>
+
+    <!-- SECAO 5 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">5</div>
+        <div class="section-title">Próximos Passos Imediatos</div>
+      </div>
+      <p>A sequência abaixo deve ser seguida na ordem apresentada. Cada etapa é pré-requisito da seguinte.</p>
+      <ol class="steps-list">
+        <li>Igor finaliza a integração da Landing Page com o CRM e valida o recebimento dos campos obrigatórios.</li>
+        <li>Lucyanne envia a base de contatos da T1 para recriação dos públicos no Meta Ads.</li>
+        <li>Igor recria a estrutura de tráfego e sobe campanhas de validação.</li>
+        <li>Lucyanne entrega o documento de regras de negócio (tags, health score, scripts, palavras-chave).</li>
+        <li>Igor parametriza os três pipelines e configura todas as automações nativas conforme este briefing.</li>
+      </ol>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <div class="footer-left">ICBID - Turma T2 - Documento Interno de Trabalho</div>
+    <div class="footer-right">Otimiza+ Estratégia de Conversão e Retenção</div>
+  </div>
+
+</div>
+</body>
+</html>

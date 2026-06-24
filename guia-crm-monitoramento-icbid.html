@@ -37,7 +37,7 @@ body {
   background: var(--bg);
   color: var(--text-strong);
   font-family: 'Roboto', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.7;
 }
 
@@ -390,7 +390,24 @@ tr:hover td { background: #e8eef5; }
   .header-title { text-align: center; }
   .main { padding: 20px 16px; }
 }
-</style>
+
+    /* === Anti-AI Footprint === */
+    body { font-size: 16px !important; line-height: 1.7 !important; }
+    p, li, td, th, .card-desc, .desc, .detail, .note { font-size: 15px !important; line-height: 1.7 !important; }
+    h1 { font-size: 28px !important; font-weight: 700 !important; }
+    h2, .section-title { font-size: 22px !important; font-weight: 700 !important; }
+    h3, .card-title, .subsection { font-size: 18px !important; font-weight: 600 !important; }
+    .section { padding: 48px 32px !important; margin-bottom: 48px !important; }
+    .card, .info-card, .alert-box, .tool-card { padding: 24px !important; margin-bottom: 20px !important; }
+    @media (max-width: 768px) {
+        .grid-2, .grid-3, .grid-4, .cols-2, .cols-3 { grid-template-columns: 1fr !important; }
+        .card, .info-card { width: 100% !important; }
+        body { font-size: 15px !important; }
+    }
+    /* Sem bullets longos - converter para cards */
+    ul li { margin-bottom: 10px !important; line-height: 1.7 !important; }
+
+    </style>
 </head>
 <body>
 
@@ -423,7 +440,7 @@ tr:hover td { background: #e8eef5; }
 <div class="main">
 
 <!-- ═══════════════════════════════════════════════════════
-     SEÇÃO 1 — VISÃO GERAL
+     SEÇÃO 1 , VISÃO GERAL
 ═══════════════════════════════════════════════════════ -->
 <div id="visao-geral" class="section active">
   <h2 class="section-title">O que é o Playbook Master</h2>
@@ -521,7 +538,7 @@ tr:hover td { background: #e8eef5; }
 </div>
 
 <!-- ═══════════════════════════════════════════════════════
-     SEÇÃO 2 — COMO OPERA
+     SEÇÃO 2 , COMO OPERA
 ═══════════════════════════════════════════════════════ -->
 <div id="como-opera" class="section">
   <h2 class="section-title">Como o Sistema Opera</h2>
@@ -629,7 +646,7 @@ tr:hover td { background: #e8eef5; }
 </div>
 
 <!-- ═══════════════════════════════════════════════════════
-     SEÇÃO 3 — COMO INTERPRETAR
+     SEÇÃO 3 , COMO INTERPRETAR
 ═══════════════════════════════════════════════════════ -->
 <div id="como-interpreta" class="section">
   <h2 class="section-title">Como Interpretar os Dados</h2>
@@ -706,7 +723,7 @@ tr:hover td { background: #e8eef5; }
 </div>
 
 <!-- ═══════════════════════════════════════════════════════
-     SEÇÃO 4 — EQUIPE E PAPÉIS
+     SEÇÃO 4 , EQUIPE E PAPÉIS
 ═══════════════════════════════════════════════════════ -->
 <div id="equipe" class="section">
   <h2 class="section-title">Equipe e Papéis</h2>
@@ -806,7 +823,7 @@ tr:hover td { background: #e8eef5; }
 </div>
 
 <!-- ═══════════════════════════════════════════════════════
-     SEÇÃO 5 — CHECKLIST DE ATIVAÇÃO
+     SEÇÃO 5 , CHECKLIST DE ATIVAÇÃO
 ═══════════════════════════════════════════════════════ -->
 <div id="checklist" class="section">
   <h2 class="section-title">Checklist de Ativação</h2>
@@ -899,7 +916,7 @@ tr:hover td { background: #e8eef5; }
 </div>
 
 <!-- ═══════════════════════════════════════════════════════
-     SEÇÃO 6 — MCP E AUTOMAÇÃO
+     SEÇÃO 6 , MCP E AUTOMAÇÃO
 ═══════════════════════════════════════════════════════ -->
 <div id="mcp" class="section">
   <h2 class="section-title">MCP e Automação</h2>
@@ -909,7 +926,7 @@ tr:hover td { background: #e8eef5; }
     <h3>O MCP precisa ficar ligado para a automação funcionar?</h3>
     <p><span class="highlight">Resposta direta: depende do que você quer automatizar.</span></p>
     <p>O MCP (Model Context Protocol) é uma camada de integração que permite que agentes de IA acessem e operem ferramentas externas, como o CRM Data Crazy, diretamente.</p>
-    <p><span class="highlight">Para as automações operacionais do dia a dia</span> (criar card no CRM quando lead entra na LP, mover card quando pagamento é confirmado, enviar WhatsApp quando aluno entra em risco) — <span class="highlight">o MCP não é necessário.</span> Essas automações rodam via as funções nativas do CRM Data Crazy, conforme confirmado por Igor.</p>
+    <p><span class="highlight">Para as automações operacionais do dia a dia</span> (criar card no CRM quando lead entra na LP, mover card quando pagamento é confirmado, enviar WhatsApp quando aluno entra em risco) , <span class="highlight">o MCP não é necessário.</span> Essas automações rodam via as funções nativas do CRM Data Crazy, conforme confirmado por Igor.</p>
     <p><span class="highlight">O MCP é necessário quando</span> você quer que um agente de IA (como o Claude ou outro assistente) acesse o CRM em tempo real para consultar leads, criar cards, atualizar informações ou executar ações dentro do CRM por comando de linguagem natural.</p>
   </div>
 
@@ -982,7 +999,7 @@ tr:hover td { background: #e8eef5; }
 </div>
 
 <!-- ═══════════════════════════════════════════════════════
-     SEÇÃO 7 — CRM DATA CRAZY
+     SEÇÃO 7 , CRM DATA CRAZY
 ═══════════════════════════════════════════════════════ -->
 <div id="crm" class="section">
   <h2 class="section-title">CRM Data Crazy - Guia de Uso</h2>
