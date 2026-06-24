@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Briefing CRM - Igor | ICBID T2</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #021F36;
+    --amber: #db9824;
+    --amber-light: #f5e6c0;
+    --green: #1a7a40;
+    --green-light: #e8f5ee;
+    --red: #c0392b;
+    --red-light: #fdf0ee;
+    --blue: #1a4a8a;
+    --blue-light: #e8f0fc;
+    --orange: #d35400;
+    --orange-light: #fef0e6;
+    --surface: #f4f6f9;
+    --surface2: #e8edf3;
+    --text: #1a2535;
+    --text2: #4a5568;
+    --white: #ffffff;
+    --border: #d0d9e8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Roboto', sans-serif; background: var(--surface); color: var(--text); font-size: 14px; line-height: 1.6; }
+
+  /* HEADER */
+  .header {
+    background: var(--navy);
+    border-bottom: 3px solid var(--amber);
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-left { display: flex; align-items: center; gap: 16px; }
+  .logo-badge {
+    background: var(--amber);
+    color: var(--navy);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    padding: 6px 14px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+  }
+  .header-title { color: var(--white); }
+  .header-title h1 { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 700; }
+  .header-title p { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 2px; }
+  .header-right { display: flex; align-items: center; gap: 12px; }
+  .badge-date { background: rgba(219,152,36,0.15); border: 1px solid var(--amber); color: var(--amber); font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px; font-family: 'Montserrat', sans-serif; }
+  .btn-update { background: var(--amber); color: var(--navy); border: none; padding: 8px 16px; border-radius: 6px; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 12px; cursor: pointer; letter-spacing: 0.5px; transition: opacity 0.2s; }
+  .btn-update:hover { opacity: 0.85; }
+  .update-time { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 3px; text-align: right; }
+
+  /* NAV TABS */
+  .nav-tabs { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 32px; display: flex; gap: 0; overflow-x: auto; }
+  .tab { padding: 14px 20px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 600; color: var(--text2); cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; letter-spacing: 0.3px; }
+  .tab:hover { color: var(--navy); }
+  .tab.active { color: var(--navy); border-bottom-color: var(--amber); background: rgba(219,152,36,0.04); }
+
+  /* LAYOUT */
+  .container { max-width: 1100px; margin: 0 auto; padding: 28px 24px; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* CARDS */
+  .card { background: var(--white); border-radius: 8px; border: 1px solid var(--border); padding: 20px 24px; margin-bottom: 16px; }
+  .card-navy { border-left: 4px solid var(--navy); }
+  .card-amber { border-left: 4px solid var(--amber); }
+  .card-green { border-left: 4px solid var(--green); }
+  .card-red { border-left: 4px solid var(--red); }
+  .card-blue { border-left: 4px solid var(--blue); }
+  .card-orange { border-left: 4px solid var(--orange); }
+
+  .card-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 14px; color: var(--navy); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .card-subtitle { font-size: 12px; color: var(--text2); margin-bottom: 12px; }
+
+  /* SECTION HEADER */
+  .sec-header { margin-bottom: 20px; }
+  .sec-header h2 { font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800; color: var(--navy); }
+  .sec-header p { font-size: 13px; color: var(--text2); margin-top: 4px; }
+  .sec-divider { height: 3px; background: linear-gradient(to right, var(--amber), transparent); border-radius: 2px; margin: 8px 0 20px; width: 80px; }
+
+  /* GRID */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+  /* TAGS / PILLS */
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; font-family: 'Montserrat', sans-serif; }
+  .tag-green { background: var(--green-light); color: var(--green); }
+  .tag-amber { background: var(--amber-light); color: #8a5c00; }
+  .tag-red { background: var(--red-light); color: var(--red); }
+  .tag-blue { background: var(--blue-light); color: var(--blue); }
+  .tag-navy { background: rgba(2,31,54,0.08); color: var(--navy); }
+  .tag-orange { background: var(--orange-light); color: var(--orange); }
+
+  /* CHECKLIST */
+  .checklist { list-style: none; }
+  .checklist li { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--surface2); font-size: 13px; }
+  .checklist li:last-child { border-bottom: none; }
+  .check-icon { width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; }
+  .check-done { background: var(--green); color: white; }
+  .check-done::after { content: '✓'; }
+  .check-pending { background: var(--surface2); border: 2px solid var(--border); }
+  .check-urgent { background: var(--red); color: white; }
+  .check-urgent::after { content: '!'; }
+  .check-igor { background: var(--amber); color: var(--navy); }
+  .check-igor::after { content: 'I'; }
+  .check-lucy { background: var(--navy); color: white; }
+  .check-lucy::after { content: 'L'; }
+
+  /* TABLE */
+  .tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .tbl th { background: var(--navy); color: var(--white); padding: 10px 12px; text-align: left; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; border-bottom: 2px solid var(--amber); }
+  .tbl td { padding: 10px 12px; border-bottom: 1px solid var(--surface2); vertical-align: top; }
+  .tbl tr:hover td { background: var(--surface); }
+  .tbl tr:last-child td { border-bottom: none; }
+
+  /* ALERT BOX */
+  .alert { display: flex; gap: 10px; padding: 12px 16px; border-radius: 6px; margin: 12px 0; font-size: 13px; }
+  .alert-amber { background: var(--amber-light); border-left: 3px solid var(--amber); }
+  .alert-red { background: var(--red-light); border-left: 3px solid var(--red); }
+  .alert-green { background: var(--green-light); border-left: 3px solid var(--green); }
+  .alert-blue { background: var(--blue-light); border-left: 3px solid var(--blue); }
+  .alert-icon { font-size: 16px; flex-shrink: 0; }
+
+  /* MODELO BOX */
+  .modelo-box { background: var(--navy); color: var(--white); border-radius: 8px; padding: 16px 20px; margin: 12px 0; font-family: 'Roboto Mono', monospace; font-size: 12px; line-height: 1.8; position: relative; }
+  .modelo-box .modelo-label { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; color: var(--amber); letter-spacing: 1px; margin-bottom: 8px; text-transform: uppercase; }
+  .modelo-box .field { color: var(--amber); }
+  .modelo-box .value { color: #a8d8a8; }
+  .modelo-box .comment { color: rgba(255,255,255,0.4); font-style: italic; }
+
+  /* LIMITACAO BOX */
+  .limit-box { background: #fff8f0; border: 1px solid #f0c070; border-radius: 8px; padding: 16px 20px; margin: 12px 0; }
+  .limit-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 13px; color: var(--orange); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+
+  /* PERSON CARD */
+  .person-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; }
+  .person-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 14px; flex-shrink: 0; }
+  .person-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .person-name { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 14px; color: var(--navy); }
+  .person-role { font-size: 11px; color: var(--text2); }
+
+  /* STEP */
+  .step { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--surface2); }
+  .step:last-child { border-bottom: none; }
+  .step-num { width: 24px; height: 24px; border-radius: 50%; background: var(--navy); color: white; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .step-content { flex: 1; }
+  .step-title { font-weight: 600; font-size: 13px; color: var(--navy); }
+  .step-desc { font-size: 12px; color: var(--text2); margin-top: 3px; }
+
+  /* HIGHLIGHT */
+  .highlight { background: var(--amber-light); padding: 1px 4px; border-radius: 3px; font-weight: 600; }
+  .highlight-red { background: var(--red-light); padding: 1px 4px; border-radius: 3px; font-weight: 600; color: var(--red); }
+
+  /* SUMMARY CARDS */
+  .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+  .summary-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 16px; text-align: center; }
+  .summary-num { font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 800; }
+  .summary-label { font-size: 11px; color: var(--text2); margin-top: 4px; font-family: 'Montserrat', sans-serif; font-weight: 600; }
+  .num-amber { color: var(--amber); }
+  .num-red { color: var(--red); }
+  .num-green { color: var(--green); }
+  .num-blue { color: var(--blue); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .summary-grid { grid-template-columns: repeat(2, 1fr); }
+    .header { flex-direction: column; gap: 12px; align-items: flex-start; }
+    .container { padding: 16px; }
+  }
+
+  small { font-size: 11px; color: var(--text2); display: block; margin-top: 3px; }
+  strong { font-weight: 600; }
+  .mb8 { margin-bottom: 8px; }
+  .mb16 { margin-bottom: 16px; }
+  .mt8 { margin-top: 8px; }
+  .mt16 { margin-top: 16px; }
+  .bold { font-weight: 700; }
+  .gold { color: var(--amber); }
+  .navy { color: var(--navy); }
+  .green { color: var(--green); }
+  .red { color: var(--red); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div class="logo-badge">ICBID</div>
+    <div class="header-title">
+      <h1>Briefing CRM para Igor - T2</h1>
+      <p>O que precisa ser parametrizado, entregue e o que Lucyanne entrega para Igor</p>
+    </div>
+  </div>
+  <div class="header-right">
+    <div>
+      <div class="badge-date">Reuniao 24/06/2026</div>
+      <div class="update-time" id="update-time">Atualizado agora</div>
+    </div>
+    <button class="btn-update" onclick="atualizarPagina()">Atualizar</button>
+  </div>
+</div>
+
+<div class="nav-tabs">
+  <div class="tab active" onclick="showSection('visao-geral')">Visao Geral</div>
+  <div class="tab" onclick="showSection('igor-entrega')">Igor Entrega</div>
+  <div class="tab" onclick="showSection('lucy-entrega')">Lucyanne Entrega</div>
+  <div class="tab" onclick="showSection('pipelines')">Pipelines</div>
+  <div class="tab" onclick="showSection('automacoes')">Automacoes</div>
+  <div class="tab" onclick="showSection('limitacoes')">Limitacoes</div>
+  <div class="tab" onclick="showSection('melhorias')">Melhorias</div>
+  <div class="tab" onclick="showSection('whatsapp')">WhatsApp</div>
+  <div class="tab" onclick="showSection('campanhas')">Campanhas</div>
+</div>
+
+<!-- VISAO GERAL -->
+<div class="section active" id="visao-geral">
+<div class="container">
+  <div class="sec-header">
+    <h2>Visao Geral da Reuniao</h2>
+    <div class="sec-divider"></div>
+    <p>Reuniao de 56 minutos realizada em 24/06/2026. Participantes: Lucyanne Cruz, Igor Matheus, Hiago Cleber, ICBID (Caldeira).</p>
+  </div>
+
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="summary-num num-green">3</div>
+      <div class="summary-label">Itens Confirmados</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-num num-amber">8</div>
+      <div class="summary-label">Itens Pendentes Igor</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-num num-blue">5</div>
+      <div class="summary-label">Itens Pendentes Lucyanne</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-num num-red">4</div>
+      <div class="summary-label">Limitacoes Identificadas</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card card-green">
+      <div class="card-title">O que foi confirmado na reuniao</div>
+      <ul class="checklist">
+        <li><div class="check-icon check-done"></div><span><strong>CRM Data Crazy operacional</strong> - Lucyanne, Lorena cadastradas. Julia pendente por questao pessoal.<small>Igor confirmou que todos foram cadastrados</small></span></li>
+        <li><div class="check-icon check-done"></div><span><strong>API + Token entregue ao Hiago</strong> - Igor gerou e enviou durante a reuniao.<small>Hiago vai integrar o ambiente de alunos (EAD) com o CRM via API</small></span></li>
+        <li><div class="check-icon check-done"></div><span><strong>Recuperacao de carrinho resolvida</strong> - Sistema da USINA rastreia desde o preenchimento do nome.<small>Gera link de checkout individual por aluno. Nao precisa construir checkout nas paginas de captura.</small></span></li>
+        <li><div class="check-icon check-done"></div><span><strong>Automacao nativa Data Crazy</strong> - Igor nao usa n8n/Make/Zap.<small>Envia para Google Sheets ou rastreia evento no Meta conforme etapa do pipeline</small></span></li>
+        <li><div class="check-icon check-done"></div><span><strong>Suporte operacional: Clara</strong> - Para duvidas do dia a dia no CRM, acionar Clara pelo grupo.<small>Igor disponivel para questoes tecnicas</small></span></li>
+      </ul>
+    </div>
+
+    <div class="card card-red">
+      <div class="card-title">O que ainda esta pendente (bloqueante)</div>
+      <ul class="checklist">
+        <li><div class="check-icon check-urgent"></div><span><strong>Documento de Lucyanne para Igor</strong> - Pipelines, tags, score, scripts, automacoes.<small>Igor nao consegue configurar nada sem esse documento</small></span></li>
+        <li><div class="check-icon check-urgent"></div><span><strong>Integracao pagina de captura com CRM</strong> - Formulario ainda nao envia dados direto ao CRM.<small>Igor esta finalizando essa automacao</small></span></li>
+        <li><div class="check-icon check-urgent"></div><span><strong>Estrutura de trafego pago</strong> - Pixel e contas de anuncio estavam na conta errada. Igor precisa recriar tudo.<small>Campanhas so sobem apos essa correcao</small></span></li>
+        <li><div class="check-icon check-urgent"></div><span><strong>Base de contatos para Meta</strong> - Lucyanne precisa enviar lista com nome, telefone, email e valor de compra.<small>Necessario para criar publico e lookalike na Meta</small></span></li>
+        <li><div class="check-icon check-pending"></div><span><strong>Acesso ao Julia no CRM</strong> - Pendente resolucao de questao pessoal dela.<small>Treinamento de Lorena so acontece quando Julia tiver acesso</small></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card card-amber mt16">
+    <div class="card-title">Contexto estrategico da reuniao</div>
+    <p style="font-size:13px;color:var(--text2);line-height:1.8;">
+      A reuniao confirmou que o CRM esta pronto e operacional. O proximo passo critico e Lucyanne enviar o documento de requisitos para Igor poder parametrizar os 3 pipelines, as tags e as automacoes. Sem esse documento, Igor nao consegue configurar nada que dependa de regras de negocio. A integracao da pagina de captura com o CRM ainda esta pendente - e o item mais urgente do lado de Igor. As campanhas de trafego pago so sobem apos a recriacao da estrutura de pixel e contas. O volume inicial sera baixo (R$20-30/dia) ate validar a campanha.
+    </p>
+    <div class="alert alert-amber mt8">
+      <span class="alert-icon">⚠</span>
+      <div>O agente de IA do CRM esta configurado mas <strong>nao foi testado</strong>. Igor colocou o conhecimento mas nao validou. Testar antes de usar em producao.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- IGOR ENTREGA -->
+<div class="section" id="igor-entrega">
+<div class="container">
+  <div class="sec-header">
+    <h2>O que Igor precisa fazer e entregar</h2>
+    <div class="sec-divider"></div>
+    <p>Lista completa com instrucoes, modelos e criterios de aceite para cada entrega.</p>
+  </div>
+
+  <!-- ITEM 1 -->
+  <div class="card card-red mb16">
+    <div class="card-title">1. Integracao Pagina de Captura com CRM <span class="tag tag-red">URGENTE</span></div>
+    <div class="card-subtitle">Quando o lead preenche o formulario na LP, os dados precisam cair automaticamente no CRM e criar um card no P1.</div>
+    <div class="tbl" style="overflow:auto;">
+      <table class="tbl">
+        <thead><tr><th>Campo</th><th>Detalhe</th></tr></thead>
+        <tbody>
+          <tr><td><strong>O que fazer</strong></td><td>Configurar a automacao de "tracking de eventos de paginas de captura" que Igor mencionou estar em andamento. Quando o lead preenche o formulario, os dados vao direto para o CRM e criam um card no pipeline P1 no estagio "Novo Lead".</td></tr>
+          <tr><td><strong>Campos obrigatorios</strong></td><td>Nome, telefone, email, UTM source, UTM medium, UTM campaign, UTM content (criativo), data/hora do preenchimento</td></tr>
+          <tr><td><strong>Criterio de aceite</strong></td><td>Lucyanne preenche o formulario da LP e em ate 60 segundos aparece um card no P1 do CRM com todos os campos preenchidos e a tag "novo-lead" aplicada automaticamente</td></tr>
+          <tr><td><strong>Responsavel</strong></td><td>Igor (automacao nativa Data Crazy)</td></tr>
+          <tr><td><strong>Prazo</strong></td><td>Antes de subir as campanhas</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="alert alert-red mt8">
+      <span class="alert-icon">🚨</span>
+      <div>Sem essa integracao, nenhum lead de campanha vai aparecer no CRM automaticamente. E o item mais critico antes de qualquer campanha subir.</div>
+    </div>
+  </div>
+
+  <!-- ITEM 2 -->
+  <div class="card card-amber mb16">
+    <div class="card-title">2. Configurar os 3 Pipelines <span class="tag tag-amber">Aguardando documento Lucyanne</span></div>
+    <div class="card-subtitle">Igor precisa receber o documento de Lucyanne para criar os pipelines com os estagios corretos, campos obrigatorios e regras de transicao.</div>
+    <div class="tbl" style="overflow:auto;">
+      <table class="tbl">
+        <thead><tr><th>Pipeline</th><th>Descricao</th><th>Estagios minimos</th></tr></thead>
+        <tbody>
+          <tr><td><strong>P1 - Captacao</strong></td><td>Todos os leads que chegam via LP, WhatsApp direto ou indicacao</td><td>Novo Lead / Qualificado / Em Negociacao / Matriculado / Perdido</td></tr>
+          <tr><td><strong>P2 - Produto de Entrada</strong></td><td>Leads inscritos em Curso Livre, Webinario ou Aula Paga</td><td>Inscrito / Participou / Oferta Feita / Converteu / Nao Converteu</td></tr>
+          <tr><td><strong>P3 - Aluno Ativo</strong></td><td>Alunos matriculados na Pos-Graduacao em acompanhamento</td><td>Onboarding / Em Curso / Em Risco / Concluido / Expansao T3</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="alert alert-amber mt8">
+      <span class="alert-icon">⚠</span>
+      <div><strong>Regra critica:</strong> quando um lead avanca de P1 para P3, ele deve ser <strong>duplicado</strong>, nao movido. Isso garante que o historico do P1 seja mantido e as metricas de conversao nao sejam perdidas. Igor precisa confirmar se o Data Crazy suporta duplicacao automatica entre pipelines.</div>
+    </div>
+  </div>
+
+  <!-- ITEM 3 -->
+  <div class="card card-amber mb16">
+    <div class="card-title">3. Criar e Configurar as Tags <span class="tag tag-amber">Aguardando lista Lucyanne</span></div>
+    <div class="card-subtitle">As automacoes do Data Crazy funcionam por tags. Igor precisa criar as tags que Lucyanne vai enviar no documento.</div>
+    <p style="font-size:13px;margin-bottom:12px;">Tags minimas necessarias (Lucyanne vai complementar):</p>
+    <div class="grid-2">
+      <div>
+        <div class="bold mb8" style="font-size:12px;color:var(--navy);">Tags de Status do Lead</div>
+        <div class="modelo-box">
+          <div class="modelo-label">Modelo de Tags - Status</div>
+          <span class="field">novo-lead</span> <span class="comment">// chegou via LP</span><br>
+          <span class="field">qualificado</span> <span class="comment">// respondeu e tem perfil</span><br>
+          <span class="field">sem-resposta-24h</span> <span class="comment">// nao respondeu em 24h</span><br>
+          <span class="field">sem-resposta-48h</span> <span class="comment">// nao respondeu em 48h</span><br>
+          <span class="field">em-negociacao</span> <span class="comment">// Lorena em contato ativo</span><br>
+          <span class="field">proposta-enviada</span> <span class="comment">// link de checkout gerado</span><br>
+          <span class="field">matriculado</span> <span class="comment">// pagamento confirmado Asaas</span><br>
+          <span class="field">perdido</span> <span class="comment">// descartado com motivo</span>
+        </div>
+      </div>
+      <div>
+        <div class="bold mb8" style="font-size:12px;color:var(--navy);">Tags de Alerta de Aluno (P3)</div>
+        <div class="modelo-box">
+          <div class="modelo-label">Modelo de Tags - Aluno</div>
+          <span class="field">aluno-ativo</span> <span class="comment">// acesso nos ultimos 7 dias</span><br>
+          <span class="field">aluno-sem-acesso-7d</span> <span class="comment">// nao acessa ha 7 dias</span><br>
+          <span class="field">aluno-sem-acesso-14d</span> <span class="comment">// nao acessa ha 14 dias</span><br>
+          <span class="field">aluno-em-risco</span> <span class="comment">// health score abaixo de 4</span><br>
+          <span class="field">aluno-satisfeito</span> <span class="comment">// NPS maior ou igual a 8</span><br>
+          <span class="field">aluno-insatisfeito</span> <span class="comment">// NPS menor que 6</span><br>
+          <span class="field">candidato-t3</span> <span class="comment">// interesse em renovacao</span>
+        </div>
+      </div>
+    </div>
+    <div class="alert alert-blue mt8">
+      <span class="alert-icon">ℹ</span>
+      <div>Igor mencionou na reuniao que as automacoes funcionam muito pelas tags. Sem as tags corretas criadas no CRM, nenhuma automacao vai disparar. Lucyanne vai enviar a lista completa no documento.</div>
+    </div>
+  </div>
+
+  <!-- ITEM 4 -->
+  <div class="card card-amber mb16">
+    <div class="card-title">4. Configurar Automacoes <span class="tag tag-amber">Aguardando documento Lucyanne</span></div>
+    <div class="card-subtitle">Igor ja tem algumas automacoes pre-configuradas. Precisa ajustar e criar as especificas para o ICBID T2.</div>
+    <table class="tbl">
+      <thead><tr><th>#</th><th>Automacao</th><th>Gatilho</th><th>Acao</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Novo lead LP</td><td>Formulario preenchido</td><td>Cria card P1 + tag "novo-lead" + notificacao Lorena</td><td><span class="tag tag-amber">Pendente</span></td></tr>
+        <tr><td>2</td><td>Sem resposta 24h</td><td>Lead sem resposta em 24h</td><td>Volta para estagio "Primeiro Contato" + tag "sem-resposta-24h"</td><td><span class="tag tag-green">Pre-configurada</span></td></tr>
+        <tr><td>3</td><td>Restaura conversa</td><td>Lead nao respondeu</td><td>Restaura a conversa automaticamente</td><td><span class="tag tag-green">Pre-configurada</span></td></tr>
+        <tr><td>4</td><td>Avanco por palavra-chave</td><td>Palavra-chave na conversa</td><td>Move card para estagio correspondente</td><td><span class="tag tag-amber">Aguardando palavras-chave de Lucyanne</span></td></tr>
+        <tr><td>5</td><td>Pagamento confirmado</td><td>Webhook Asaas - pagamento</td><td>Cria card P3 "Onboarding" + tag "matriculado" + notificacao Julia</td><td><span class="tag tag-amber">Pendente</span></td></tr>
+        <tr><td>6</td><td>Aluno sem acesso 7d</td><td>EAD - sem acesso 7 dias</td><td>Tag "aluno-sem-acesso-7d" + alerta Julia via app/WhatsApp</td><td><span class="tag tag-amber">Pendente (depende EAD Hiago)</span></td></tr>
+        <tr><td>7</td><td>Aluno em risco</td><td>Health score menor que 4</td><td>Tag "aluno-em-risco" + alerta Julia + move para estagio "Em Risco"</td><td><span class="tag tag-amber">Aguardando logica score Lucyanne</span></td></tr>
+        <tr><td>8</td><td>Notificacao primeiro contato</td><td>Qualquer mensagem nova</td><td>Notificacao para Lorena: "novo lead" ou "lead retornou"</td><td><span class="tag tag-green">Pre-configurada</span></td></tr>
+        <tr><td>9</td><td>Comentario Instagram</td><td>Comentario no Instagram</td><td>Envia mensagem automatica + cria lead no CRM</td><td><span class="tag tag-amber">Disponivel - configurar</span></td></tr>
+        <tr><td>10</td><td>Exportacao Google Sheets</td><td>A cada hora</td><td>Puxa dados CRM + envia para 5 abas do Sheets Otimiza</td><td><span class="tag tag-amber">Pendente</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ITEM 5 -->
+  <div class="card card-red mb16">
+    <div class="card-title">5. Recriar Estrutura de Trafego Pago <span class="tag tag-red">URGENTE</span></div>
+    <div class="card-subtitle">Igor confirmou que o pixel e as contas de anuncio estavam na conta errada (da pessoa anterior). Precisa recriar tudo do zero.</div>
+    <div class="grid-2">
+      <div>
+        <div class="bold mb8" style="font-size:12px;color:var(--navy);">O que Igor precisa fazer:</div>
+        <ul class="checklist">
+          <li><div class="check-icon check-igor"></div><span>Criar nova conta de anuncios no Meta vinculada ao ICBID</span></li>
+          <li><div class="check-icon check-igor"></div><span>Instalar e configurar novo pixel no site do ICBID</span></li>
+          <li><div class="check-icon check-igor"></div><span>Subir a base de contatos que Lucyanne vai enviar como publico customizado</span></li>
+          <li><div class="check-icon check-igor"></div><span>Criar publico lookalike a partir da base de compradores</span></li>
+          <li><div class="check-icon check-igor"></div><span>Criar estrutura de campanha inicial (R$20-30/dia)</span></li>
+          <li><div class="check-icon check-igor"></div><span>Aproveitar criativos e copies da T1 (a inteligencia da maquina nao pode ser aproveitada)</span></li>
+        </ul>
+      </div>
+      <div>
+        <div class="bold mb8" style="font-size:12px;color:var(--navy);">O que Lucyanne precisa entregar para Igor:</div>
+        <ul class="checklist">
+          <li><div class="check-icon check-lucy"></div><span>Lista de contatos T1: nome, telefone, email, valor de compra (valor total se parcelado)</span></li>
+          <li><div class="check-icon check-lucy"></div><span>Acesso ou confirmacao de acesso ao dominio/DNS do ICBID</span></li>
+          <li><div class="check-icon check-lucy"></div><span>Aprovacao dos criativos antes de subir as campanhas</span></li>
+        </ul>
+        <div class="alert alert-amber mt8">
+          <span class="alert-icon">⚠</span>
+          <div>Igor pode comecar a subir campanhas entre terca e quarta-feira se receber a base de contatos antes. Volume inicial sera baixo ate validar a campanha.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ITEM 6 -->
+  <div class="card card-blue mb16">
+    <div class="card-title">6. Configurar Notificacoes e Alertas</div>
+    <div class="card-subtitle">Lucyanne precisa visibilidade do volume de notificacoes para identificar gargalos na raiz, nao so receber alertas.</div>
+    <table class="tbl">
+      <thead><tr><th>Alerta</th><th>Para quem</th><th>Canal</th><th>Quando disparar</th></tr></thead>
+      <tbody>
+        <tr><td>Novo lead chegou</td><td>Lorena</td><td>App CRM (push) + WhatsApp</td><td>Imediatamente ao criar card P1</td></tr>
+        <tr><td>Lead sem resposta em 1h</td><td>Lorena + Lucyanne</td><td>App CRM (push)</td><td>Lead criado ha 1h sem contato de Lorena</td></tr>
+        <tr><td>Lead retornou conversa</td><td>Lorena</td><td>App CRM (push)</td><td>Lead manda mensagem apos silencio</td></tr>
+        <tr><td>Pagamento confirmado</td><td>Julia + Lucyanne</td><td>App CRM (push) + WhatsApp grupo</td><td>Webhook Asaas confirma pagamento</td></tr>
+        <tr><td>Aluno sem acesso 7 dias</td><td>Julia</td><td>App CRM (push)</td><td>EAD reporta ausencia de 7 dias</td></tr>
+        <tr><td>Aluno em risco (score baixo)</td><td>Julia + Lucyanne</td><td>App CRM (push) + WhatsApp grupo</td><td>Health score cai abaixo de 4</td></tr>
+        <tr><td>Volume alto de alertas</td><td>Lucyanne</td><td>Dashboard CRM</td><td>Mais de 5 alertas do mesmo tipo em 24h</td></tr>
+      </tbody>
+    </table>
+    <div class="alert alert-blue mt8">
+      <span class="alert-icon">ℹ</span>
+      <div>Igor confirmou que com o app instalado no celular, as notificacoes chegam via push. Para alertas no WhatsApp de grupo, precisa configurar via webhook - Igor precisa confirmar se o Data Crazy suporta envio para grupo de WhatsApp.</div>
+    </div>
+  </div>
+
+  <!-- ITEM 7 -->
+  <div class="card card-blue mb16">
+    <div class="card-title">7. Centralizar Criativos e Origem dos Leads no CRM</div>
+    <div class="card-subtitle">Lucyanne pediu que o CRM mostre qual anuncio trouxe cada lead e qual foi a copy/mensagem do criativo.</div>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <div class="step-title">Capturar UTMs no formulario</div>
+        <div class="step-desc">Quando o lead preenche a LP, os parametros UTM (source, medium, campaign, content) precisam ser capturados e salvos no card do CRM como campos adicionais.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <div class="step-title">Campo "Criativo de Origem" no card</div>
+        <div class="step-desc">Igor vai tentar alimentar o campo com o nome do criativo que originou o lead. Isso permite que Lorena saiba qual mensagem impactou o lead antes de entrar em contato.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <div class="step-title">Repositorio de criativos ativos</div>
+        <div class="step-desc">Igor vai criar um repositorio (pasta ou documento compartilhado) com os criativos em execucao, a copy e a data de inicio. Lucyanne e Lorena terao acesso para consultar antes de atender um lead.</div>
+      </div>
+    </div>
+    <div class="alert alert-amber mt8">
+      <span class="alert-icon">⚠</span>
+      <div>Igor disse "vou tentar alimentar o maximo" - isso indica que pode ter limitacao tecnica. Confirmar com Igor qual e o nivel de rastreamento possivel no Data Crazy antes de depender disso na operacao.</div>
+    </div>
+  </div>
+
+  <!-- ITEM 8 -->
+  <div class="card card-navy mb16">
+    <div class="card-title">8. Treinamento Lorena (30 minutos)</div>
+    <div class="card-subtitle">Agendar sessao pratica de 30 minutos com Lorena assim que Julia tiver acesso ao CRM.</div>
+    <p style="font-size:13px;margin-bottom:12px;color:var(--text2);">Conteudo minimo do treinamento (definido por Lucyanne na reuniao):</p>
+    <ul class="checklist">
+      <li><div class="check-icon check-pending"></div><span>Como o lead chega e quais sao os gatilhos de transicao entre estagios</span></li>
+      <li><div class="check-icon check-pending"></div><span>O que tem dentro de um card e o que Lorena precisa preencher obrigatoriamente</span></li>
+      <li><div class="check-icon check-pending"></div><span>Como funcionam os alertas de tempo e o que ela precisa monitorar</span></li>
+      <li><div class="check-icon check-pending"></div><span>Como usar as tags corretamente para acionar automacoes</span></li>
+      <li><div class="check-icon check-pending"></div><span>Como acionar suporte: Clara para operacional, Igor para tecnico</span></li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<!-- LUCY ENTREGA -->
+<div class="section" id="lucy-entrega">
+<div class="container">
+  <div class="sec-header">
+    <h2>O que Lucyanne precisa entregar para Igor</h2>
+    <div class="sec-divider"></div>
+    <p>Sem esses itens, Igor nao consegue configurar o CRM. Sao os insumos que desbloqueiam a operacao.</p>
+  </div>
+
+  <div class="alert alert-red mb16">
+    <span class="alert-icon">🚨</span>
+    <div><strong>Prioridade maxima:</strong> Igor pediu explicitamente o documento com tudo que Lucyanne precisa. Sem ele, Igor nao sabe o que configurar. O documento e o desbloqueador de toda a operacao.</div>
+  </div>
+
+  <!-- ENTREGA 1 -->
+  <div class="card card-red mb16">
+    <div class="card-title">Entrega 1: Documento de Requisitos do CRM <span class="tag tag-red">PRIORIDADE MAXIMA</span></div>
+    <div class="card-subtitle">Igor pediu: "Pode me passar o documento com tudo que voce precisa que eu te informo se e viavel ou nao fazer."</div>
+    <p style="font-size:13px;margin-bottom:16px;color:var(--text2);">O documento precisa conter:</p>
+
+    <div class="grid-2">
+      <div>
+        <div class="bold mb8" style="font-size:12px;color:var(--navy);">Secao 1: Pipelines e Estagios</div>
+        <div class="modelo-box">
+          <div class="modelo-label">Modelo - Pipeline P1 Captacao</div>
+          <span class="field">Pipeline:</span> <span class="value">P1 - Captacao</span><br>
+          <span class="field">Estagio 1:</span> <span class="value">Novo Lead</span><br>
+          <span class="comment">  Gatilho de entrada: formulario LP preenchido</span><br>
+          <span class="comment">  Campos obrigatorios: nome, telefone, email, UTM</span><br>
+          <span class="field">Estagio 2:</span> <span class="value">Qualificado</span><br>
+          <span class="comment">  Gatilho: Lorena confirmou interesse e perfil</span><br>
+          <span class="comment">  Campos obrigatorios: motivo_qualificacao</span><br>
+          <span class="field">Estagio 3:</span> <span class="value">Em Negociacao</span><br>
+          <span class="comment">  Gatilho: proposta enviada</span><br>
+          <span class="field">Estagio 4:</span> <span class="value">Matriculado</span><br>
+          <span class="comment">  Gatilho: pagamento confirmado Asaas</span><br>
+          <span class="comment">  Acao: duplicar para P3</span><br>
+          <span class="field">Estagio 5:</span> <span class="value">Perdido</span><br>
+          <span class="comment">  Campo obrigatorio: motivo_perda (selecao)</span>
+        </div>
+      </div>
+      <div>
+        <div class="bold mb8" style="font-size:12px;color:var(--navy);">Secao 2: Lista de Tags</div>
+        <div class="modelo-box">
+          <div class="modelo-label">Modelo - Tags</div>
+          <span class="field">Tag:</span> <span class="value">nome-da-tag</span><br>
+          <span class="field">Quando aplicar:</span> <span class="value">descricao do gatilho</span><br>
+          <span class="field">Automacao que dispara:</span> <span class="value">nome da automacao</span><br>
+          <span class="field">Quem aplica:</span> <span class="value">automatico / Lorena / Julia</span><br>
+          <br>
+          <span class="comment">Exemplo:</span><br>
+          <span class="field">Tag:</span> <span class="value">sem-resposta-24h</span><br>
+          <span class="field">Quando aplicar:</span> <span class="value">lead nao respondeu em 24h</span><br>
+          <span class="field">Automacao:</span> <span class="value">follow-up automatico</span><br>
+          <span class="field">Quem aplica:</span> <span class="value">automatico</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2 mt16">
+      <div>
+        <div class="bold mb8" style="font-size:12px;color:var(--navy);">Secao 3: Logica do Health Score</div>
+        <div class="modelo-box">
+          <div class="modelo-label">Modelo - Score do Aluno</div>
+          <span class="field">Criterio:</span> <span class="value">Acesso a plataforma</span><br>
+          <span class="comment">  Peso: 30%</span><br>
+          <span class="comment">  Pontuacao: acesso semanal = 10, quinzenal = 6, mensal = 3, sem acesso = 0</span><br>
+          <br>
+          <span class="field">Criterio:</span> <span class="value">Progresso no conteudo</span><br>
+          <span class="comment">  Peso: 25%</span><br>
+          <span class="comment">  Pontuacao: acima de 70% = 10, 40-70% = 6, abaixo de 40% = 3</span><br>
+          <br>
+          <span class="field">Criterio:</span> <span class="value">NPS / Satisfacao</span><br>
+          <span class="comment">  Peso: 25%</span><br>
+          <span class="comment">  Pontuacao: NPS 9-10 = 10, NPS 7-8 = 7, NPS 0-6 = 2</span><br>
+          <br>
+          <span class="field">Criterio:</span> <span class="value">Pagamento em dia</span><br>
+          <span class="comment">  Peso: 20%</span><br>
+          <span class="comment">  Pontuacao: em dia = 10, atraso 1-7d = 5, atraso +7d = 0</span><br>
+          <br>
+          <span class="field">Score final:</span> <span class="value">soma ponderada 0-10</span><br>
+          <span class="field">Alerta em risco:</span> <span class="value">score abaixo de 4</span>
+        </div>
+      </div>
+      <div>
+        <div class="bold mb8" style="font-size:12px;color:var(--navy);">Secao 4: Scripts de Abordagem</div>
+        <div class="modelo-box">
+          <div class="modelo-label">Modelo - Script Lorena</div>
+          <span class="field">Situacao:</span> <span class="value">Primeiro contato - lead novo</span><br>
+          <span class="field">Estagio CRM:</span> <span class="value">P1 - Novo Lead</span><br>
+          <span class="field">SLA:</span> <span class="value">ate 1 hora apos chegada</span><br>
+          <span class="field">Script:</span><br>
+          <span class="value">"Ola [nome], tudo bem? Vi que voce</span><br>
+          <span class="value">demonstrou interesse no ICBID.</span><br>
+          <span class="value">Posso te ajudar com alguma duvida?"</span><br>
+          <br>
+          <span class="field">Situacao:</span> <span class="value">Lead sem resposta 24h</span><br>
+          <span class="field">Script:</span><br>
+          <span class="value">"Ola [nome], tentei entrar em contato</span><br>
+          <span class="value">ontem. Ainda tem interesse em saber</span><br>
+          <span class="value">mais sobre a pos-graduacao?"</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bold mb8 mt16" style="font-size:12px;color:var(--navy);">Secao 5: Regras de Automacao</div>
+    <div class="modelo-box">
+      <div class="modelo-label">Modelo - Regra de Automacao</div>
+      <span class="field">Automacao:</span> <span class="value">Aluno sem acesso 7 dias</span><br>
+      <span class="field">Gatilho:</span> <span class="value">EAD reporta ultimo acesso ha mais de 7 dias</span><br>
+      <span class="field">Condicao:</span> <span class="value">aluno esta no estagio "Em Curso" do P3</span><br>
+      <span class="field">Acao 1:</span> <span class="value">aplicar tag "aluno-sem-acesso-7d"</span><br>
+      <span class="field">Acao 2:</span> <span class="value">enviar notificacao para Julia: "[nome] nao acessa ha 7 dias"</span><br>
+      <span class="field">Acao 3:</span> <span class="value">criar atividade no card: "Contato proativo Julia - 24h"</span><br>
+      <span class="field">Se nao resolvido em 7 dias:</span> <span class="value">aplicar tag "aluno-em-risco" e mover para estagio "Em Risco"</span>
+    </div>
+  </div>
+
+  <!-- ENTREGA 2 -->
+  <div class="card card-amber mb16">
+    <div class="card-title">Entrega 2: Base de Contatos para Meta <span class="tag tag-amber">URGENTE para campanhas</span></div>
+    <div class="card-subtitle">Igor precisa dessa lista para criar publico customizado e lookalike na Meta antes de subir as campanhas.</div>
+    <div class="modelo-box">
+      <div class="modelo-label">Formato da planilha - enviar para Igor</div>
+      <span class="field">Coluna A:</span> <span class="value">Nome completo</span><br>
+      <span class="field">Coluna B:</span> <span class="value">Telefone (com DDD, sem espacos ou tracos)</span><br>
+      <span class="field">Coluna C:</span> <span class="value">Email</span><br>
+      <span class="field">Coluna D:</span> <span class="value">Valor de compra (valor TOTAL se parcelado)</span><br>
+      <span class="field">Coluna E:</span> <span class="value">Data da compra (formato DD/MM/AAAA)</span><br>
+      <br>
+      <span class="comment">Incluir: todos que compraram na T1</span><br>
+      <span class="comment">Incluir: todos que entraram em contato mas nao compraram (sem valor)</span><br>
+      <span class="comment">Separar em duas abas: compradores / nao compradores</span>
+    </div>
+  </div>
+
+  <!-- ENTREGA 3 -->
+  <div class="card card-blue mb16">
+    <div class="card-title">Entrega 3: Palavras-chave para Automacao de Avanco de Pipeline</div>
+    <div class="card-subtitle">Igor precisa de uma lista de palavras ou frases que, quando enviadas na conversa, movem automaticamente o lead para um estagio especifico.</div>
+    <div class="modelo-box">
+      <div class="modelo-label">Modelo - Palavras-chave por Estagio</div>
+      <span class="field">Estagio destino:</span> <span class="value">Matriculado (P3)</span><br>
+      <span class="field">Palavras-chave:</span> <span class="value">"parabens", "bem-vinda", "bem-vindo", "acesso liberado", "contrato assinado"</span><br>
+      <br>
+      <span class="field">Estagio destino:</span> <span class="value">Em Negociacao</span><br>
+      <span class="field">Palavras-chave:</span> <span class="value">"proposta", "valor", "parcelamento", "boleto", "link de pagamento"</span><br>
+      <br>
+      <span class="field">Estagio destino:</span> <span class="value">Perdido</span><br>
+      <span class="field">Palavras-chave:</span> <span class="value">"nao tenho interesse", "nao quero", "cancelar", "desistir"</span>
+    </div>
+  </div>
+
+  <!-- ENTREGA 4 -->
+  <div class="card card-navy mb16">
+    <div class="card-title">Entrega 4: Acesso ao Dominio/DNS (via Hiago)</div>
+    <div class="card-subtitle">Para Igor conseguir subir novas paginas de captura e ajustar a LP atual, precisa de acesso ao WordPress ou que Hiago aponte o DNS para onde Igor indicar.</div>
+    <ul class="checklist">
+      <li><div class="check-icon check-lucy"></div><span>Confirmar com Hiago que ele vai dar acesso ao WordPress para Igor</span></li>
+      <li><div class="check-icon check-lucy"></div><span>Ou confirmar que Hiago vai apontar o DNS para onde Igor pedir</span></li>
+      <li><div class="check-icon check-lucy"></div><span>Definir qual pagina vai ser usada para as campanhas da T2 (a atual ou uma nova)</span></li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<!-- PIPELINES -->
+<div class="section" id="pipelines">
+<div class="container">
+  <div class="sec-header">
+    <h2>Detalhamento dos 3 Pipelines</h2>
+    <div class="sec-divider"></div>
+    <p>Estrutura completa que Igor precisa configurar no Data Crazy. Baseada no que Lucyanne apresentou na reuniao.</p>
+  </div>
+
+  <div class="alert alert-amber mb16">
+    <span class="alert-icon">⚠</span>
+    <div><strong>Regra critica de duplicacao:</strong> Quando um lead avanca de P1 para P2 ou P3, ele deve ser <strong>duplicado</strong>, nao movido. O card original fica no pipeline de origem para manter o historico e as metricas de conversao. Igor precisa confirmar se o Data Crazy suporta essa funcionalidade nativamente.</div>
+  </div>
+
+  <!-- P1 -->
+  <div class="card card-amber mb16">
+    <div class="card-title">Pipeline P1 - Captacao (sempre ativo)</div>
+    <div class="card-subtitle">Todos os leads que chegam via LP, WhatsApp direto, indicacao ou Instagram. Lorena e a responsavel principal.</div>
+    <table class="tbl">
+      <thead><tr><th>Estagio</th><th>Gatilho de Entrada</th><th>Campos Obrigatorios</th><th>Alerta</th><th>Responsavel</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1. Novo Lead</strong></td><td>Formulario LP preenchido ou mensagem direta no WhatsApp</td><td>Nome, telefone, email, UTM source, UTM criativo</td><td>Notificacao imediata para Lorena</td><td>Automatico</td></tr>
+        <tr><td><strong>2. Qualificado</strong></td><td>Lorena confirma interesse e perfil do lead</td><td>Motivo qualificacao, perfil confirmado</td><td>Sem resposta em 1h apos qualificacao</td><td>Lorena</td></tr>
+        <tr><td><strong>3. Em Negociacao</strong></td><td>Proposta ou link de checkout enviado</td><td>Valor proposto, data envio proposta</td><td>Sem resposta em 24h apos proposta</td><td>Lorena</td></tr>
+        <tr><td><strong>4. Matriculado</strong></td><td>Pagamento confirmado no Asaas (webhook)</td><td>Valor pago, data pagamento, forma pagamento</td><td>Duplicar para P3 automaticamente</td><td>Automatico (Asaas webhook)</td></tr>
+        <tr><td><strong>5. Perdido</strong></td><td>Lead descartado por Lorena</td><td>Motivo perda (campo selecao obrigatorio)</td><td>Nenhum</td><td>Lorena</td></tr>
+      </tbody>
+    </table>
+    <div class="alert alert-blue mt8">
+      <span class="alert-icon">ℹ</span>
+      <div><strong>Campo "motivo_perda":</strong> deve ser um campo de selecao (nao texto livre) com opcoes pre-definidas: "Sem interesse", "Preco", "Concorrente", "Sem resposta", "Nao tem perfil", "Adiou decisao". Isso garante metricas de churn limpas.</div>
+    </div>
+  </div>
+
+  <!-- P2 -->
+  <div class="card card-blue mb16">
+    <div class="card-title">Pipeline P2 - Produto de Entrada (sazonal)</div>
+    <div class="card-subtitle">Ativo nas semanas de Curso Livre, Webinario ou Aula Paga. Julia e Lorena sao responsaveis.</div>
+    <table class="tbl">
+      <thead><tr><th>Estagio</th><th>Gatilho de Entrada</th><th>Campos Obrigatorios</th><th>Responsavel</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1. Inscrito</strong></td><td>Pagamento do CL/Webinario confirmado no Asaas</td><td>Evento inscrito, data evento, valor pago</td><td>Automatico</td></tr>
+        <tr><td><strong>2. Participou</strong></td><td>Confirmacao de presenca no evento</td><td>Presenca confirmada (sim/nao), data</td><td>Julia</td></tr>
+        <tr><td><strong>3. Oferta Feita</strong></td><td>Lorena fez oferta da Pos-Grad durante/apos evento</td><td>Data oferta, resposta inicial</td><td>Lorena</td></tr>
+        <tr><td><strong>4A. Converteu</strong></td><td>Lead aceitou a oferta e foi para P1 negociacao</td><td>Data conversao</td><td>Automatico (duplica para P1)</td></tr>
+        <tr><td><strong>4B. Nao Converteu</strong></td><td>Lead recusou a oferta</td><td>Motivo recusa (selecao)</td><td>Lorena</td></tr>
+      </tbody>
+    </table>
+    <div class="alert alert-amber mt8">
+      <span class="alert-icon">⚠</span>
+      <div>O P2 deve ter um campo "compareceu" (sim/nao) para calcular a taxa de conversao de inscrito para presente, que e uma metrica critica para avaliar a qualidade do evento.</div>
+    </div>
+  </div>
+
+  <!-- P3 -->
+  <div class="card card-green mb16">
+    <div class="card-title">Pipeline P3 - Aluno Ativo (permanente)</div>
+    <div class="card-subtitle">Alunos matriculados na Pos-Graduacao em acompanhamento de 12 meses. Julia e a responsavel principal.</div>
+    <table class="tbl">
+      <thead><tr><th>Estagio</th><th>Gatilho de Entrada</th><th>Campos Obrigatorios</th><th>Alerta</th><th>Responsavel</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1. Onboarding</strong></td><td>Criado automaticamente quando pagamento e confirmado</td><td>Data matricula, turma, forma pagamento</td><td>Sem acesso ao EAD em D+7</td><td>Julia</td></tr>
+        <tr><td><strong>2. Em Curso</strong></td><td>Primeiro acesso confirmado ao EAD</td><td>Data primeiro acesso, progresso inicial</td><td>Sem acesso em 7 dias</td><td>Julia</td></tr>
+        <tr><td><strong>3. Em Risco</strong></td><td>Health score abaixo de 4 ou sem acesso em 14 dias</td><td>Motivo risco, data identificacao</td><td>Alerta imediato Julia + Lucyanne</td><td>Julia</td></tr>
+        <tr><td><strong>4. Concluido</strong></td><td>Aluno finaliza 12 meses de curso</td><td>NPS final, depoimento autorizado (sim/nao)</td><td>NPS abaixo de 6</td><td>Julia</td></tr>
+        <tr><td><strong>5. Expansao T3</strong></td><td>Aluno demonstra interesse em renovar</td><td>Interesse confirmado, data contato</td><td>Nenhum</td><td>Lorena + Julia</td></tr>
+      </tbody>
+    </table>
+    <div class="alert alert-red mt8">
+      <span class="alert-icon">🚨</span>
+      <div><strong>Campo "health_score":</strong> precisa ser um campo numerico (0-10) no card do P3. A logica de calculo sera definida por Lucyanne e enviada para Igor. Esse campo e a base de todos os alertas de retencao.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- AUTOMACOES -->
+<div class="section" id="automacoes">
+<div class="container">
+  <div class="sec-header">
+    <h2>Automacoes - Detalhamento Tecnico</h2>
+    <div class="sec-divider"></div>
+    <p>O que Igor ja tem pre-configurado, o que precisa ajustar e o que precisa criar do zero.</p>
+  </div>
+
+  <div class="grid-2 mb16">
+    <div class="card card-green">
+      <div class="card-title">Ja pre-configuradas por Igor</div>
+      <ul class="checklist">
+        <li><div class="check-icon check-done"></div><span><strong>Follow-up sem resposta</strong> - quando lead nao responde, volta para estagio de primeiro contato</span></li>
+        <li><div class="check-icon check-done"></div><span><strong>Restauracao de conversa</strong> - reabre conversa com lead inativo automaticamente</span></li>
+        <li><div class="check-icon check-done"></div><span><strong>Notificacao primeiro contato</strong> - qualquer mensagem nova gera notificacao para Lorena</span></li>
+        <li><div class="check-icon check-done"></div><span><strong>Avanco por palavras-chave</strong> - move card conforme palavras-chave (aguardando lista de Lucyanne)</span></li>
+      </ul>
+    </div>
+    <div class="card card-amber">
+      <div class="card-title">Precisam ser criadas ou ajustadas</div>
+      <ul class="checklist">
+        <li><div class="check-icon check-pending"></div><span><strong>Integracao LP com CRM</strong> - formulario cria card no P1 automaticamente</span></li>
+        <li><div class="check-icon check-pending"></div><span><strong>Webhook Asaas pagamento</strong> - cria card P3 e move P1 para Matriculado</span></li>
+        <li><div class="check-icon check-pending"></div><span><strong>Alerta aluno sem acesso</strong> - depende da integracao EAD do Hiago</span></li>
+        <li><div class="check-icon check-pending"></div><span><strong>Health score automatico</strong> - depende da logica que Lucyanne vai enviar</span></li>
+        <li><div class="check-icon check-pending"></div><span><strong>Exportacao Google Sheets</strong> - a cada hora, 5 abas do Otimiza</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card card-navy mb16">
+    <div class="card-title">Agente de IA no CRM - Status e Limitacoes</div>
+    <div class="card-subtitle">Igor configurou o agente de IA com o conhecimento do ICBID, mas ainda nao testou. Ha limitacao de tokens.</div>
+    <table class="tbl">
+      <thead><tr><th>Item</th><th>Detalhe</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Status atual</strong></td><td>Configurado mas NAO testado. Igor disse "coloquei o conhecimento mas nao tive chance de testar ainda".</td></tr>
+        <tr><td><strong>Cota de tokens</strong></td><td>50.000 tokens no plano atual. Igor estima que equivale a aproximadamente 2 meses de uso. A cada mes, recebem entre 5.000 e 10.000 tokens adicionais.</td></tr>
+        <tr><td><strong>O que o agente faz</strong></td><td>Qualificacao automatica de leads com base no conhecimento do ICBID. Lucyanne pediu que fosse especifico para o perfil do aluno ideal.</td></tr>
+        <tr><td><strong>Acao necessaria</strong></td><td>Testar o agente antes de ativar em producao. Igor e Lucyanne precisam validar juntos se a qualificacao esta correta.</td></tr>
+      </tbody>
+    </table>
+    <div class="alert alert-red mt8">
+      <span class="alert-icon">🚨</span>
+      <div>Nao ativar o agente de IA em producao sem testar. Se ele qualificar leads de forma errada, pode descartar oportunidades ou criar ruido na operacao de Lorena.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- LIMITACOES -->
+<div class="section" id="limitacoes">
+<div class="container">
+  <div class="sec-header">
+    <h2>Limitacoes Identificadas</h2>
+    <div class="sec-divider"></div>
+    <p>O que pode nao funcionar como esperado. Pontos que precisam de confirmacao tecnica antes de depender na operacao.</p>
+  </div>
+
+  <div class="limit-box mb16">
+    <div class="limit-title">Limitacao 1: Regra das 24 horas do WhatsApp</div>
+    <p style="font-size:13px;margin-bottom:8px;">O metodo coex (coexistencia) so permite contato livre com o lead dentro de uma janela de 24 horas. Apos esse prazo, so e possivel retomar a conversa com um template pre-aprovado pela Meta.</p>
+    <table class="tbl">
+      <thead><tr><th>Situacao</th><th>O que acontece</th><th>Custo</th></tr></thead>
+      <tbody>
+        <tr><td>Dentro das 24h</td><td>Lorena pode enviar qualquer mensagem livremente</td><td>Sem custo adicional</td></tr>
+        <tr><td>Apos 24h sem resposta</td><td>Nao e possivel enviar mensagem livre. Precisa de template aprovado.</td><td>Aproximadamente US$ 0,46 por conversa retomada</td></tr>
+        <tr><td>Disparo em massa</td><td>Possivel, mas tem custo e so faz sentido em escala</td><td>Variavel por template (marketing pode chegar a US$ 0,60+)</td></tr>
+      </tbody>
+    </table>
+    <div class="alert alert-amber mt8">
+      <span class="alert-icon">⚠</span>
+      <div><strong>Impacto na operacao:</strong> Lorena precisa responder dentro das 24h ou o lead esfria e gera custo para reativar. O alerta de "lead sem resposta em 1h" e critico para nao perder a janela.</div>
+    </div>
+  </div>
+
+  <div class="limit-box mb16">
+    <div class="limit-title">Limitacao 2: Cota de Tokens do Agente de IA</div>
+    <p style="font-size:13px;margin-bottom:8px;">O plano atual tem 50.000 tokens para o agente de IA. Igor estima 2 meses de uso. Quando acabar, o agente para de funcionar ate a recarga mensal (5.000 a 10.000 tokens/mes).</p>
+    <div class="alert alert-red mt8">
+      <span class="alert-icon">🚨</span>
+      <div>Monitorar o consumo de tokens. Se o agente for muito ativo, pode esgotar antes do previsto. Definir com Igor um limite de uso por dia para nao esgotar a cota no inicio da operacao.</div>
+    </div>
+  </div>
+
+  <div class="limit-box mb16">
+    <div class="limit-title">Limitacao 3: Duplicacao de Leads entre Pipelines</div>
+    <p style="font-size:13px;margin-bottom:8px;">Lucyanne pediu que leads sejam duplicados (nao movidos) entre pipelines para manter o historico e as metricas. Igor precisa confirmar se o Data Crazy suporta essa funcionalidade nativamente ou se precisa de uma solucao alternativa.</p>
+    <div class="alert alert-amber mt8">
+      <span class="alert-icon">⚠</span>
+      <div>Se o CRM nao suportar duplicacao automatica, a alternativa e criar um campo "pipeline de origem" em cada card e manter o historico manualmente. Isso aumenta o trabalho operacional de Lorena e Julia.</div>
+    </div>
+  </div>
+
+  <div class="limit-box mb16">
+    <div class="limit-title">Limitacao 4: Rastreamento de Criativos por Lead</div>
+    <p style="font-size:13px;margin-bottom:8px;">Lucyanne pediu que o CRM mostre qual criativo/anuncio originou cada lead. Igor disse "vou tentar alimentar o maximo" - isso indica incerteza tecnica. O rastreamento depende dos UTMs estarem corretamente configurados na LP e sendo capturados pelo formulario.</p>
+    <div class="alert alert-amber mt8">
+      <span class="alert-icon">⚠</span>
+      <div>Confirmar com Igor: o formulario da LP captura os parametros UTM? Se sim, eles aparecem como campos no card do CRM? Sem isso, nao e possivel saber qual criativo trouxe cada lead.</div>
+    </div>
+  </div>
+
+  <div class="limit-box mb16">
+    <div class="limit-title">Limitacao 5: Alertas para Grupo de WhatsApp</div>
+    <p style="font-size:13px;margin-bottom:8px;">Lucyanne pediu que alertas criticos (pagamento confirmado, aluno em risco) sejam enviados para um grupo de WhatsApp com ela, Julia e Lorena. Igor mencionou que com o app instalado as notificacoes chegam via push, mas nao confirmou se o Data Crazy suporta envio para grupo de WhatsApp.</p>
+    <div class="alert alert-amber mt8">
+      <span class="alert-icon">⚠</span>
+      <div>Confirmar com Igor: o Data Crazy consegue enviar mensagem para um grupo de WhatsApp via webhook? Se nao, a alternativa e usar notificacoes push do app + um grupo manual onde Lorena/Julia repassam os alertas criticos.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- MELHORIAS -->
+<div class="section" id="melhorias">
+<div class="container">
+  <div class="sec-header">
+    <h2>Melhorias Necessarias</h2>
+    <div class="sec-divider"></div>
+    <p>O que foi identificado na reuniao que precisa ser melhorado antes de escalar.</p>
+  </div>
+
+  <div class="card card-red mb16">
+    <div class="card-title">Pagina de Pos-Graduacao - Problemas Identificados por Igor</div>
+    <div class="card-subtitle">Igor analisou a pagina atual ao vivo durante a reuniao e identificou problemas criticos de conversao.</div>
+    <table class="tbl">
+      <thead><tr><th>Problema</th><th>Impacto</th><th>Solucao</th><th>Responsavel</th></tr></thead>
+      <tbody>
+        <tr><td>Botoes "Inscreva-se" levam direto para valores e formulario sem construir nivel de consciencia</td><td>Alto - lead chega frio e ve preco antes de entender o valor</td><td>Trocar por "Saiba mais" com scroll para secao de beneficios antes do formulario</td><td>Hiago executa</td></tr>
+        <tr><td>Parcelado no Boleto muito visivel na primeira dobra</td><td>Alto - ancora o lead no preco antes de ver o valor</td><td>Manter a opcao mas deixar menos visivel. Mostrar apenas na etapa final do processo de inscricao.</td><td>Hiago executa</td></tr>
+        <tr><td>Formulario lateral nao e visto - tem botao de WhatsApp que "mata" o formulario</td><td>Medio - leads vao direto para WhatsApp sem deixar dados no CRM</td><td>Remover ou reposicionar o botao de WhatsApp. Formulario precisa ser o CTA principal.</td><td>Hiago executa</td></tr>
+        <tr><td>Informacoes da T1 (calendario, professores) ainda na pagina</td><td>Medio - confunde leads da T2 com informacoes desatualizadas</td><td>Atualizar para T2 ou criar nova pagina especifica para T2</td><td>Hiago + Caldeira validam</td></tr>
+      </tbody>
+    </table>
+    <div class="alert alert-blue mt8">
+      <span class="alert-icon">ℹ</span>
+      <div><strong>Posicao de Igor:</strong> "Nao tem porque mexer no time que ta ganhando - essa pagina gerou 20 alunos na T1." Porem, Lucyanne tem duvidas se as matriculas vieram dessa pagina ou de outras fontes. Recomendacao: manter a estrutura base e fazer os ajustes pontuais de CTA e parcelamento.</div>
+    </div>
+  </div>
+
+  <div class="card card-amber mb16">
+    <div class="card-title">Estrutura de Trafego Pago - Recriacao Completa</div>
+    <div class="card-subtitle">Tudo que foi feito anteriormente estava na conta errada. Igor precisa recriar do zero.</div>
+    <ul class="checklist">
+      <li><div class="check-icon check-pending"></div><span><strong>Nova conta de anuncios</strong> vinculada ao ICBID (nao a conta de pessoa fisica anterior)</span></li>
+      <li><div class="check-icon check-pending"></div><span><strong>Novo pixel</strong> instalado corretamente no site e validado</span></li>
+      <li><div class="check-icon check-pending"></div><span><strong>Publico customizado</strong> criado a partir da base de contatos da T1</span></li>
+      <li><div class="check-icon check-pending"></div><span><strong>Lookalike</strong> criado a partir dos compradores da T1</span></li>
+      <li><div class="check-icon check-pending"></div><span><strong>Estrutura de campanha</strong> com orcamento inicial de R$20-30/dia</span></li>
+    </ul>
+    <div class="alert alert-amber mt8">
+      <span class="alert-icon">⚠</span>
+      <div>Os criativos e copies da T1 podem ser reaproveitados. A inteligencia da maquina (historico de otimizacao do algoritmo) nao pode ser aproveitada - precisa comecar do zero.</div>
+    </div>
+  </div>
+
+  <div class="card card-blue mb16">
+    <div class="card-title">Metricas Prioritarias - O que o Dashboard Precisa Mostrar</div>
+    <div class="card-subtitle">Lucyanne definiu as metricas mais importantes. O dashboard do CRM precisa exibir isso de forma clara.</div>
+    <table class="tbl">
+      <thead><tr><th>Metrica</th><th>Por que e prioritaria</th><th>Onde visualizar</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Taxa de conversao</strong></td><td>"Para mim e mais importante que volume" - Lucyanne</td><td>Dashboard CRM + Sheets Otimiza aba Conversao</td></tr>
+        <tr><td><strong>CPL (Custo por Lead)</strong></td><td>Valida se o investimento em trafego esta gerando retorno</td><td>Dashboard Igor (Meta Ads) + Sheets Otimiza</td></tr>
+        <tr><td><strong>Tempo de resposta Lorena</strong></td><td>Leads sem resposta rapida esfria e perde a janela de 24h</td><td>Dashboard CRM - secao multiatendimento</td></tr>
+        <tr><td><strong>Engajamento na plataforma</strong></td><td>Aluno que nao acessa e candidato a churn</td><td>EAD Hiago + campo health_score no P3</td></tr>
+        <tr><td><strong>Volume de alertas por tipo</strong></td><td>Muitos alertas do mesmo tipo = problema na raiz</td><td>Dashboard CRM - Lucyanne tem acesso exclusivo</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<!-- WHATSAPP -->
+<div class="section" id="whatsapp">
+<div class="container">
+  <div class="sec-header">
+    <h2>WhatsApp - Regras e Custos</h2>
+    <div class="sec-divider"></div>
+    <p>Tudo que a equipe precisa saber sobre o funcionamento do WhatsApp integrado ao CRM.</p>
+  </div>
+
+  <div class="card card-navy mb16">
+    <div class="card-title">Como funciona o metodo Coex</div>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:12px;">O sistema usa "coexistencia" (coex) com WhatsApp Business. E como se fosse o WhatsApp Web, mas conectado ao CRM. O numero precisa estar cadastrado na Meta como empresa verificada.</p>
+    <div class="alert alert-red">
+      <span class="alert-icon">🚨</span>
+      <div><strong>O celular com o chip precisa ficar SEMPRE conectado a internet.</strong> Se o celular desligar ou perder conexao, o CRM perde acesso ao WhatsApp e nenhuma mensagem e enviada ou recebida. Julia e a responsavel por manter esse celular conectado.</div>
+    </div>
+  </div>
+
+  <div class="grid-2 mb16">
+    <div class="card card-green">
+      <div class="card-title">O que pode fazer SEM custo adicional</div>
+      <ul class="checklist">
+        <li><div class="check-icon check-done"></div><span>Responder qualquer mensagem dentro da janela de 24 horas</span></li>
+        <li><div class="check-icon check-done"></div><span>Enviar automacoes de follow-up dentro das 24h</span></li>
+        <li><div class="check-icon check-done"></div><span>Receber mensagens de leads a qualquer momento</span></li>
+        <li><div class="check-icon check-done"></div><span>Usar o agente de IA para qualificacao automatica (dentro da cota de tokens)</span></li>
+      </ul>
+    </div>
+    <div class="card card-red">
+      <div class="card-title">O que tem CUSTO adicional</div>
+      <ul class="checklist">
+        <li><div class="check-icon check-urgent"></div><span><strong>Retomar conversa apos 24h:</strong> template pre-aprovado pela Meta. Custo: aprox. US$ 0,46 por conversa</span></li>
+        <li><div class="check-icon check-urgent"></div><span><strong>Disparo em massa:</strong> custo variavel por template. Marketing pode chegar a US$ 0,60+ por envio</span></li>
+      </ul>
+      <div class="alert alert-amber mt8">
+        <span class="alert-icon">⚠</span>
+        <div>Igor recomendou nao usar disparos em massa no volume atual (200-400 leads/mes). Faz sentido so quando escalar. Para esquentar leads, usar automacoes de follow-up dentro das 24h.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-amber mb16">
+    <div class="card-title">Cota de Disparos</div>
+    <p style="font-size:13px;color:var(--text2);">A conta tem aproximadamente 2.000 disparos por dia. No volume atual da operacao, isso nao e um limitador. Quando escalar, monitorar o consumo diario.</p>
+  </div>
+</div>
+</div>
+
+<!-- CAMPANHAS -->
+<div class="section" id="campanhas">
+<div class="container">
+  <div class="sec-header">
+    <h2>Campanhas de Trafego Pago</h2>
+    <div class="sec-divider"></div>
+    <p>O que Igor vai fazer, o que Lucyanne precisa entregar e o cronograma esperado.</p>
+  </div>
+
+  <div class="card card-amber mb16">
+    <div class="card-title">Cronograma de Ativacao</div>
+    <table class="tbl">
+      <thead><tr><th>Etapa</th><th>O que precisa acontecer</th><th>Responsavel</th><th>Prazo</th></tr></thead>
+      <tbody>
+        <tr><td>1. Base de contatos</td><td>Lucyanne envia lista com nome, telefone, email e valor de compra da T1</td><td>Lucyanne</td><td>O mais rapido possivel</td></tr>
+        <tr><td>2. Recriacao estrutura</td><td>Igor cria nova conta de anuncios, instala pixel, cria publicos</td><td>Igor</td><td>Apos receber a base</td></tr>
+        <tr><td>3. Primeiras campanhas</td><td>Igor sobe campanhas com R$20-30/dia usando criativos da T1</td><td>Igor</td><td>Terca ou quarta-feira</td></tr>
+        <tr><td>4. Validacao</td><td>Monitorar CPL e taxa de conversao por 7-10 dias antes de escalar</td><td>Igor + Lucyanne</td><td>Semana 1</td></tr>
+        <tr><td>5. Escala</td><td>Aumentar orcamento apos validar campanha vencedora</td><td>Igor</td><td>Semana 2+</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card card-blue mb16">
+    <div class="card-title">Outras Frentes de Geracao de Demanda (enquanto campanhas sobem)</div>
+    <div class="card-subtitle">Igor confirmou que o volume inicial sera baixo. Lucyanne vai ativar outras frentes em paralelo.</div>
+    <ul class="checklist">
+      <li><div class="check-icon check-pending"></div><span><strong>Reativacao da base T1</strong> - Lorena entra em contato com quem demonstrou interesse mas nao comprou</span></li>
+      <li><div class="check-icon check-pending"></div><span><strong>Parcerias (Julia)</strong> - Julia ja esta prospectando associacoes, empresas e orgaos publicos para parcerias comerciais</span></li>
+      <li><div class="check-icon check-pending"></div><span><strong>Alunos T1 como embaixadores</strong> - ativacao dos alunos atuais para indicacao e depoimentos</span></li>
+      <li><div class="check-icon check-pending"></div><span><strong>Conteudo Caldeira</strong> - Igor vai comecar a usar os videos que Caldeira gravou a partir de segunda-feira</span></li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function atualizarPagina() {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2,'0');
+  const m = String(now.getMinutes()).padStart(2,'0');
+  const d = String(now.getDate()).padStart(2,'0');
+  const mo = String(now.getMonth()+1).padStart(2,'0');
+  document.getElementById('update-time').textContent = 'Atualizado em ' + d + '/' + mo + ' as ' + h + ':' + m;
+  window.location.reload();
+}
+
+// Set initial time
+const now = new Date();
+const h = String(now.getHours()).padStart(2,'0');
+const m = String(now.getMinutes()).padStart(2,'0');
+const d = String(now.getDate()).padStart(2,'0');
+const mo = String(now.getMonth()+1).padStart(2,'0');
+document.getElementById('update-time').textContent = 'Atualizado em ' + d + '/' + mo + ' as ' + h + ':' + m;
+</script>
+</body>
+</html>
