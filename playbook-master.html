@@ -432,21 +432,21 @@ h1,h2,h3,.hdr-title,.sec-title,.tab,.card-header,.phase-label,.auto-title,.perso
   <div class="sec-title">Ferramentas da Operação</div>
   <div class="grid-4">
     <div class="card"><div class="card-header">CRM</div><div class="bold gold">Data Crazy</div><div class="small">3 pipelines · P1 captação · P2 produto entrada · P3 aluno 12 meses</div></div>
-    <div class="card"><div class="card-header">Automação</div><div class="bold gold">Ferramenta a confirmar com Igor</div><div class="small">Hub central de webhooks · integra LP, CRM, Asaas, USINA, WhatsApp, plataforma · pode ser n8n, Make ou outra</div></div>
+    <div class="card"><div class="card-header">Automação <span class="tag tag-green" style="font-size:10px;padding:2px 6px;">CONFIRMADO</span></div><div class="bold gold">Data Crazy (nativo)</div><div class="small">Automações nativas do CRM Data Crazy · Igor não usa n8n/Make/Zap · envia para Google Sheets ou rastreia evento no Meta conforme etapa do pipeline</div></div>
     <div class="card"><div class="card-header">Pagamentos</div><div class="bold gold">Asaas</div><div class="small">Gateway principal · webhooks de pagamento e cancelamento · boleto parcelado oferecer só como última alternativa em negociação</div></div>
     <div class="card"><div class="card-header">Matrículas e Contratos</div><div class="bold gold">USINA Edu</div><div class="small">Gestão de matrículas e documentação · integra com o fluxo de pagamento Pós-Grad</div></div>
     <div class="card"><div class="card-header">Plataforma EAD</div><div class="bold" style="color:var(--text);">Em validação (MVP 10 Jul)</div><div class="small">MVP esperado 1ª semana de Jul · Hiago entrega · exportação para Health Score · log last_access</div><div class="small" style="color:#e74c3c;margin-top:4px;">⚠ Aluno matriculado antes de Nov fica sem conteúdo - risco de objeção</div></div>
     <div class="card"><div class="card-header">Análise</div><div class="bold" style="color:var(--text);">Otimiza Growth</div><div class="small">5 modelos: Conversão · Retenção · Churn · Health Score · Forecast</div></div>
     <div class="card"><div class="card-header">Dados</div><div class="bold" style="color:var(--text);">Google Sheets</div><div class="small">Destino dos exports do Otimiza · atualização semanal via automação</div></div>
-    <div class="card"><div class="card-header">Comunidade WhatsApp <span class="tag tag-green" style="font-size:10px;padding:2px 6px;">Novo</span></div><div class="bold" style="color:var(--text);">Grupo Fechado</div><div class="small">Canal principal de volume a baixo custo · Mês 1 engajamento → Mês 2 lista espera → Mês 3 campanha ativa · moderação obrigatória</div></div>
+    <div class="card"><div class="card-header">Comunidade WhatsApp</div><div class="bold" style="color:var(--text);">Grupo Fechado · Método Coex</div><div class="small">Canal principal de volume a baixo custo · Mês 1 engajamento → Mês 2 lista espera → Mês 3 campanha ativa · Celular da Julia precisa ficar sempre conectado à internet (coexistência Facebook/WhatsApp)</div></div>
   </div>
 
   <div class="sec-title" style="margin-top:24px;">Riscos e Bloqueios Ativos</div>
   <div class="grid-2">
     <div class="card card-red">
       <div class="card-header">🚨 Decisões Urgentes</div>
-      <div class="task"><div class="task-dot" style="background:#1a7a40;"></div><div class="task-text"><strong>CRM:</strong> Data Crazy confirmado como CRM principal <span class="tag tag-green">DEFINIDO</span><small>Igor configura: webhook nativo + API de escrita para todas as automações</small></div></div>
-      <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text"><strong>Gateway de pagamento:</strong> ativar recuperação de carrinho no Asaas antes do W1 <span class="tag tag-amber">EM ANDAMENTO</span><small>T1 perdeu 153 leads no carrinho sem recuperação - confirmar se Asaas tem esse recurso ativo</small></div></div>
+      <div class="task"><div class="task-dot" style="background:#1a7a40;"></div><div class="task-text"><strong>CRM:</strong> Data Crazy operacional <span class="tag tag-green">PRONTO</span><small>Lucyanne, Lorena e Julia cadastradas · Igor entregou documentação da API + token para Hiago integrar o EAD</small></div></div>
+      <div class="task"><div class="task-dot" style="background:#1a7a40;"></div><div class="task-text"><strong>Recuperação de carrinho:</strong> resolvida pelo sistema da USINA <span class="tag tag-green">RESOLVIDO</span><small>Hiago rastreia o lead desde o preenchimento do nome · gera link de checkout individual por aluno · não precisa construir checkout nas páginas de captura</small></div></div>
       <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text"><strong>LP:</strong> remover botões "Inscreva-se" do hero e do menu · trocar por "Saiba mais" com scroll <span class="tag tag-amber">EM ANDAMENTO</span><small>Hiago executa · CTAs pulam o formulário direto para WhatsApp</small></div></div>
     </div>
     <div class="card" style="border-left:3px solid #e74c3c;">

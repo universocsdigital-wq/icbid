@@ -595,7 +595,7 @@ tr:hover td { background: #e8eef5; }
           <tr><td><strong>Asaas</strong></td><td>Gateway de pagamento. Gera cobranças, envia boletos, dispara webhooks de confirmação e cancelamento.</td></tr>
           <tr><td><strong>USINA Edu</strong></td><td>Gestão de matrículas e documentação. Integra com Asaas para formalizar a matrícula.</td></tr>
           <tr><td><strong>Plataforma EAD</strong></td><td>Onde os alunos acessam o conteúdo. MVP previsto para 10 Jul. Exporta log de acesso para Health Score.</td></tr>
-          <tr><td><strong>Automação (n8n/Make)</strong></td><td>Hub central de integrações. Conecta LP, CRM, Asaas, USINA, WhatsApp e EAD.</td></tr>
+          <tr><td><strong>Automação</strong></td><td>Nativa do CRM Data Crazy. Igor não usa n8n/Make/Zap. Envia para Google Sheets ou rastreia evento no Meta conforme etapa do pipeline.</td></tr>
           <tr><td><strong>Google Sheets Otimiza</strong></td><td>Destino dos dados consolidados. 5 abas: conversão, retenção, churn, health score, forecast.</td></tr>
           <tr><td><strong>Comunidade WhatsApp</strong></td><td>Canal de volume a baixo custo. Mês 1: engajamento. Mês 2: lista de espera. Mês 3: campanha ativa.</td></tr>
         </tbody>
@@ -723,11 +723,11 @@ tr:hover td { background: #e8eef5; }
       <ul style="list-style:none;font-size:13px;">
         <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Tráfego pago: criação, otimização e pausas de campanhas</li>
         <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Landing pages: criação, testes A/B e otimização de conversão</li>
-        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Configuração e manutenção das 14 automações (n8n ou Make)</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Configuração e manutenção das automações nativas do CRM Data Crazy</li>
         <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Atualização semanal do dados.js com métricas de tráfego e CRM</li>
         <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Análise de performance e ajustes de estratégia</li>
         <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Gestão do painel Otimiza e Google Sheets</li>
-        <li style="padding:5px 0;">Decisão sobre ferramenta de automação (n8n ou Make)</li>
+        <li style="padding:5px 0;">Automação via Data Crazy nativo <span class="badge badge-green">CONFIRMADO</span></li>
       </ul>
     </div>
 
@@ -822,13 +822,13 @@ tr:hover td { background: #e8eef5; }
     <div class="card card-gold">
       <div class="card-title" style="color:var(--amber);">Igor - Aquisição e Automação</div>
       <ul class="checklist">
-        <li><div class="check-icon check-urgent"></div><span><strong>Decidir ferramenta de automação:</strong> n8n ou Make. Confirmar com a equipe até segunda-feira.</span></li>
-        <li><div class="check-icon check-pending"></div><span>Configurar as 14 automações no hub central (LP, CRM, Asaas, USINA, WhatsApp, EAD)</span></li>
+        <li><div class="check-icon check-done"></div><span><strong>Ferramenta de automação:</strong> Data Crazy nativo confirmado por Igor. Não usa n8n/Make/Zap.</span></li>
+        <li><div class="check-icon check-pending"></div><span>Configurar as automações nativas no CRM Data Crazy (LP, Asaas, WhatsApp, EAD)</span></li>
         <li><div class="check-icon check-pending"></div><span>Criar e publicar a Landing Page com UTMs padronizados em todos os campos do formulário</span></li>
         <li><div class="check-icon check-pending"></div><span>Configurar campanhas de tráfego pago com segmentação validada</span></li>
         <li><div class="check-icon check-pending"></div><span>Testar fluxo completo: lead entra na LP, cria card no CRM, Lorena recebe notificação</span></li>
         <li><div class="check-icon check-pending"></div><span>Configurar Google Sheets Otimiza com as 5 abas e conexão com automação</span></li>
-        <li><div class="check-icon check-pending"></div><span>Configurar recuperação de carrinho no Asaas (T1 perdeu 153 leads sem esse recurso)</span></li>
+        <li><div class="check-icon check-done"></div><span><strong>Recuperação de carrinho:</strong> resolvida pelo sistema da USINA. Hiago rastreia o lead desde o preenchimento do nome e gera link de checkout individual por aluno.</span></li>
         <li><div class="check-icon check-pending"></div><span>Fazer primeira atualização do dados.js com dados reais da semana 1</span></li>
         <li><div class="check-icon check-pending"></div><span>Validar que o Playbook Master está exibindo os dados corretamente no painel</span></li>
       </ul>
@@ -882,10 +882,10 @@ tr:hover td { background: #e8eef5; }
     <table>
       <thead><tr><th>Área</th><th>Responsável</th><th>Status</th><th>Prazo</th><th>Bloqueante</th></tr></thead>
       <tbody>
-        <tr><td>Decisão ferramenta automação</td><td>Igor</td><td><span class="pill pill-pendente"><span class="pill-dot"></span>Pendente</span></td><td>Segunda-feira</td><td>Sim</td></tr>
-        <tr><td>Webhook CRM Data Crazy</td><td>Igor</td><td><span class="pill pill-pendente"><span class="pill-dot"></span>Pendente</span></td><td>Segunda-feira</td><td>Sim</td></tr>
+        <tr><td>Ferramenta automação</td><td>Igor</td><td><span class="pill pill-ativo"><span class="pill-dot"></span>Confirmado</span></td><td>Concluído</td><td>Não</td></tr>
+        <tr><td>Webhook CRM Data Crazy</td><td>Igor</td><td><span class="pill pill-ativo"><span class="pill-dot"></span>Confirmado</span></td><td>Concluído</td><td>Não</td></tr>
         <tr><td>Correção CTAs da LP</td><td>Hiago</td><td><span class="pill pill-pendente"><span class="pill-dot"></span>Pendente</span></td><td>Hoje</td><td>Sim</td></tr>
-        <tr><td>3 Pipelines CRM configurados</td><td>Igor</td><td><span class="pill pill-pendente"><span class="pill-dot"></span>Pendente</span></td><td>Semana 1</td><td>Sim</td></tr>
+        <tr><td>3 Pipelines CRM configurados</td><td>Igor</td><td><span class="pill pill-ativo"><span class="pill-dot"></span>Pronto</span></td><td>Concluído</td><td>Não</td></tr>
         <tr><td>14 Automações configuradas</td><td>Igor</td><td><span class="pill pill-pendente"><span class="pill-dot"></span>Pendente</span></td><td>Semana 1</td><td>Sim</td></tr>
         <tr><td>Landing Page publicada</td><td>Igor</td><td><span class="pill pill-pendente"><span class="pill-dot"></span>Pendente</span></td><td>Semana 1</td><td>Sim</td></tr>
         <tr><td>MVP Plataforma EAD</td><td>Hiago</td><td><span class="pill pill-pendente"><span class="pill-dot"></span>Pendente</span></td><td>10 Jul</td><td>Parcial</td></tr>
@@ -908,15 +908,15 @@ tr:hover td { background: #e8eef5; }
   <div class="mcp-box">
     <h3>O MCP precisa ficar ligado para a automação funcionar?</h3>
     <p><span class="highlight">Resposta direta: depende do que você quer automatizar.</span></p>
-    <p>O MCP (Model Context Protocol) é uma camada de integração que permite que agentes de IA acessem e operem ferramentas externas, como o CRM Data Crazy, diretamente. Ele não é a mesma coisa que as automações de n8n ou Make.</p>
-    <p><span class="highlight">Para as automações operacionais do dia a dia</span> (criar card no CRM quando lead entra na LP, mover card quando pagamento é confirmado, enviar WhatsApp quando aluno entra em risco) — <span class="highlight">o MCP não é necessário.</span> Essas automações rodam via n8n ou Make usando a API do CRM Data Crazy diretamente, independente do MCP.</p>
+    <p>O MCP (Model Context Protocol) é uma camada de integração que permite que agentes de IA acessem e operem ferramentas externas, como o CRM Data Crazy, diretamente.</p>
+    <p><span class="highlight">Para as automações operacionais do dia a dia</span> (criar card no CRM quando lead entra na LP, mover card quando pagamento é confirmado, enviar WhatsApp quando aluno entra em risco) — <span class="highlight">o MCP não é necessário.</span> Essas automações rodam via as funções nativas do CRM Data Crazy, conforme confirmado por Igor.</p>
     <p><span class="highlight">O MCP é necessário quando</span> você quer que um agente de IA (como o Claude ou outro assistente) acesse o CRM em tempo real para consultar leads, criar cards, atualizar informações ou executar ações dentro do CRM por comando de linguagem natural.</p>
   </div>
 
   <div class="grid-2">
     <div class="card card-green">
       <div class="card-title">Automações que NÃO precisam do MCP</div>
-      <p style="font-size:13px;margin-bottom:12px;">Rodam via n8n ou Make usando a API do CRM. Funcionam 24h sem intervenção humana.</p>
+      <p style="font-size:13px;margin-bottom:12px;">Rodam via automações nativas do CRM Data Crazy. Funcionam 24h sem intervenção humana.</p>
       <ul style="list-style:none;font-size:13px;">
         <li style="padding:6px 0;border-bottom:1px solid var(--surface2);">Lead entra na LP → card criado no P1 do CRM</li>
         <li style="padding:6px 0;border-bottom:1px solid var(--surface2);">Lead com score alto → notificação WhatsApp para Lorena</li>
@@ -941,7 +941,7 @@ tr:hover td { background: #e8eef5; }
       </ul>
       <div class="alert alert-amber" style="margin-top:12px;">
         <span class="alert-icon">⚠</span>
-        <div><strong>O MCP precisa ficar ligado apenas quando você está usando o agente de IA para operar o CRM.</strong> Para as automações de n8n/Make, ele pode ficar desligado sem impacto.</div>
+        <div><strong>O MCP precisa ficar ligado apenas quando você está usando o agente de IA para operar o CRM.</strong> Para as automações nativas do Data Crazy, ele pode ficar desligado sem impacto.</div>
       </div>
     </div>
   </div>
@@ -974,7 +974,7 @@ tr:hover td { background: #e8eef5; }
         </div>
         <div class="alert alert-amber" style="margin-top:10px;">
           <span class="alert-icon">⚠</span>
-          <div><strong>Igor precisa confirmar:</strong> o CRM Data Crazy tem webhook de saída nativo? Sem isso, as automações de n8n/Make não conseguem reagir a eventos do CRM em tempo real.</div>
+          <div><strong>Confirmado por Igor:</strong> CRM Data Crazy tem webhook nativo e API de escrita. Hiago recebeu documentação e token de acesso para integrar o EAD.</div>
         </div>
       </div>
     </div>
