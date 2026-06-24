@@ -445,7 +445,7 @@ h1,h2,h3,.hdr-title,.sec-title,.tab,.card-header,.phase-label,.auto-title,.perso
   <div class="grid-2">
     <div class="card card-red">
       <div class="card-header">🚨 Decisões Urgentes (até Segunda-feira)</div>
-      <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text"><strong>CRM:</strong> Data Crazy confirmado como CRM principal<small>Hiago configura: webhook nativo + API de escrita para todas as automações</small></div></div>
+      <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text"><strong>CRM:</strong> Data Crazy confirmado como CRM principal<small>Igor configura: webhook nativo + API de escrita para todas as automações</small></div></div>
       <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text"><strong>Gateway de pagamento:</strong> ativar recuperação de carrinho no Asaas antes do W1<small>T1 perdeu 153 leads no carrinho sem recuperação - confirmar se Asaas tem esse recurso ativo</small></div></div>
       <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text"><strong>LP:</strong> remover botões "Inscreva-se" do hero e do menu · trocar por "Saiba mais" com scroll<small>Hiago executa · hoje os CTAs pulam o formulário direto para WhatsApp</small></div></div>
     </div>
@@ -740,15 +740,16 @@ h1,h2,h3,.hdr-title,.sec-title,.tab,.card-header,.phase-label,.auto-title,.perso
       <div class="task"><div class="task-dot"></div><div class="task-text">Iniciar com R$ 45/dia · 5 criativos · 5 conjuntos de anúncio<small>Meta Ads principal · Google em paralelo · LinkedIn apenas orgânico</small></div></div>
       <div class="task"><div class="task-dot"></div><div class="task-text">Definir CPL máximo: meta ≤ R$ 10 · alerta automático se > R$ 15</div></div>
       <div class="task"><div class="task-dot"></div><div class="task-text">Criar comunidade WhatsApp fechada e configurar link de entrada automático</div></div>
-    </div>
-    <div class="card">
-      <div class="person-hdr"><div class="person-avatar avatar-hiago">H</div><div><div class="person-name">Hiago</div><div class="person-role">Plataforma EAD · Integrações Asaas</div></div></div>
       <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text">Criar P1 Captação no CRM: 7 estágios + campos obrigatórios<small>motivo_perda e canal_origem como SELEÇÃO - nunca texto livre</small></div></div>
       <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text">Criar P2 Produto Entrada no CRM: 5 estágios + campo compareceu (seleção sim/não)</div></div>
       <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text">Criar P3 Aluno Pós-Grad 12 meses no CRM: 6 estágios + campo health_score</div></div>
-      <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text">Confirmar: CRM tem webhook de saída nativo? (necessário para qualquer ferramenta de automação)<small>Resposta define o design de todas as automações</small></div></div>
-      <div class="task"><div class="task-dot"></div><div class="task-text">Mapear campos de log disponíveis no EAD<small>Precisamos: data_primeiro_acesso · ultimo_acesso · progresso_% · modulos_concluidos</small></div></div>
-      <div class="task"><div class="task-dot"></div><div class="task-text">Confirmar fluxo Asaas → USINA: webhook direto ou via automação?</div></div>
+      <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text">Confirmar: CRM tem webhook de saída nativo?<small>Necessário para qualquer ferramenta de automação - resposta define o design de todas as automações</small></div></div>
+    </div>
+    <div class="card">
+      <div class="person-hdr"><div class="person-avatar avatar-hiago">H</div><div><div class="person-name">Hiago</div><div class="person-role">Plataforma EAD · Integrações Asaas</div></div></div>
+      <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text">Mapear campos de log disponíveis no EAD<small>Precisamos: data_primeiro_acesso · ultimo_acesso · progresso_% · modulos_concluidos</small></div></div>
+      <div class="task"><div class="task-dot task-dot-urgent"></div><div class="task-text">Confirmar fluxo Asaas → USINA: webhook direto ou via automação?</div></div>
+      <div class="task"><div class="task-dot"></div><div class="task-text">Remover CTAs "Inscreva-se" do hero e do menu da LP<small>Substituir por "Saiba mais" com scroll - formulário não pode ter botão de WhatsApp abaixo</small></div></div>
     </div>
     <div class="card">
       <div class="person-hdr"><div class="person-avatar avatar-lorena">L</div><div><div class="person-name">Lorena</div><div class="person-role">Comercial · Vendas</div></div></div>
@@ -989,7 +990,7 @@ h1,h2,h3,.hdr-title,.sec-title,.tab,.card-header,.phase-label,.auto-title,.perso
     <div>
       <div class="auto-title">Lead capture LP → CRM P1</div>
       <div class="auto-detail">Formulário LP submetido → Automação cria card em P1 "Novo Lead" com UTMs, canal_origem, telefone, e-mail. Igor é notificado no painel Otimiza.</div>
-      <div class="auto-tech"><span class="tag tag-gold">Gatilho: webhook LP</span> <span class="tag tag-blue">Ação: POST CRM API</span> <span class="tag tag-blue">Igor (automação)</span> <span class="tag tag-purple">Hiago (CRM API)</span></div>
+      <div class="auto-tech"><span class="tag tag-gold">Gatilho: webhook LP</span> <span class="tag tag-blue">Ação: POST CRM API</span> <span class="tag tag-blue">Igor (automação)</span> <span class="tag tag-blue">Igor (CRM API)</span></div>
     </div>
   </div>
 
@@ -1027,7 +1028,7 @@ h1,h2,h3,.hdr-title,.sec-title,.tab,.card-header,.phase-label,.auto-title,.perso
     <div>
       <div class="auto-title">No-show CL → retorna P1 com tag #cl-no-show</div>
       <div class="auto-detail">Julia marca "não compareceu" no P2 → automação encerra card P2, retorna ao P1, adiciona tag #cl-no-show, agenda follow-up D+3 para Lorena.</div>
-      <div class="auto-tech"><span class="tag tag-gold">Gatilho: CRM webhook P2 campo compareceu = NÃO</span> <span class="tag tag-amber">Ação: PATCH P1 tag + task Lorena D+3</span> <span class="tag tag-purple">Hiago (CRM webhook)</span> <span class="tag tag-blue">Igor (automação)</span></div>
+      <div class="auto-tech"><span class="tag tag-gold">Gatilho: CRM webhook P2 campo compareceu = NÃO</span> <span class="tag tag-amber">Ação: PATCH P1 tag + task Lorena D+3</span> <span class="tag tag-blue">Igor (CRM webhook)</span> <span class="tag tag-blue">Igor (automação)</span></div>
     </div>
   </div>
 
@@ -1114,7 +1115,7 @@ h1,h2,h3,.hdr-title,.sec-title,.tab,.card-header,.phase-label,.auto-title,.perso
     <div>
       <div class="auto-title">Exportação semanal Otimiza (toda sexta)</div>
       <div class="auto-detail">Toda sexta-feira: Automação puxa dados de CRM P1/P2/P3 + Asaas + plataforma → consolida em Google Sheets do Otimiza (5 abas: conversão, retenção, churn, health score, forecast). Base para análise semanal do Igor.</div>
-      <div class="auto-tech"><span class="tag tag-gold">Gatilho: cron sexta 17h</span> <span class="tag tag-blue">Ação: Google Sheets APPEND (5 abas)</span> <span class="tag tag-blue">Igor (automação)</span> <span class="tag tag-purple">Hiago (CRM + EAD acesso)</span></div>
+      <div class="auto-tech"><span class="tag tag-gold">Gatilho: cron sexta 17h</span> <span class="tag tag-blue">Ação: Google Sheets APPEND (5 abas)</span> <span class="tag tag-blue">Igor (automação)</span> <span class="tag tag-blue">Igor (CRM)</span> <span class="tag tag-purple">Hiago (EAD acesso)</span></div>
     </div>
   </div>
 </div>

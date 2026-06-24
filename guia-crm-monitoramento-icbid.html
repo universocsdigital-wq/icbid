@@ -482,7 +482,7 @@ tr:hover td { background: #e8eef5; }
         <p style="font-size:13px;margin-bottom:12px;">O Playbook é alimentado pelo arquivo <code style="background:#f0f3f6;padding:2px 6px;border-radius:3px;font-size:12px;">dados.js</code> no repositório GitHub. Toda segunda-feira, os dados operacionais devem ser atualizados nesse arquivo para que o painel reflita a realidade da semana.</p>
         <div class="alert alert-amber">
           <span class="alert-icon">⚠</span>
-          <div><strong>Sem atualização do dados.js, o painel mostra zeros.</strong> O arquivo não se atualiza sozinho. É uma ação manual semanal de responsabilidade de Igor (dados de tráfego e CRM) e Hiago (dados de EAD e Asaas).</div>
+          <div><strong>Sem atualização do dados.js, o painel mostra zeros.</strong> O arquivo não se atualiza sozinho. É uma ação manual semanal de responsabilidade de Igor (dados de tráfego, CRM e automações) e Hiago (dados de EAD e Asaas).</div>
         </div>
         <div class="alert alert-green">
           <span class="alert-icon">✓</span>
@@ -741,8 +741,6 @@ tr:hover td { background: #e8eef5; }
         <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Desenvolvimento e entrega do MVP da Plataforma EAD (prazo: 10 Jul)</li>
         <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Configuração dos webhooks do Asaas (confirmação e cancelamento)</li>
         <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Integração EAD com o sistema de Health Score (exportação de log de acesso)</li>
-        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Configuração dos 3 pipelines no CRM Data Crazy</li>
-        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Confirmar: CRM Data Crazy tem webhook nativo e API de escrita</li>
         <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Atualização semanal de dados de EAD e Asaas no dados.js</li>
         <li style="padding:5px 0;">Correção dos CTAs da LP (trocar "Inscreva-se" por "Saiba mais")</li>
       </ul>
@@ -793,7 +791,7 @@ tr:hover td { background: #e8eef5; }
         <tr><td>Tráfego pago</td><td><span class="badge badge-gold">Principal</span></td><td>-</td><td>-</td><td>-</td></tr>
         <tr><td>Landing page</td><td><span class="badge badge-gold">Principal</span></td><td><span class="badge badge-navy">Suporte técnico</span></td><td>-</td><td>-</td></tr>
         <tr><td>Automações</td><td><span class="badge badge-gold">Principal</span></td><td><span class="badge badge-navy">Webhooks Asaas/EAD</span></td><td>-</td><td>-</td></tr>
-        <tr><td>CRM Data Crazy</td><td><span class="badge badge-navy">Análise</span></td><td><span class="badge badge-gold">Configuração</span></td><td><span class="badge badge-green">Operação diária</span></td><td><span class="badge badge-purple">P3 alunos</span></td></tr>
+        <tr><td>CRM Data Crazy</td><td><span class="badge badge-gold">Configuração e Análise</span></td><td>-</td><td><span class="badge badge-green">Operação diária</span></td><td><span class="badge badge-purple">P3 alunos</span></td></tr>
         <tr><td>Comunidade WhatsApp</td><td>-</td><td>-</td><td><span class="badge badge-gold">Principal</span></td><td><span class="badge badge-navy">Suporte</span></td></tr>
         <tr><td>Cursos Livres e Webinários</td><td><span class="badge badge-navy">Tráfego/inscrições</span></td><td>-</td><td><span class="badge badge-gold">Condução e oferta</span></td><td>-</td></tr>
         <tr><td>Fechamento de matrículas</td><td>-</td><td>-</td><td><span class="badge badge-gold">Principal</span></td><td>-</td></tr>
@@ -885,9 +883,9 @@ tr:hover td { background: #e8eef5; }
       <thead><tr><th>Área</th><th>Responsável</th><th>Status</th><th>Prazo</th><th>Bloqueante</th></tr></thead>
       <tbody>
         <tr><td>Decisão ferramenta automação</td><td>Igor</td><td><span class="pill pill-pendente"><span class="pill-dot"></span>Pendente</span></td><td>Segunda-feira</td><td>Sim</td></tr>
-        <tr><td>Webhook CRM Data Crazy</td><td>Hiago</td><td><span class="pill pill-pendente"><span class="pill-dot"></span>Pendente</span></td><td>Segunda-feira</td><td>Sim</td></tr>
+        <tr><td>Webhook CRM Data Crazy</td><td>Igor</td><td><span class="pill pill-pendente"><span class="pill-dot"></span>Pendente</span></td><td>Segunda-feira</td><td>Sim</td></tr>
         <tr><td>Correção CTAs da LP</td><td>Hiago</td><td><span class="pill pill-pendente"><span class="pill-dot"></span>Pendente</span></td><td>Hoje</td><td>Sim</td></tr>
-        <tr><td>3 Pipelines CRM configurados</td><td>Hiago</td><td><span class="pill pill-pendente"><span class="pill-dot"></span>Pendente</span></td><td>Semana 1</td><td>Sim</td></tr>
+        <tr><td>3 Pipelines CRM configurados</td><td>Igor</td><td><span class="pill pill-pendente"><span class="pill-dot"></span>Pendente</span></td><td>Semana 1</td><td>Sim</td></tr>
         <tr><td>14 Automações configuradas</td><td>Igor</td><td><span class="pill pill-pendente"><span class="pill-dot"></span>Pendente</span></td><td>Semana 1</td><td>Sim</td></tr>
         <tr><td>Landing Page publicada</td><td>Igor</td><td><span class="pill pill-pendente"><span class="pill-dot"></span>Pendente</span></td><td>Semana 1</td><td>Sim</td></tr>
         <tr><td>MVP Plataforma EAD</td><td>Hiago</td><td><span class="pill pill-pendente"><span class="pill-dot"></span>Pendente</span></td><td>10 Jul</td><td>Parcial</td></tr>
@@ -976,7 +974,7 @@ tr:hover td { background: #e8eef5; }
         </div>
         <div class="alert alert-amber" style="margin-top:10px;">
           <span class="alert-icon">⚠</span>
-          <div><strong>Hiago precisa confirmar:</strong> o CRM Data Crazy tem webhook de saída nativo? Sem isso, as automações de n8n/Make não conseguem reagir a eventos do CRM em tempo real.</div>
+          <div><strong>Igor precisa confirmar:</strong> o CRM Data Crazy tem webhook de saída nativo? Sem isso, as automações de n8n/Make não conseguem reagir a eventos do CRM em tempo real.</div>
         </div>
       </div>
     </div>
