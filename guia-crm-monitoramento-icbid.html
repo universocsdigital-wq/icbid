@@ -404,6 +404,12 @@ tr:hover td { background: #e8eef5; }
 </div>
 
 <!-- NAV -->
+<div style="background:#f0f3f6;border-bottom:1px solid #d4dce6;padding:8px 40px;display:flex;align-items:center;justify-content:space-between;">
+  <span style="font-size:12px;color:#54595F;font-family:'Roboto',sans-serif;">Atualizado em: <strong id="guia-ultima-atualizacao">-</strong></span>
+  <button onclick="atualizarGuia()" style="background:#021F36;color:#fff;border:none;padding:8px 20px;border-radius:5px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;letter-spacing:0.3px;" id="btn-atualizar">
+    <span id="btn-icon">&#8635;</span> Atualizar Painel
+  </button>
+</div>
 <div class="nav-tabs">
   <div class="nav-tab active" onclick="showSection('visao-geral')">Visão Geral</div>
   <div class="nav-tab" onclick="showSection('como-opera')">Como Opera</div>
@@ -473,7 +479,7 @@ tr:hover td { background: #e8eef5; }
         </table>
       </div>
       <div>
-        <p style="font-size:13px;margin-bottom:12px;">O Playbook é alimentado pelo arquivo <code style="background:#f0f3f6;padding:2px 6px;border-radius:3px;font-size:12px;">dados.js</code> no repositório GitHub. Toda segunda-feira antes das 9h, os dados operacionais devem ser atualizados nesse arquivo para que o painel reflita a realidade da semana.</p>
+        <p style="font-size:13px;margin-bottom:12px;">O Playbook é alimentado pelo arquivo <code style="background:#f0f3f6;padding:2px 6px;border-radius:3px;font-size:12px;">dados.js</code> no repositório GitHub. Toda segunda-feira, os dados operacionais devem ser atualizados nesse arquivo para que o painel reflita a realidade da semana.</p>
         <div class="alert alert-amber">
           <span class="alert-icon">⚠</span>
           <div><strong>Sem atualização do dados.js, o painel mostra zeros.</strong> O arquivo não se atualiza sozinho. É uma ação manual semanal de responsabilidade de Igor (dados de tráfego e CRM) e Hiago (dados de EAD e Asaas).</div>
@@ -601,7 +607,7 @@ tr:hover td { background: #e8eef5; }
     <div class="card-title">Rotina Semanal de Operação</div>
     <div class="grid-2">
       <div>
-        <p style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--navy);">Toda segunda-feira antes das 9h</p>
+        <p style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--navy);">Toda segunda-feira - Atualização de dados</p>
         <ul class="checklist">
           <li><div class="check-icon check-pending"></div><span><strong>Igor:</strong> atualiza dados de tráfego, leads P1, CPL e investimento no dados.js</span></li>
           <li><div class="check-icon check-pending"></div><span><strong>Hiago:</strong> atualiza dados de EAD (acessos) e Asaas (pagamentos) no dados.js</span></li>
@@ -610,7 +616,7 @@ tr:hover td { background: #e8eef5; }
         </ul>
       </div>
       <div>
-        <p style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--navy);">Toda segunda-feira às 9h - Reunião de 30 min</p>
+        <p style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--navy);">Toda segunda-feira - Reunião de alinhamento</p>
         <ul class="checklist">
           <li><div class="check-icon check-pending"></div><span>Igor apresenta painel ao vivo com dados da semana anterior</span></li>
           <li><div class="check-icon check-pending"></div><span>Lorena reporta pipeline: leads qualificados, propostas e fechamentos</span></li>
@@ -1044,7 +1050,7 @@ tr:hover td { background: #e8eef5; }
         <tr><td>Lead sem canal_origem</td><td>Impossível saber de onde veio. Análise de ROI por canal fica comprometida.</td><td>Automação preenche automaticamente via UTM. Se entrar manual, Lorena preenche na hora.</td></tr>
         <tr><td>Card não movido de estágio</td><td>Painel mostra números errados. Forecast fica distorcido.</td><td>Mover o card imediatamente quando o status mudar.</td></tr>
         <tr><td>Campo "compareceu" vazio</td><td>Conversão de webinários e CL não é calculada. Painel mostra 0%.</td><td>Lorena preenche logo após cada evento, antes de fechar o CRM.</td></tr>
-        <tr><td>Health Score não atualizado</td><td>Aluno em risco não gera alerta. Julia não é notificada. Risco de churn silencioso.</td><td>Julia atualiza todo campo HS toda segunda-feira antes das 9h.</td></tr>
+        <tr><td>Health Score não atualizado</td><td>Aluno em risco não gera alerta. Julia não é notificada. Risco de churn silencioso.</td><td>Julia atualiza todo campo HS toda segunda-feira.</td></tr>
         <tr><td>dados.js não atualizado</td><td>Painel ao vivo mostra zeros. Reunião semanal fica sem dados reais.</td><td>Rotina de segunda-feira: Igor, Hiago, Lorena e Julia atualizam suas partes.</td></tr>
       </tbody>
     </table>
@@ -1067,6 +1073,31 @@ function showSection(id) {
   event.target.classList.add('active');
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
+
+function atualizarGuia() {
+  var btn = document.getElementById('btn-atualizar');
+  var icon = document.getElementById('btn-icon');
+  btn.disabled = true;
+  icon.style.display = 'inline-block';
+  icon.style.animation = 'spin 0.8s linear infinite';
+  btn.style.opacity = '0.7';
+  setTimeout(function() {
+    var agora = new Date();
+    var opts = {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'};
+    document.getElementById('guia-ultima-atualizacao').textContent = agora.toLocaleString('pt-BR', opts);
+    btn.disabled = false;
+    icon.style.animation = '';
+    btn.style.opacity = '1';
+    window.location.reload();
+  }, 1200);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var agora = new Date();
+  var opts = {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'};
+  document.getElementById('guia-ultima-atualizacao').textContent = agora.toLocaleString('pt-BR', opts);
+});
 </script>
+<style>@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}</style>
 </body>
 </html>
