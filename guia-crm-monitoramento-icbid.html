@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Guia de Operação - Playbook Master ICBID T2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #021F36;
+  --navy2: #2A3645;
+  --gold: #db9824;
+  --gold-light: #f0b030;
+  --text-strong: #343434;
+  --text-tech: #54595F;
+  --bg: #f4f6f8;
+  --surface: #ffffff;
+  --surface2: #f0f3f6;
+  --border: #d4dce6;
+  --green: #1a7a4a;
+  --green-bg: #e8f5ee;
+  --red: #b91c1c;
+  --red-bg: #fef2f2;
+  --amber: #92400e;
+  --amber-bg: #fffbeb;
+  --blue: #1e40af;
+  --blue-bg: #eff6ff;
+  --purple: #6b21a8;
+  --purple-bg: #f5f3ff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text-strong);
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--navy);
+}
+
+/* HEADER */
+.header {
+  background: var(--navy);
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--gold);
+}
+.header-logo {
+  height: 44px;
+}
+.header-title {
+  text-align: right;
+}
+.header-title h1 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.3px;
+}
+.header-title p {
+  font-size: 12px;
+  color: #a0b0c0;
+  margin-top: 2px;
+}
+
+/* NAV TABS */
+.nav-tabs {
+  background: var(--navy2);
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  border-bottom: 2px solid var(--gold);
+}
+.nav-tab {
+  padding: 12px 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #a0b0c0;
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: var(--gold); border-bottom-color: var(--gold); background: rgba(219,152,36,0.08); }
+
+/* MAIN */
+.main { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+
+/* SECTION */
+.section { display: none; }
+.section.active { display: block; }
+
+/* CARDS */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+.card-gold { border-left: 4px solid var(--gold); }
+.card-navy { border-left: 4px solid var(--navy); }
+.card-green { border-left: 4px solid var(--green); }
+.card-red { border-left: 4px solid var(--red); }
+.card-blue { border-left: 4px solid var(--blue); }
+.card-purple { border-left: 4px solid var(--purple); }
+
+.card-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* GRID */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+.grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; }
+
+/* SECTION TITLE */
+.section-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+.section-subtitle {
+  font-size: 13px;
+  color: var(--text-tech);
+  margin-bottom: 28px;
+}
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 28px 0;
+}
+
+/* BADGES */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.3px;
+}
+.badge-gold { background: #fef3c7; color: #92400e; }
+.badge-navy { background: #dbeafe; color: #1e3a5f; }
+.badge-green { background: var(--green-bg); color: var(--green); }
+.badge-red { background: var(--red-bg); color: var(--red); }
+.badge-purple { background: var(--purple-bg); color: var(--purple); }
+.badge-gray { background: #f3f4f6; color: #374151; }
+
+/* PERSON CARD */
+.person-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+}
+.person-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.avatar-igor { background: #fef3c7; color: #92400e; }
+.avatar-hiago { background: #dbeafe; color: #1e3a5f; }
+.avatar-lorena { background: var(--green-bg); color: var(--green); }
+.avatar-julia { background: var(--purple-bg); color: var(--purple); }
+
+.person-name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 2px;
+}
+.person-role {
+  font-size: 12px;
+  color: var(--text-tech);
+  margin-bottom: 12px;
+}
+
+/* CHECKLIST */
+.checklist { list-style: none; }
+.checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--surface2);
+  font-size: 13px;
+}
+.checklist li:last-child { border-bottom: none; }
+.check-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.check-done { background: var(--green); border-color: var(--green); }
+.check-pending { background: #fff; }
+.check-urgent { background: #fff; border-color: var(--red); }
+
+/* TABLE */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+th {
+  background: var(--navy);
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 10px 14px;
+  text-align: left;
+}
+td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-strong);
+  vertical-align: top;
+}
+tr:nth-child(even) td { background: var(--surface2); }
+tr:hover td { background: #e8eef5; }
+
+/* ALERT BOX */
+.alert {
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin-bottom: 14px;
+  font-size: 13px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.alert-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.alert-green { background: var(--green-bg); border: 1px solid #a7f3d0; color: #065f46; }
+.alert-amber { background: var(--amber-bg); border: 1px solid #fcd34d; color: var(--amber); }
+.alert-red { background: var(--red-bg); border: 1px solid #fca5a5; color: var(--red); }
+.alert-blue { background: var(--blue-bg); border: 1px solid #93c5fd; color: var(--blue); }
+.alert-navy { background: #e8eef5; border: 1px solid #b0c4d8; color: var(--navy); }
+
+/* PIPELINE */
+.pipeline-stages {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  margin: 12px 0;
+}
+.stage {
+  flex: 1;
+  min-width: 120px;
+  padding: 12px 10px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-right: none;
+  text-align: center;
+  position: relative;
+}
+.stage:last-child { border-right: 1px solid var(--border); border-radius: 0 6px 6px 0; }
+.stage:first-child { border-radius: 6px 0 0 6px; }
+.stage-num {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--gold);
+}
+.stage-name {
+  font-size: 11px;
+  color: var(--text-tech);
+  margin-top: 2px;
+  font-weight: 500;
+}
+.stage-arrow {
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gold);
+  font-size: 16px;
+  z-index: 1;
+}
+
+/* MCP SECTION */
+.mcp-box {
+  background: var(--navy);
+  border-radius: 8px;
+  padding: 24px;
+  color: #e0e8f0;
+  margin-bottom: 20px;
+}
+.mcp-box h3 { color: var(--gold); margin-bottom: 12px; font-size: 16px; }
+.mcp-box p { font-size: 13px; line-height: 1.8; margin-bottom: 10px; }
+.mcp-box .highlight { color: var(--gold-light); font-weight: 600; }
+
+/* STATUS PILL */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+}
+.pill-ativo { background: var(--green-bg); color: var(--green); }
+.pill-pendente { background: var(--amber-bg); color: var(--amber); }
+.pill-problema { background: var(--red-bg); color: var(--red); }
+.pill-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+
+/* STEP */
+.step-list { list-style: none; counter-reset: steps; }
+.step-list li {
+  counter-increment: steps;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--surface2);
+  font-size: 13px;
+}
+.step-list li:last-child { border-bottom: none; }
+.step-list li::before {
+  content: counter(steps);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* FOOTER */
+.footer {
+  background: var(--navy);
+  color: #6a8099;
+  text-align: center;
+  padding: 20px;
+  font-size: 12px;
+  margin-top: 40px;
+  border-top: 3px solid var(--gold);
+}
+.footer strong { color: var(--gold); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .header { flex-direction: column; gap: 12px; text-align: center; }
+  .header-title { text-align: center; }
+  .main { padding: 20px 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <img src="https://icbid.com.br/wp-content/uploads/2024/04/LOGO-ICBID-HORIZONTAL-1024x224.png" alt="ICBID" class="header-logo" />
+  <div class="header-title">
+    <h1>Guia de Operação - Playbook Master T2</h1>
+    <p>Pós-Graduação em Perícias em Biometrias · Turma 2 · Jun 2026</p>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav-tabs">
+  <div class="nav-tab active" onclick="showSection('visao-geral')">Visão Geral</div>
+  <div class="nav-tab" onclick="showSection('como-opera')">Como Opera</div>
+  <div class="nav-tab" onclick="showSection('como-interpreta')">Como Interpretar</div>
+  <div class="nav-tab" onclick="showSection('equipe')">Equipe e Papéis</div>
+  <div class="nav-tab" onclick="showSection('checklist')">Checklist de Ativação</div>
+  <div class="nav-tab" onclick="showSection('mcp')">MCP e Automação</div>
+  <div class="nav-tab" onclick="showSection('crm')">CRM Data Crazy</div>
+</div>
+
+<div class="main">
+
+<!-- ═══════════════════════════════════════════════════════
+     SEÇÃO 1 — VISÃO GERAL
+═══════════════════════════════════════════════════════ -->
+<div id="visao-geral" class="section active">
+  <h2 class="section-title">O que é o Playbook Master</h2>
+  <p class="section-subtitle">Documento central de operação da campanha ICBID T2. Tudo que acontece na captação, conversão e retenção passa por aqui.</p>
+
+  <div class="alert alert-navy">
+    <span class="alert-icon">📋</span>
+    <div>
+      <strong>Este guia não substitui o Playbook Master.</strong> Ele explica como o Playbook funciona, como ler os dados e o que cada pessoa precisa fazer para que o sistema esteja pronto para operar. O Playbook Master fica em: <strong>https://universocsdigital-wq.github.io/icbid/playbook-master/</strong>
+    </div>
+  </div>
+
+  <div class="grid-4" style="margin-bottom:24px;">
+    <div class="card card-gold">
+      <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;color:var(--text-tech);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Meta</div>
+      <div style="font-size:28px;font-weight:700;color:var(--gold);font-family:'Montserrat',sans-serif;">50</div>
+      <div style="font-size:12px;color:var(--text-tech);">matrículas confirmadas</div>
+    </div>
+    <div class="card card-navy">
+      <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;color:var(--text-tech);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Receita Alvo</div>
+      <div style="font-size:28px;font-weight:700;color:var(--navy);font-family:'Montserrat',sans-serif;">R$ 425k</div>
+      <div style="font-size:12px;color:var(--text-tech);">ticket médio R$ 8.500</div>
+    </div>
+    <div class="card card-green">
+      <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;color:var(--text-tech);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Captação</div>
+      <div style="font-size:28px;font-weight:700;color:var(--green);font-family:'Montserrat',sans-serif;">18 sem</div>
+      <div style="font-size:12px;color:var(--text-tech);">26 Jun - 1 Nov 2026</div>
+    </div>
+    <div class="card card-blue">
+      <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;color:var(--text-tech);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Entrega</div>
+      <div style="font-size:28px;font-weight:700;color:var(--blue);font-family:'Montserrat',sans-serif;">12 meses</div>
+      <div style="font-size:12px;color:var(--text-tech);">Nov 2026 - Nov 2027</div>
+    </div>
+  </div>
+
+  <div class="card card-navy">
+    <div class="card-title">O que tem no Playbook Master</div>
+    <div class="grid-2">
+      <div>
+        <p style="font-size:13px;margin-bottom:12px;">O Playbook Master é dividido em 8 seções, acessíveis pelas abas no topo da página:</p>
+        <table>
+          <thead><tr><th>Aba</th><th>O que contém</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Dashboard</strong></td><td>Painel ao vivo com todos os números da campanha em tempo real</td></tr>
+            <tr><td><strong>Jornada</strong></td><td>Fluxo completo do lead desde o primeiro contato até a matrícula e retenção</td></tr>
+            <tr><td><strong>Pipelines CRM</strong></td><td>Os 3 pipelines do CRM Data Crazy com estágios e campos obrigatórios</td></tr>
+            <tr><td><strong>Equipe e Fases</strong></td><td>Quem faz o quê em cada semana da campanha</td></tr>
+            <tr><td><strong>Automações</strong></td><td>As 14 automações configuradas, gatilhos e responsáveis</td></tr>
+            <tr><td><strong>Scripts</strong></td><td>Roteiros de abordagem para Lorena e Julia</td></tr>
+            <tr><td><strong>Alertas</strong></td><td>Situações que exigem ação imediata e quem deve agir</td></tr>
+            <tr><td><strong>Forecast e KPIs</strong></td><td>Projeções semanais, metas por canal e indicadores de saúde da campanha</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <p style="font-size:13px;margin-bottom:12px;">O Playbook é alimentado pelo arquivo <code style="background:#f0f3f6;padding:2px 6px;border-radius:3px;font-size:12px;">dados.js</code> no repositório GitHub. Toda segunda-feira antes das 9h, os dados operacionais devem ser atualizados nesse arquivo para que o painel reflita a realidade da semana.</p>
+        <div class="alert alert-amber">
+          <span class="alert-icon">⚠</span>
+          <div><strong>Sem atualização do dados.js, o painel mostra zeros.</strong> O arquivo não se atualiza sozinho. É uma ação manual semanal de responsabilidade de Igor (dados de tráfego e CRM) e Hiago (dados de EAD e Asaas).</div>
+        </div>
+        <div class="alert alert-green">
+          <span class="alert-icon">✓</span>
+          <div><strong>O Playbook não precisa de servidor.</strong> Funciona diretamente pelo GitHub Pages, sem instalação, sem login, sem infraestrutura adicional.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-gold">
+    <div class="card-title">Engenharia Reversa - De onde vêm as 50 matrículas</div>
+    <table>
+      <thead><tr><th>Etapa do Funil</th><th>Taxa</th><th>Volume</th></tr></thead>
+      <tbody>
+        <tr><td>Leads necessários (P1)</td><td>-</td><td><strong>800</strong></td></tr>
+        <tr><td>Leads qualificados (BANT)</td><td>50%</td><td>400</td></tr>
+        <tr><td>Propostas / abordagem</td><td>40%</td><td>160</td></tr>
+        <tr><td>Negociações abertas</td><td>50%</td><td>80</td></tr>
+        <tr><td><strong>Matrículas fechadas</strong></td><td>62,5%</td><td><strong style="color:var(--gold);">50</strong></td></tr>
+        <tr><td colspan="2" style="color:var(--text-tech);">Conversão funil completo</td><td><strong>6,25%</strong></td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:14px;">
+      <table>
+        <thead><tr><th>Canal</th><th>Matrículas</th><th>Conv.</th><th>Volume est.</th></tr></thead>
+        <tbody>
+          <tr><td>Cursos Livres (3 edições)</td><td>20</td><td>25%</td><td>~80 participantes</td></tr>
+          <tr><td>Webinários (2 a 3)</td><td>10</td><td>15%</td><td>~65 participantes</td></tr>
+          <tr><td>Tráfego direto LP</td><td>12</td><td>5%</td><td>~240 leads</td></tr>
+          <tr><td>Indicação alunos T1</td><td>8</td><td>40%</td><td>~20 indicações</td></tr>
+          <tr><td><strong>Total</strong></td><td><strong>50</strong></td><td><strong>6,25%</strong></td><td><strong>~800</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SEÇÃO 2 — COMO OPERA
+═══════════════════════════════════════════════════════ -->
+<div id="como-opera" class="section">
+  <h2 class="section-title">Como o Sistema Opera</h2>
+  <p class="section-subtitle">O fluxo completo da operação: do lead à matrícula, da matrícula à retenção.</p>
+
+  <div class="card card-navy">
+    <div class="card-title">Fluxo Principal - Captação até Matrícula</div>
+    <ol class="step-list">
+      <li><div><strong>Lead entra pela LP ou Comunidade WhatsApp</strong><br>Formulário da LP captura UTMs + dados. Webhook cria card automaticamente no P1 do CRM Data Crazy com estágio "Novo Lead". Lorena recebe notificação via WhatsApp.</div></li>
+      <li><div><strong>Lorena qualifica o lead (P1 - Captação)</strong><br>Primeiro contato em até 30 minutos. Usa o script de qualificação para identificar perfil, urgência e capacidade financeira. Registra resultado no CRM antes de encerrar o atendimento.</div></li>
+      <li><div><strong>Lead qualificado entra nos Produtos de Entrada (P2)</strong><br>Lead com perfil confirmado é convidado para Curso Livre ou Webinário. Automação move card de P1 para P2 e registra canal de origem.</div></li>
+      <li><div><strong>Evento acontece - Lorena faz a oferta</strong><br>No final do Curso Livre ou Webinário, Lorena apresenta a pós-graduação com oferta e condições. Registra campo "compareceu = SIM" no P2 do CRM.</div></li>
+      <li><div><strong>Negociação e fechamento</strong><br>Lead interessado entra em negociação. Lorena usa script de contorno de objeções. Matrícula é formalizada via USINA Edu + pagamento via Asaas.</div></li>
+      <li><div><strong>Aluno entra no P3 (Retenção)</strong><br>Após confirmação de pagamento, webhook Asaas cria card no P3 automaticamente. Julia recebe notificação e inicia onboarding.</div></li>
+    </ol>
+  </div>
+
+  <div class="grid-2">
+    <div class="card card-gold">
+      <div class="card-title">Os 3 Pipelines do CRM</div>
+      <div style="margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+          <span class="badge badge-gold">P1</span>
+          <strong>Captação / Leads</strong>
+        </div>
+        <div class="pipeline-stages">
+          <div class="stage"><div class="stage-num">1</div><div class="stage-name">Novo Lead</div></div>
+          <div class="stage"><div class="stage-num">2</div><div class="stage-name">Qualificando</div></div>
+          <div class="stage"><div class="stage-num">3</div><div class="stage-name">Engajado</div></div>
+          <div class="stage"><div class="stage-num">4</div><div class="stage-name">Proposta</div></div>
+          <div class="stage"><div class="stage-num">5</div><div class="stage-name">Negociação</div></div>
+          <div class="stage"><div class="stage-num">6</div><div class="stage-name">Matriculado</div></div>
+          <div class="stage"><div class="stage-num">7</div><div class="stage-name">Perdido</div></div>
+        </div>
+      </div>
+      <div style="margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+          <span class="badge badge-navy">P2</span>
+          <strong>Produto de Entrada</strong>
+        </div>
+        <div class="pipeline-stages">
+          <div class="stage"><div class="stage-num">1</div><div class="stage-name">Inscrito</div></div>
+          <div class="stage"><div class="stage-num">2</div><div class="stage-name">Confirmado</div></div>
+          <div class="stage"><div class="stage-num">3</div><div class="stage-name">Presente</div></div>
+          <div class="stage"><div class="stage-num">4</div><div class="stage-name">Converteu</div></div>
+          <div class="stage"><div class="stage-num">5</div><div class="stage-name">Não conv.</div></div>
+        </div>
+      </div>
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+          <span class="badge badge-purple">P3</span>
+          <strong>Aluno Pós-Grad 12 meses</strong>
+        </div>
+        <div class="pipeline-stages">
+          <div class="stage"><div class="stage-num">1</div><div class="stage-name">Onboarding</div></div>
+          <div class="stage"><div class="stage-num">2</div><div class="stage-name">Em Curso</div></div>
+          <div class="stage"><div class="stage-num">3</div><div class="stage-name">Em Risco</div></div>
+          <div class="stage"><div class="stage-num">4</div><div class="stage-name">Recuperando</div></div>
+          <div class="stage"><div class="stage-num">5</div><div class="stage-name">Concluiu</div></div>
+          <div class="stage"><div class="stage-num">6</div><div class="stage-name">Cancelou</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-green">
+      <div class="card-title">Ferramentas e o que cada uma faz</div>
+      <table>
+        <thead><tr><th>Ferramenta</th><th>Função na operação</th></tr></thead>
+        <tbody>
+          <tr><td><strong>CRM Data Crazy</strong></td><td>Gestão de leads e alunos nos 3 pipelines. Central de rastreamento de toda a jornada.</td></tr>
+          <tr><td><strong>Asaas</strong></td><td>Gateway de pagamento. Gera cobranças, envia boletos, dispara webhooks de confirmação e cancelamento.</td></tr>
+          <tr><td><strong>USINA Edu</strong></td><td>Plataforma de matrículas e documentação. Integra com Asaas para formalizar a matrícula.</td></tr>
+          <tr><td><strong>Plataforma EAD</strong></td><td>Onde os alunos acessam o conteúdo. MVP previsto para 10 Jul. Exporta log de acesso para Health Score.</td></tr>
+          <tr><td><strong>Automação (n8n/Make)</strong></td><td>Hub central de integrações. Conecta LP, CRM, Asaas, USINA, WhatsApp e EAD.</td></tr>
+          <tr><td><strong>Google Sheets Otimiza</strong></td><td>Destino dos dados consolidados. 5 abas: conversão, retenção, churn, health score, forecast.</td></tr>
+          <tr><td><strong>Comunidade WhatsApp</strong></td><td>Canal de volume a baixo custo. Mês 1: engajamento. Mês 2: lista de espera. Mês 3: campanha ativa.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card card-blue">
+    <div class="card-title">Rotina Semanal de Operação</div>
+    <div class="grid-2">
+      <div>
+        <p style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--navy);">Toda segunda-feira antes das 9h</p>
+        <ul class="checklist">
+          <li><div class="check-icon check-pending"></div><span><strong>Igor:</strong> atualiza dados de tráfego, leads P1, CPL e investimento no dados.js</span></li>
+          <li><div class="check-icon check-pending"></div><span><strong>Hiago:</strong> atualiza dados de EAD (acessos) e Asaas (pagamentos) no dados.js</span></li>
+          <li><div class="check-icon check-pending"></div><span><strong>Julia:</strong> atualiza health score dos alunos P3 e lista de em risco</span></li>
+          <li><div class="check-icon check-pending"></div><span><strong>Lorena:</strong> atualiza inscritos, presentes e convertidos de webinários e CL</span></li>
+        </ul>
+      </div>
+      <div>
+        <p style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--navy);">Toda segunda-feira às 9h - Reunião de 30 min</p>
+        <ul class="checklist">
+          <li><div class="check-icon check-pending"></div><span>Igor apresenta painel ao vivo com dados da semana anterior</span></li>
+          <li><div class="check-icon check-pending"></div><span>Lorena reporta pipeline: leads qualificados, propostas e fechamentos</span></li>
+          <li><div class="check-icon check-pending"></div><span>Julia reporta saúde da turma: HS médio, alunos em risco, ações tomadas</span></li>
+          <li><div class="check-icon check-pending"></div><span>Decisões de ajuste de campanha, orçamento e abordagem para a semana</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SEÇÃO 3 — COMO INTERPRETAR
+═══════════════════════════════════════════════════════ -->
+<div id="como-interpreta" class="section">
+  <h2 class="section-title">Como Interpretar os Dados</h2>
+  <p class="section-subtitle">O que cada número significa e quando agir.</p>
+
+  <div class="card card-navy">
+    <div class="card-title">Painel Ao Vivo - Leitura dos Cards</div>
+    <table>
+      <thead><tr><th>Card</th><th>O que mede</th><th>Sinal de alerta</th><th>Ação</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Leads P1</strong></td><td>Total de leads captados no CRM</td><td>Abaixo de 44/semana (ritmo para 800)</td><td>Igor revisa tráfego pago e canais orgânicos</td></tr>
+        <tr><td><strong>Matrículas</strong></td><td>Matrículas confirmadas com pagamento</td><td>Abaixo do ritmo semanal projetado</td><td>Lorena intensifica follow-up de propostas abertas</td></tr>
+        <tr><td><strong>CPL Atual</strong></td><td>Custo por lead no tráfego pago</td><td>Acima de R$ 15</td><td>Igor pausa campanhas de baixo desempenho e redistribui verba</td></tr>
+        <tr><td><strong>Webinários</strong></td><td>Inscritos, presentes e convertidos</td><td>Conversão abaixo de 15%</td><td>Lorena revisa oferta e script de fechamento</td></tr>
+        <tr><td><strong>Cursos Livres</strong></td><td>Inscritos, presentes e convertidos</td><td>Conversão abaixo de 25%</td><td>Lorena revisa dinâmica do evento e oferta</td></tr>
+        <tr><td><strong>Alunos em Risco</strong></td><td>Alunos com Health Score abaixo de 4/10</td><td>Qualquer aluno em risco</td><td>Julia contata em até 24h para entender e recuperar</td></tr>
+        <tr><td><strong>Status Ferramentas</strong></td><td>Situação de cada integração</td><td>Qualquer ferramenta em "problema"</td><td>Igor ou Hiago investigam e corrigem antes da próxima ação</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-2">
+    <div class="card card-gold">
+      <div class="card-title">Health Score - Como funciona</div>
+      <p style="font-size:13px;margin-bottom:14px;">O Health Score (HS) é uma nota de 0 a 10 que mede o engajamento do aluno com o curso. É calculado semanalmente com base em:</p>
+      <table>
+        <thead><tr><th>Fator</th><th>Peso</th></tr></thead>
+        <tbody>
+          <tr><td>Frequência nas aulas ao vivo</td><td>40%</td></tr>
+          <tr><td>Acesso à plataforma EAD</td><td>30%</td></tr>
+          <tr><td>Entrega de atividades</td><td>20%</td></tr>
+          <tr><td>Interação com a equipe</td><td>10%</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:14px;">
+        <div class="alert alert-green"><span class="alert-icon">✓</span><div><strong>HS 7 a 10:</strong> Aluno engajado. Manter contato regular.</div></div>
+        <div class="alert alert-amber"><span class="alert-icon">⚠</span><div><strong>HS 4 a 6:</strong> Aluno em atenção. Julia agenda check-in proativo.</div></div>
+        <div class="alert alert-red"><span class="alert-icon">!</span><div><strong>HS 0 a 3:</strong> Aluno em risco. Contato em até 24h. Protocolo de recuperação ativado.</div></div>
+      </div>
+    </div>
+
+    <div class="card card-blue">
+      <div class="card-title">Cenários de Resultado - Como ler o Forecast</div>
+      <table>
+        <thead><tr><th>Cenário</th><th>Matrículas</th><th>Receita</th><th>Conv.</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge badge-gray">Conservador</span></td><td>32</td><td>R$ 272k</td><td>4%</td></tr>
+          <tr><td><span class="badge badge-gold">Base (meta)</span></td><td>50</td><td>R$ 425k</td><td>6,25%</td></tr>
+          <tr><td><span class="badge badge-green">Otimista</span></td><td>65</td><td>R$ 552k</td><td>8,1%</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:13px;margin-top:14px;color:var(--text-tech);">O forecast é recalculado toda semana com base no ritmo real de captação. Se o ritmo das primeiras 4 semanas estiver abaixo do conservador, Igor e a equipe revisam canais e orçamento.</p>
+      <div class="alert alert-amber" style="margin-top:12px;">
+        <span class="alert-icon">⚠</span>
+        <div><strong>Benchmark T1:</strong> 320 leads, 16 matrículas, ~5% conversão, R$ 5,26 CPL. T2 precisa dobrar o volume mantendo o CPL.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-red">
+    <div class="card-title">Alertas que Exigem Ação Imediata</div>
+    <table>
+      <thead><tr><th>Alerta</th><th>Gatilho</th><th>Responsável</th><th>Prazo</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Lead quente sem contato</strong></td><td>Score P1 acima de 7 sem resposta de Lorena em 1h</td><td>Lorena</td><td>1 hora</td></tr>
+        <tr><td><strong>Aluno em risco</strong></td><td>HS abaixo de 4/10</td><td>Julia</td><td>24 horas</td></tr>
+        <tr><td><strong>Cancelamento</strong></td><td>Card P3 movido para "Cancelou"</td><td>Julia + Igor</td><td>Imediato</td></tr>
+        <tr><td><strong>CPL alto</strong></td><td>CPL acima de R$ 15</td><td>Igor</td><td>Mesmo dia</td></tr>
+        <tr><td><strong>Ferramenta com problema</strong></td><td>Qualquer pill vermelho no painel</td><td>Igor / Hiago</td><td>2 horas</td></tr>
+        <tr><td><strong>Semana sem matrículas</strong></td><td>7 dias sem fechamento após W3</td><td>Igor + Lorena</td><td>Reunião emergencial</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SEÇÃO 4 — EQUIPE E PAPÉIS
+═══════════════════════════════════════════════════════ -->
+<div id="equipe" class="section">
+  <h2 class="section-title">Equipe e Papéis</h2>
+  <p class="section-subtitle">Responsabilidades claras de cada pessoa em toda a operação.</p>
+
+  <div class="grid-2">
+
+    <div class="person-card">
+      <div class="person-avatar avatar-igor">I</div>
+      <div class="person-name">Igor</div>
+      <div class="person-role">Aquisição, Tráfego, Automação e Análise</div>
+      <div style="font-size:13px;margin-bottom:12px;color:var(--text-tech);">Responsável por toda a camada de aquisição e pela inteligência operacional da campanha.</div>
+      <div style="font-size:12px;font-weight:600;font-family:'Montserrat',sans-serif;color:var(--navy);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Responsabilidades</div>
+      <ul style="list-style:none;font-size:13px;">
+        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Tráfego pago: criação, otimização e pausas de campanhas</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Landing pages: criação, testes A/B e otimização de conversão</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Configuração e manutenção das 14 automações (n8n ou Make)</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Atualização semanal do dados.js com métricas de tráfego e CRM</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Análise de performance e ajustes de estratégia</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Gestão do painel Otimiza e Google Sheets</li>
+        <li style="padding:5px 0;">Decisão sobre ferramenta de automação (n8n ou Make)</li>
+      </ul>
+    </div>
+
+    <div class="person-card">
+      <div class="person-avatar avatar-hiago">H</div>
+      <div class="person-name">Hiago</div>
+      <div class="person-role">Plataforma EAD e Integrações Asaas</div>
+      <div style="font-size:13px;margin-bottom:12px;color:var(--text-tech);">Responsável pela infraestrutura técnica de entrega do curso e integrações de pagamento.</div>
+      <div style="font-size:12px;font-weight:600;font-family:'Montserrat',sans-serif;color:var(--navy);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Responsabilidades</div>
+      <ul style="list-style:none;font-size:13px;">
+        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Desenvolvimento e entrega do MVP da Plataforma EAD (prazo: 10 Jul)</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Configuração dos webhooks do Asaas (confirmação e cancelamento)</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Integração EAD com o sistema de Health Score (exportação de log de acesso)</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Configuração dos 3 pipelines no CRM Data Crazy</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Confirmar: CRM Data Crazy tem webhook nativo e API de escrita</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Atualização semanal de dados de EAD e Asaas no dados.js</li>
+        <li style="padding:5px 0;">Correção dos CTAs da LP (trocar "Inscreva-se" por "Saiba mais")</li>
+      </ul>
+    </div>
+
+    <div class="person-card">
+      <div class="person-avatar avatar-lorena">L</div>
+      <div class="person-name">Lorena</div>
+      <div class="person-role">Comercial, Atendimento e Fechamento</div>
+      <div style="font-size:13px;margin-bottom:12px;color:var(--text-tech);">Responsável por toda a jornada comercial: do primeiro contato ao fechamento da matrícula.</div>
+      <div style="font-size:12px;font-weight:600;font-family:'Montserrat',sans-serif;color:var(--navy);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Responsabilidades</div>
+      <ul style="list-style:none;font-size:13px;">
+        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Primeiro contato com leads em até 30 minutos após entrada no P1</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Qualificação de leads usando script padronizado</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Condução de Cursos Livres e Webinários com oferta ao final</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Gestão da Comunidade WhatsApp: moderação e engajamento</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Follow-up de propostas abertas e recuperação de leads frios</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Registro de todas as interações no CRM antes de encerrar o atendimento</li>
+        <li style="padding:5px 0;">Atualização semanal de inscritos, presentes e convertidos no dados.js</li>
+      </ul>
+    </div>
+
+    <div class="person-card">
+      <div class="person-avatar avatar-julia">J</div>
+      <div class="person-name">Julia</div>
+      <div class="person-role">CS, Retenção e Parcerias Comerciais</div>
+      <div style="font-size:13px;margin-bottom:12px;color:var(--text-tech);">Responsável pela experiência do aluno, retenção da turma e desenvolvimento de parcerias institucionais.</div>
+      <div style="font-size:12px;font-weight:600;font-family:'Montserrat',sans-serif;color:var(--navy);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Responsabilidades</div>
+      <ul style="list-style:none;font-size:13px;">
+        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Onboarding de novos alunos: boas-vindas, acesso à plataforma e orientações</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Acompanhamento semanal do Health Score de todos os alunos P3</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Contato em até 24h com alunos com HS abaixo de 4/10</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Protocolo de recuperação de alunos em risco de cancelamento</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Acompanhamento do MVP da Plataforma EAD (receber e validar entrega do Hiago)</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);"><strong>Prospecção e negociação de parcerias comerciais:</strong> associações profissionais, empresas de segurança e perícia, órgãos públicos (polícias, IML, Receita Federal)</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--surface2);">Gestão do relacionamento com parceiros institucionais ativos</li>
+        <li style="padding:5px 0;">Atualização semanal de dados de retenção e HS no dados.js</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="card card-navy" style="margin-top:20px;">
+    <div class="card-title">Matriz de Responsabilidades por Área</div>
+    <table>
+      <thead><tr><th>Área</th><th>Igor</th><th>Hiago</th><th>Lorena</th><th>Julia</th></tr></thead>
+      <tbody>
+        <tr><td>Tráfego pago</td><td><span class="badge badge-gold">Principal</span></td><td>-</td><td>-</td><td>-</td></tr>
+        <tr><td>Landing page</td><td><span class="badge badge-gold">Principal</span></td><td><span class="badge badge-navy">Suporte técnico</span></td><td>-</td><td>-</td></tr>
+        <tr><td>Automações</td><td><span class="badge badge-gold">Principal</span></td><td><span class="badge badge-navy">Webhooks Asaas/EAD</span></td><td>-</td><td>-</td></tr>
+        <tr><td>CRM Data Crazy</td><td><span class="badge badge-navy">Análise</span></td><td><span class="badge badge-gold">Configuração</span></td><td><span class="badge badge-green">Operação diária</span></td><td><span class="badge badge-purple">P3 alunos</span></td></tr>
+        <tr><td>Comunidade WhatsApp</td><td>-</td><td>-</td><td><span class="badge badge-gold">Principal</span></td><td><span class="badge badge-navy">Suporte</span></td></tr>
+        <tr><td>Cursos Livres e Webinários</td><td><span class="badge badge-navy">Tráfego/inscrições</span></td><td>-</td><td><span class="badge badge-gold">Condução e oferta</span></td><td>-</td></tr>
+        <tr><td>Fechamento de matrículas</td><td>-</td><td>-</td><td><span class="badge badge-gold">Principal</span></td><td>-</td></tr>
+        <tr><td>Onboarding de alunos</td><td>-</td><td><span class="badge badge-navy">Acesso EAD</span></td><td>-</td><td><span class="badge badge-gold">Principal</span></td></tr>
+        <tr><td>Health Score e retenção</td><td><span class="badge badge-navy">Análise</span></td><td><span class="badge badge-navy">Dados EAD</span></td><td>-</td><td><span class="badge badge-gold">Principal</span></td></tr>
+        <tr><td>Parcerias institucionais</td><td>-</td><td>-</td><td>-</td><td><span class="badge badge-gold">Principal</span></td></tr>
+        <tr><td>Dados.js (atualização)</td><td><span class="badge badge-gold">Tráfego/CRM</span></td><td><span class="badge badge-gold">EAD/Asaas</span></td><td><span class="badge badge-gold">Eventos</span></td><td><span class="badge badge-gold">Retenção/HS</span></td></tr>
+        <tr><td>Plataforma EAD</td><td>-</td><td><span class="badge badge-gold">Desenvolvimento</span></td><td>-</td><td><span class="badge badge-navy">Validação</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SEÇÃO 5 — CHECKLIST DE ATIVAÇÃO
+═══════════════════════════════════════════════════════ -->
+<div id="checklist" class="section">
+  <h2 class="section-title">Checklist de Ativação</h2>
+  <p class="section-subtitle">O que cada pessoa precisa entregar para o sistema estar pronto e Lucyanne só operar.</p>
+
+  <div class="alert alert-navy">
+    <span class="alert-icon">🎯</span>
+    <div><strong>Objetivo deste checklist:</strong> quando todos os itens estiverem concluídos, o Playbook Master estará 100% operacional. Lucyanne entra apenas para acompanhar, interpretar e tomar decisões estratégicas.</div>
+  </div>
+
+  <div class="grid-2">
+
+    <div class="card card-gold">
+      <div class="card-title" style="color:var(--amber);">Igor - Aquisição e Automação</div>
+      <ul class="checklist">
+        <li><div class="check-icon check-urgent"></div><span><strong>Decidir ferramenta de automação:</strong> n8n ou Make. Confirmar com a equipe até segunda-feira.</span></li>
+        <li><div class="check-icon check-pending"></div><span>Configurar as 14 automações no hub central (LP, CRM, Asaas, USINA, WhatsApp, EAD)</span></li>
+        <li><div class="check-icon check-pending"></div><span>Criar e publicar a Landing Page com UTMs padronizados em todos os campos do formulário</span></li>
+        <li><div class="check-icon check-pending"></div><span>Configurar campanhas de tráfego pago com segmentação validada</span></li>
+        <li><div class="check-icon check-pending"></div><span>Testar fluxo completo: lead entra na LP, cria card no CRM, Lorena recebe notificação</span></li>
+        <li><div class="check-icon check-pending"></div><span>Configurar Google Sheets Otimiza com as 5 abas e conexão com automação</span></li>
+        <li><div class="check-icon check-pending"></div><span>Configurar recuperação de carrinho no Asaas (T1 perdeu 153 leads sem esse recurso)</span></li>
+        <li><div class="check-icon check-pending"></div><span>Fazer primeira atualização do dados.js com dados reais da semana 1</span></li>
+        <li><div class="check-icon check-pending"></div><span>Validar que o Playbook Master está exibindo os dados corretamente no painel</span></li>
+      </ul>
+    </div>
+
+    <div class="card card-blue">
+      <div class="card-title" style="color:var(--blue);">Hiago - EAD e Integrações</div>
+      <ul class="checklist">
+        <li><div class="check-icon check-urgent"></div><span><strong>Confirmar:</strong> CRM Data Crazy tem webhook de saída nativo e API de escrita? (bloqueante para todas as automações)</span></li>
+        <li><div class="check-icon check-urgent"></div><span><strong>Corrigir LP:</strong> trocar botões "Inscreva-se" no hero e menu por "Saiba mais" com scroll para o formulário</span></li>
+        <li><div class="check-icon check-pending"></div><span>Criar os 3 pipelines no CRM Data Crazy com todos os estágios e campos obrigatórios</span></li>
+        <li><div class="check-icon check-pending"></div><span>Configurar webhooks do Asaas: confirmação de pagamento e cancelamento</span></li>
+        <li><div class="check-icon check-pending"></div><span>Entregar MVP da Plataforma EAD até 10 de julho com exportação de log de acesso</span></li>
+        <li><div class="check-icon check-pending"></div><span>Integrar EAD com o sistema de Health Score (log last_access para Julia)</span></li>
+        <li><div class="check-icon check-pending"></div><span>Testar fluxo: pagamento confirmado no Asaas cria card no P3 do CRM automaticamente</span></li>
+        <li><div class="check-icon check-pending"></div><span>Documentar credenciais e acessos de todas as ferramentas configuradas</span></li>
+      </ul>
+    </div>
+
+    <div class="card card-green">
+      <div class="card-title" style="color:var(--green);">Lorena - Comercial e Comunidade</div>
+      <ul class="checklist">
+        <li><div class="check-icon check-pending"></div><span>Ler e validar os scripts de qualificação e fechamento no Playbook Master (aba Scripts)</span></li>
+        <li><div class="check-icon check-pending"></div><span>Confirmar acesso ao CRM Data Crazy e entender os 3 pipelines</span></li>
+        <li><div class="check-icon check-pending"></div><span>Criar e configurar o grupo da Comunidade WhatsApp com regras e apresentação</span></li>
+        <li><div class="check-icon check-pending"></div><span>Definir datas e formato dos 3 Cursos Livres e 2-3 Webinários</span></li>
+        <li><div class="check-icon check-pending"></div><span>Testar fluxo: receber notificação de novo lead e registrar primeiro contato no CRM</span></li>
+        <li><div class="check-icon check-pending"></div><span>Confirmar SLA de atendimento: primeiro contato em até 30 minutos</span></li>
+        <li><div class="check-icon check-pending"></div><span>Fazer primeira atualização de dados de eventos no dados.js</span></li>
+      </ul>
+    </div>
+
+    <div class="card card-purple">
+      <div class="card-title" style="color:var(--purple);">Julia - CS, Retenção e Parcerias</div>
+      <ul class="checklist">
+        <li><div class="check-icon check-pending"></div><span>Ler e validar os scripts de onboarding e retenção no Playbook Master (aba Scripts)</span></li>
+        <li><div class="check-icon check-pending"></div><span>Confirmar acesso ao CRM Data Crazy e entender o pipeline P3</span></li>
+        <li><div class="check-icon check-pending"></div><span>Agendar recebimento e validação do MVP da Plataforma EAD com Hiago (10 Jul)</span></li>
+        <li><div class="check-icon check-pending"></div><span>Criar planilha de acompanhamento de Health Score (até o EAD exportar automaticamente)</span></li>
+        <li><div class="check-icon check-pending"></div><span>Mapear associações, empresas e órgãos públicos prioritários para parcerias</span></li>
+        <li><div class="check-icon check-pending"></div><span>Definir proposta de valor para parcerias institucionais (desconto, vagas, certificação)</span></li>
+        <li><div class="check-icon check-pending"></div><span>Iniciar prospecção de parcerias com pelo menos 3 organizações na semana 1</span></li>
+        <li><div class="check-icon check-pending"></div><span>Confirmar SLA de retenção: contato com aluno em risco em até 24h</span></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="card card-navy" style="margin-top:8px;">
+    <div class="card-title">Status Geral de Ativação</div>
+    <table>
+      <thead><tr><th>Área</th><th>Responsável</th><th>Status</th><th>Prazo</th><th>Bloqueante</th></tr></thead>
+      <tbody>
+        <tr><td>Decisão ferramenta automação</td><td>Igor</td><td><span class="pill pill-pendente"><span class="pill-dot"></span>Pendente</span></td><td>Segunda-feira</td><td>Sim</td></tr>
+        <tr><td>Webhook CRM Data Crazy</td><td>Hiago</td><td><span class="pill pill-pendente"><span class="pill-dot"></span>Pendente</span></td><td>Segunda-feira</td><td>Sim</td></tr>
+        <tr><td>Correção CTAs da LP</td><td>Hiago</td><td><span class="pill pill-pendente"><span class="pill-dot"></span>Pendente</span></td><td>Hoje</td><td>Sim</td></tr>
+        <tr><td>3 Pipelines CRM configurados</td><td>Hiago</td><td><span class="pill pill-pendente"><span class="pill-dot"></span>Pendente</span></td><td>Semana 1</td><td>Sim</td></tr>
+        <tr><td>14 Automações configuradas</td><td>Igor</td><td><span class="pill pill-pendente"><span class="pill-dot"></span>Pendente</span></td><td>Semana 1</td><td>Sim</td></tr>
+        <tr><td>Landing Page publicada</td><td>Igor</td><td><span class="pill pill-pendente"><span class="pill-dot"></span>Pendente</span></td><td>Semana 1</td><td>Sim</td></tr>
+        <tr><td>MVP Plataforma EAD</td><td>Hiago</td><td><span class="pill pill-pendente"><span class="pill-dot"></span>Pendente</span></td><td>10 Jul</td><td>Parcial</td></tr>
+        <tr><td>Scripts validados por Lorena</td><td>Lorena</td><td><span class="pill pill-pendente"><span class="pill-dot"></span>Pendente</span></td><td>Semana 1</td><td>Não</td></tr>
+        <tr><td>Comunidade WhatsApp criada</td><td>Lorena</td><td><span class="pill pill-pendente"><span class="pill-dot"></span>Pendente</span></td><td>Semana 1</td><td>Não</td></tr>
+        <tr><td>Mapeamento de parcerias</td><td>Julia</td><td><span class="pill pill-pendente"><span class="pill-dot"></span>Pendente</span></td><td>Semana 1</td><td>Não</td></tr>
+        <tr><td>Playbook Master - dados.js</td><td>Todos</td><td><span class="pill pill-ativo"><span class="pill-dot"></span>Ativo</span></td><td>Toda segunda</td><td>Não</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SEÇÃO 6 — MCP E AUTOMAÇÃO
+═══════════════════════════════════════════════════════ -->
+<div id="mcp" class="section">
+  <h2 class="section-title">MCP e Automação</h2>
+  <p class="section-subtitle">Como o MCP se conecta ao CRM Data Crazy e o que precisa estar ativo para as automações funcionarem.</p>
+
+  <div class="mcp-box">
+    <h3>O MCP precisa ficar ligado para a automação funcionar?</h3>
+    <p><span class="highlight">Resposta direta: depende do que você quer automatizar.</span></p>
+    <p>O MCP (Model Context Protocol) é uma camada de integração que permite que agentes de IA acessem e operem ferramentas externas, como o CRM Data Crazy, diretamente. Ele não é a mesma coisa que as automações de n8n ou Make.</p>
+    <p><span class="highlight">Para as automações operacionais do dia a dia</span> (criar card no CRM quando lead entra na LP, mover card quando pagamento é confirmado, enviar WhatsApp quando aluno entra em risco) — <span class="highlight">o MCP não é necessário.</span> Essas automações rodam via n8n ou Make usando a API do CRM Data Crazy diretamente, independente do MCP.</p>
+    <p><span class="highlight">O MCP é necessário quando</span> você quer que um agente de IA (como o Claude ou outro assistente) acesse o CRM em tempo real para consultar leads, criar cards, atualizar informações ou executar ações dentro do CRM por comando de linguagem natural.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card card-green">
+      <div class="card-title">Automações que NÃO precisam do MCP</div>
+      <p style="font-size:13px;margin-bottom:12px;">Rodam via n8n ou Make usando a API do CRM. Funcionam 24h sem intervenção humana.</p>
+      <ul style="list-style:none;font-size:13px;">
+        <li style="padding:6px 0;border-bottom:1px solid var(--surface2);">Lead entra na LP → card criado no P1 do CRM</li>
+        <li style="padding:6px 0;border-bottom:1px solid var(--surface2);">Lead com score alto → notificação WhatsApp para Lorena</li>
+        <li style="padding:6px 0;border-bottom:1px solid var(--surface2);">Pagamento confirmado no Asaas → card criado no P3</li>
+        <li style="padding:6px 0;border-bottom:1px solid var(--surface2);">Aluno não compareceu ao evento → follow-up automático</li>
+        <li style="padding:6px 0;border-bottom:1px solid var(--surface2);">Health Score abaixo de 4 → alerta para Julia</li>
+        <li style="padding:6px 0;border-bottom:1px solid var(--surface2);">Cancelamento no Asaas → card movido para "Cancelou" no P3</li>
+        <li style="padding:6px 0;">Exportação semanal de dados para Google Sheets Otimiza</li>
+      </ul>
+    </div>
+
+    <div class="card card-blue">
+      <div class="card-title">O que o MCP habilita (quando ligado)</div>
+      <p style="font-size:13px;margin-bottom:12px;">Com o MCP ativo e conectado ao CRM Data Crazy, um agente de IA pode:</p>
+      <ul style="list-style:none;font-size:13px;">
+        <li style="padding:6px 0;border-bottom:1px solid var(--surface2);">Listar e consultar leads com filtros por estágio, canal, data</li>
+        <li style="padding:6px 0;border-bottom:1px solid var(--surface2);">Criar novos leads diretamente no CRM por comando de texto</li>
+        <li style="padding:6px 0;border-bottom:1px solid var(--surface2);">Atualizar informações de leads (notas, campos adicionais, estágio)</li>
+        <li style="padding:6px 0;border-bottom:1px solid var(--surface2);">Consultar pipelines e gerar relatórios em linguagem natural</li>
+        <li style="padding:6px 0;border-bottom:1px solid var(--surface2);">Executar ações em lote (mover múltiplos leads, atualizar campos)</li>
+        <li style="padding:6px 0;">Integrar com fluxos de análise e tomada de decisão assistida por IA</li>
+      </ul>
+      <div class="alert alert-amber" style="margin-top:12px;">
+        <span class="alert-icon">⚠</span>
+        <div><strong>O MCP precisa ficar ligado apenas quando você está usando o agente de IA para operar o CRM.</strong> Para as automações de n8n/Make, ele pode ficar desligado sem impacto.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-navy">
+    <div class="card-title">Ferramentas MCP disponíveis no CRM Data Crazy</div>
+    <p style="font-size:13px;margin-bottom:14px;">Com base na configuração atual do servidor MCP, as seguintes ferramentas estão habilitadas:</p>
+    <div class="grid-2">
+      <table>
+        <thead><tr><th>Ferramenta</th><th>Função</th></tr></thead>
+        <tbody>
+          <tr><td>Listar Leads</td><td>Lista leads com filtros e paginação</td></tr>
+          <tr><td>Consultar Lead</td><td>Recupera lead específico pelo ID</td></tr>
+          <tr><td>Criar Lead</td><td>Cria novo lead no CRM com dados completos</td></tr>
+          <tr><td>Atualizar Informações do Lead</td><td>Atualiza dados básicos de um lead</td></tr>
+          <tr><td>Atualizar Endereço do Lead</td><td>Atualiza endereço de um lead</td></tr>
+          <tr><td>Atualizar Contatos do Lead</td><td>Atualiza telefone, e-mail e contatos</td></tr>
+          <tr><td>Atualizar Notas do Lead</td><td>Adiciona ou edita notas no card</td></tr>
+          <tr><td>Definir Campo Adicional</td><td>Define valor de campo personalizado</td></tr>
+        </tbody>
+      </table>
+      <div>
+        <div class="alert alert-blue">
+          <span class="alert-icon">ℹ</span>
+          <div><strong>Endpoint MCP:</strong> <code style="background:#e8eef5;padding:2px 6px;border-radius:3px;">/api/mcp</code><br>Autenticação via Bearer token no header Authorization.</div>
+        </div>
+        <div class="alert alert-green" style="margin-top:10px;">
+          <span class="alert-icon">✓</span>
+          <div><strong>15 de 15 ferramentas habilitadas.</strong> O servidor MCP está ativo e configurado. Todas as ferramentas de Leads, Pipelines, Atendentes e Conversas estão disponíveis.</div>
+        </div>
+        <div class="alert alert-amber" style="margin-top:10px;">
+          <span class="alert-icon">⚠</span>
+          <div><strong>Hiago precisa confirmar:</strong> o CRM Data Crazy tem webhook de saída nativo? Sem isso, as automações de n8n/Make não conseguem reagir a eventos do CRM em tempo real.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SEÇÃO 7 — CRM DATA CRAZY
+═══════════════════════════════════════════════════════ -->
+<div id="crm" class="section">
+  <h2 class="section-title">CRM Data Crazy - Guia de Uso</h2>
+  <p class="section-subtitle">Como usar o CRM no dia a dia da operação.</p>
+
+  <div class="grid-2">
+    <div class="card card-gold">
+      <div class="card-title">Regras de Ouro do CRM</div>
+      <ul class="checklist">
+        <li><div class="check-icon check-done"></div><span><strong>Registrar antes de sair:</strong> toda interação com lead ou aluno deve ser registrada no CRM antes de encerrar o atendimento. Sem registro, não existe.</span></li>
+        <li><div class="check-icon check-done"></div><span><strong>UTM obrigatório:</strong> todo lead deve ter canal_origem preenchido. É o único rastreio individual disponível.</span></li>
+        <li><div class="check-icon check-done"></div><span><strong>Mover o card:</strong> quando o status muda, mover o card para o estágio correto. Painel ao vivo depende disso.</span></li>
+        <li><div class="check-icon check-done"></div><span><strong>Campo "compareceu":</strong> obrigatório no P2 após cada evento. Alimenta o cálculo de conversão de webinários e CL.</span></li>
+        <li><div class="check-icon check-done"></div><span><strong>Health Score:</strong> atualizar campo HS no P3 toda semana. Gatilho de alerta para Julia depende desse campo.</span></li>
+      </ul>
+    </div>
+
+    <div class="card card-navy">
+      <div class="card-title">Campos Obrigatórios por Pipeline</div>
+      <div style="margin-bottom:14px;">
+        <p style="font-size:12px;font-weight:600;color:var(--gold);margin-bottom:8px;text-transform:uppercase;">P1 - Captação</p>
+        <table>
+          <thead><tr><th>Campo</th><th>Quando preencher</th></tr></thead>
+          <tbody>
+            <tr><td>canal_origem</td><td>Na criação do card (automático via webhook)</td></tr>
+            <tr><td>UTM source/medium/campaign</td><td>Na criação do card (automático via webhook)</td></tr>
+            <tr><td>Telefone e e-mail</td><td>Na criação ou no primeiro contato</td></tr>
+            <tr><td>Notas de qualificação</td><td>Após cada interação de Lorena</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-bottom:14px;">
+        <p style="font-size:12px;font-weight:600;color:var(--blue);margin-bottom:8px;text-transform:uppercase;">P2 - Produto de Entrada</p>
+        <table>
+          <thead><tr><th>Campo</th><th>Quando preencher</th></tr></thead>
+          <tbody>
+            <tr><td>tipo_evento</td><td>Na criação (webinário ou curso livre)</td></tr>
+            <tr><td>compareceu</td><td>Após o evento (sim ou não)</td></tr>
+            <tr><td>converteu</td><td>Após a oferta (sim ou não)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <p style="font-size:12px;font-weight:600;color:var(--purple);margin-bottom:8px;text-transform:uppercase;">P3 - Aluno 12 meses</p>
+        <table>
+          <thead><tr><th>Campo</th><th>Quando preencher</th></tr></thead>
+          <tbody>
+            <tr><td>data_matricula</td><td>Na criação do card (automático via Asaas)</td></tr>
+            <tr><td>health_score</td><td>Toda segunda-feira por Julia</td></tr>
+            <tr><td>ultimo_acesso_ead</td><td>Automático via integração EAD</td></tr>
+            <tr><td>notas_cs</td><td>Após cada contato de Julia com o aluno</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-red">
+    <div class="card-title">Situações que Travam o Sistema</div>
+    <table>
+      <thead><tr><th>Situação</th><th>Impacto</th><th>Como evitar</th></tr></thead>
+      <tbody>
+        <tr><td>Lead sem canal_origem</td><td>Impossível saber de onde veio. Análise de ROI por canal fica comprometida.</td><td>Automação preenche automaticamente via UTM. Se entrar manual, Lorena preenche na hora.</td></tr>
+        <tr><td>Card não movido de estágio</td><td>Painel mostra números errados. Forecast fica distorcido.</td><td>Mover o card imediatamente quando o status mudar.</td></tr>
+        <tr><td>Campo "compareceu" vazio</td><td>Conversão de webinários e CL não é calculada. Painel mostra 0%.</td><td>Lorena preenche logo após cada evento, antes de fechar o CRM.</td></tr>
+        <tr><td>Health Score não atualizado</td><td>Aluno em risco não gera alerta. Julia não é notificada. Risco de churn silencioso.</td><td>Julia atualiza todo campo HS toda segunda-feira antes das 9h.</td></tr>
+        <tr><td>dados.js não atualizado</td><td>Painel ao vivo mostra zeros. Reunião semanal fica sem dados reais.</td><td>Rotina de segunda-feira: Igor, Hiago, Lorena e Julia atualizam suas partes.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<!-- FOOTER -->
+<div class="footer">
+  <strong>ICBID</strong> - Instituto de Ciências Aplicadas à Biometria para Identificação Humana<br>
+  Playbook Master T2 · Pós-Graduação em Perícias em Biometrias · Turma 2 · Jun 2026 - Nov 2027
+</div>
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+</script>
+</body>
+</html>
